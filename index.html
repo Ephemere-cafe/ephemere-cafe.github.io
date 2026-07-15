@@ -446,6 +446,49 @@
     margin-bottom:0.25rem;
   }
   .rule-item p{color:var(--text-mute); font-size:0.88rem;}
+
+  /* service column — warm card style */
+  .rules-col.service .col-label{color:var(--gold);}
+  .rules-col.service .rule-item{
+    border:1px solid var(--gold-soft);
+    border-radius:14px;
+    padding:1.2rem 1.3rem;
+    margin-bottom:0.85rem;
+    background:rgba(201,168,118,0.05);
+  }
+  .rules-col.service .rule-item:last-child{border-bottom:1px solid var(--gold-soft); margin-bottom:0;}
+  .rules-col.service .rule-item .icon{
+    width:32px; height:32px;
+    padding:7px;
+    border-radius:50%;
+    background:rgba(201,168,118,0.14);
+    color:var(--gold);
+  }
+  .rules-col.service .rule-item h4{color:var(--gold);}
+
+  /* notice column — quiet numbered list */
+  .rules-col.notice{counter-reset:notice-count;}
+  .rules-col.notice .col-label{color:var(--bloom);}
+  .rules-col.notice .rule-item{
+    counter-increment:notice-count;
+    position:relative;
+    padding:1rem 0 1rem 2.3rem;
+  }
+  .rules-col.notice .rule-item .icon{display:none;}
+  .rules-col.notice .rule-item::before{
+    content:counter(notice-count);
+    position:absolute;
+    left:0; top:1rem;
+    width:21px; height:21px;
+    border:1px solid var(--bloom-soft);
+    border-radius:50%;
+    color:var(--bloom);
+    font-size:0.72rem;
+    font-family:"Cormorant Garamond", serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
   .notice-foot{
     text-align:center;
     margin-top:3.5rem;
@@ -704,6 +747,10 @@
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 9.5c0-1.4 1.3-2.3 3.2-2.3 2.1 0 3.6 1.1 3.6 3 0 1.6-1 2.3-2.4 2.7l-.6.2c-1 .3-1.5.7-1.5 1.4 0 .8.7 1.3 1.8 1.3 1.1 0 1.9-.5 2.2-1.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
       <span>Threads</span>
     </a>
+    <a class="threads-btn" href="https://discord.gg/hE7QZX9FWW" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 9.5c1.5.7 2.6 1 4 1s2.5-.3 4-1M9 15c1 .5 2 .7 3 .7s2-.2 3-.7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M7.5 6.8C9 6 10.5 5.6 12 5.6s3 .4 4.5 1.2c1.3 2 2 4.4 2 7.1 0 0-1.4 1.8-3.3 2.4l-.6-1.2M7.5 6.8C6.2 8.8 5.5 11.2 5.5 13.9c0 0 1.4 1.8 3.3 2.4l.6-1.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.3" cy="12.5" r="0.9" fill="currentColor"/><circle cx="14.7" cy="12.5" r="0.9" fill="currentColor"/></svg>
+      <span>Discord</span>
+    </a>
     <button class="nav-toggle" id="navToggle" aria-label="開啟選單">
       <span></span><span></span><span></span>
     </button>
@@ -844,24 +891,32 @@
     </div>
 
     <div class="rules-grid">
-      <div class="rules-col reveal">
+      <div class="rules-col service reveal">
         <span class="col-label">Service｜服務內容</span>
 
         <div class="rule-item">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h16M4 12c0 4 3 7 8 7s8-3 8-7M4 12c0-1 .5-2 1-2h14c.5 0 1 1 1 2" stroke="currentColor" stroke-width="1.3"/></svg></div>
-          <div><h4>消費須知</h4><p>入店主人皆需支付入場費 10,000 Gil／人（含現場樂手演出與攝影棚使用），餐點飲品則依菜單另行選購。</p></div>
+          <div><h4>消費須知</h4><p>本店各項服務皆對應專屬款待品項，請向庭院僱員或店長取得對應品項。除心意支持與部分特殊服務外，店內服務恕不直接收取 Gil。</p></div>
+        </div>
+        <div class="rule-item">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4L12 2Z" stroke="currentColor" stroke-width="1.1"/></svg></div>
+          <div><h4>入場・店長特製飲品</h4><p>入場費 10,000 Gil，可向庭院僱員或店長取得【今天也要開心汁】一份。持有【今天也要開心汁】後，即可入座，享受曇時準備的悠閒時光與店內氛圍。</p></div>
+        </div>
+        <div class="rule-item">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21c4-3 8-6.5 8-11a5 5 0 0 0-8-4 5 5 0 0 0-8 4c0 4.5 4 8 8 11Z" stroke="currentColor" stroke-width="1.2"/></svg></div>
+          <div><h4>心意・店長的愛之咖啡</h4><p>心意支持 100,000 Gil，可向庭院僱員或店長取得【店長的愛・奶泡奶油肉桂咖啡】一份。感謝您對曇時與店內成員的支持，您的心意將成為我們持續營業的力量。</p></div>
+        </div>
+        <div class="rule-item">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="14" rx="1" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="1.1"/></svg></div>
+          <div><h4>拍立得・店員紀念甜點</h4><p>拍立得費用 30,000 Gil，可向庭院僱員或店長取得對應店員的【紀念甜點】一份。持有指定甜點後，即可向該店員提出拍立得邀請，留下屬於曇時的紀念時光。</p></div>
         </div>
         <div class="rule-item">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4L12 2Z" stroke="currentColor" stroke-width="1.1"/></svg></div>
           <div><h4>隱藏魔法</h4><p>點選「蛋包飯」主食可加購 5,000 Gil 隱藏服務，店員將親自到桌前為料理注入神秘魔法喔！</p></div>
         </div>
-        <div class="rule-item">
-          <div class="icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="14" rx="1" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="1.1"/></svg></div>
-          <div><h4>拍立得照</h4><p>與店員合照請先徵得同意，此項目將酌收服務費 30,000 Gil。</p></div>
-        </div>
       </div>
 
-      <div class="rules-col reveal">
+      <div class="rules-col notice reveal">
         <span class="col-label">Notice｜店內規則</span>
 
         <div class="rule-item">
@@ -1049,6 +1104,8 @@
 <footer>
   <div class="brand"><img src="data:image/webp;base64,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" alt="曇時 Cafe l'Éphémère" class="brand-logo">曇時 Cafe l'Éphémère</div>
   <a class="social" href="https://www.threads.com/@lephemere.ff14" target="_blank" rel="noopener">@ lephemere.ff14</a>
+  <span style="color:var(--text-faint); margin:0 0.6rem;">·</span>
+  <a class="social" href="https://discord.gg/hE7QZX9FWW" target="_blank" rel="noopener">Discord 社群</a>
   <p class="copy">© 2026 曇時 Cafe l'Éphémère — Bahamut</p>
 </footer>
 
