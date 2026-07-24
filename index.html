@@ -155,7 +155,7 @@
   nav ul{
     list-style:none;
     display:flex;
-    gap:2.4rem;
+    gap:clamp(1rem,1.7vw,2.4rem);
   }
   nav a{
     font-size:0.9rem;
@@ -1049,6 +1049,7 @@
   <nav id="nav" aria-label="主要導覽">
     <ul>
       <li><a href="#about">關於</a></li>
+      <li><a href="#reservation">預約</a></li>
       <li><a href="#menu">菜單</a></li>
       <li><a href="#rules">服務</a></li>
       <li><a href="#studio">攝影棚</a></li>
@@ -1116,7 +1117,7 @@
   </div>
 </section>
 
-<section id="reservation" data-page="about">
+<section id="reservation" data-page="reservation">
   <div class="wrap">
     <div class="ornament reveal"><span class="line"></span><svg viewBox="0 0 24 24"><path d="M12 2 C9 8 9 16 12 22 C15 16 15 8 12 2Z" fill="currentColor"/></svg><span class="line r"></span></div>
     <div style="text-align:center; margin-bottom:3rem;" class="reveal">
@@ -1233,22 +1234,22 @@
     </div>
 
     <div class="guide-block reveal">
-      <span class="guide-label">How it works｜今晚的款待流程</span>
+      <span class="guide-label">How it works｜今晚的入店與點餐流程</span>
       <div class="process-grid">
         <article class="process-step">
           <span class="step-number">01</span>
-          <h4>推門・落座</h4>
-          <p>推開曇時的門，請先向店員告知您的到來。我們將引導您入座，讓今晚從一份溫柔的款待開始。</p>
+          <h4>抵達・由我們為您帶位</h4>
+          <p>推開曇時的門後，請先向店員告知您的到來。我們會為您安排座位，並簡單說明今晚的點餐方式。</p>
         </article>
         <article class="process-step">
           <span class="step-number">02</span>
-          <h4>翻閱・今晚的菜單</h4>
-          <p>打開線上菜單，留下您的遊戲內名稱，再從餐點、飲品與特別服務中，挑選今晚想品嚐的款待。</p>
+          <h4>點餐・挑選今晚的款待</h4>
+          <p>入座後請開啟線上點餐頁面，填寫遊戲內名稱，再從餐點、飲品與特別服務中選擇想要的品項。</p>
         </article>
         <article class="process-step">
           <span class="step-number">03</span>
-          <h4>確認・款待將至</h4>
-          <p>送出訂單後，請稍候店員確認並於遊戲內完成 Gil 交易。接下來便把時間交給曇時，讓我們為您送上今晚的款待。</p>
+          <h4>確認・等待餐點上桌</h4>
+          <p>送出訂單後請稍候店員確認。我們會在遊戲內與您完成 Gil 交易，接著為您準備餐點或安排所選服務。</p>
         </article>
       </div>
     </div>
@@ -1561,7 +1562,7 @@
   const pageBySection = {
     top:'top',
     about:'about',
-    reservation:'about',
+    reservation:'reservation',
     menu:'menu',
     rules:'rules',
     polaroids:'rules',
@@ -1572,6 +1573,7 @@
   const pageTitles = {
     top:'曇時 Cafe l’Éphémère',
     about:'關於曇時｜Cafe l’Éphémère',
+    reservation:'預約資訊｜曇時 Cafe l’Éphémère',
     menu:'菜單｜曇時 Cafe l’Éphémère',
     rules:'服務指南｜曇時 Cafe l’Éphémère',
     studio:'攝影棚｜曇時 Cafe l’Éphémère',
