@@ -899,6 +899,34 @@
     font-weight:500;
     white-space:nowrap;
   }
+  .polaroid-limit{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    align-items:center;
+    gap:1rem;
+    margin:1.4rem 0 0;
+    padding:0.9rem 1rem;
+    border:1px solid rgba(196,151,105,0.28);
+    border-left:3px solid var(--gold);
+    background:linear-gradient(105deg,rgba(196,151,105,0.09),rgba(183,123,151,0.04));
+  }
+  .polaroid-limit .limit-label{
+    color:var(--gold);
+    font-family:"Cormorant Garamond",serif;
+    font-size:0.82rem;
+    font-style:italic;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .polaroid-limit p{
+    margin:0;
+    color:var(--text-mute);
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:0.8rem;
+    font-style:normal;
+    line-height:1.75;
+  }
   .polaroid-note{margin-bottom:1.6rem;color:var(--text-faint)!important;font-size:0.76rem!important;}
   .polaroid-copy .guide-cta{width:max-content;min-width:220px;}
   .notice-panel{
@@ -1347,6 +1375,7 @@
     .polaroid-print:first-child{left:0;top:12%;}
     .polaroid-print:last-child{right:0;top:1%;}
     .polaroid-print small{bottom:7px;font-size:0.72rem;}
+    .polaroid-limit{grid-template-columns:1fr;gap:0.25rem;padding:0.85rem 0.9rem;}
     .polaroid-offer{align-items:flex-start;flex-direction:column;gap:0.25rem;}
     .reservation-summary{padding:1.4rem 1rem;}
     .reservation-stat{padding:1rem 0.75rem;}
@@ -1663,6 +1692,10 @@
       <p class="eyebrow">Instant Memories</p>
       <h2 class="section-title" id="polaroid-title">把今晚，留在相紙裡</h2>
       <p>選擇想合照的女僕，讓曇時替您留下專屬於今晚的紀念。從拍攝、構圖到手寫裝飾，每一張都帶著女僕不同的個人風格，成為只屬於你們的一份回憶。</p>
+      <div class="polaroid-limit" aria-label="拍立得限量提醒">
+        <span class="limit-label">Limited Service</span>
+        <p>為維持拍攝品質，每位店員每次營業限量開放 3 張拍立得服務，額滿為止。</p>
+      </div>
       <div class="polaroid-offer">
         <span>拍立得紀念・每份</span>
         <strong>200,000 Gil</strong>
@@ -2031,10 +2064,19 @@
       });
       if(!categoryOrder.length) return;
 
+      function splitCategoryLabel(category){
+        var parts = String(category || '其他').split('※');
+        return {
+          title: (parts.shift() || '其他').trim(),
+          note: parts.join('※').trim()
+        };
+      }
+
       var fragment = document.createDocumentFragment();
       categoryOrder.forEach(function(category){
         var items = groups[category];
-        var isSet = /^Set\b/i.test(category) || category.indexOf('無菜單料理') !== -1;
+        var categoryInfo = splitCategoryLabel(category);
+        var isSet = /^Set\b/i.test(categoryInfo.title) || categoryInfo.title.indexOf('無菜單料理') !== -1;
 
         if(isSet){
           items.forEach(function(item){
@@ -2064,7 +2106,7 @@
         var categoryBlock = document.createElement('div');
         categoryBlock.className = 'menu-cat reveal in';
         var heading = document.createElement('h3');
-        heading.textContent = category;
+        heading.textContent = categoryInfo.title;
         categoryBlock.appendChild(heading);
 
         items.forEach(function(item){
