@@ -1078,6 +1078,108 @@
     background:var(--surface-line);
   }
 
+  /* ---------- interactive staff directory ---------- */
+  .staff-profile[hidden],.staff-directory[hidden]{display:none!important;}
+  .staff-directory{
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:clamp(0.35rem,1vw,1rem);
+    align-items:start;
+    animation:page-in .45s ease both;
+  }
+  .staff-enhanced .staff-card{
+    min-width:0;
+    padding:0 0 1rem;
+    border:0;
+    background:transparent;
+    cursor:pointer;
+    outline:none;
+  }
+  .staff-enhanced .staff-card:hover{transform:translateY(-7px);}
+  .staff-enhanced .staff-card:focus-visible{
+    box-shadow:0 0 0 2px var(--bloom);
+  }
+  .staff-enhanced .staff-photo{
+    position:relative;
+    width:100%;
+    height:auto;
+    aspect-ratio:3 / 5;
+    margin:0 0 1rem;
+    border:1px solid var(--gold-soft);
+    border-radius:0;
+    clip-path:polygon(24% 0,100% 0,76% 100%,0 100%);
+    background:linear-gradient(155deg,var(--bg-alt),var(--bg));
+    transition:filter .35s ease,border-color .35s ease;
+  }
+  .staff-enhanced .staff-photo::after{
+    content:'';
+    position:absolute;
+    inset:7px;
+    border:1px solid rgba(201,168,118,0.32);
+    clip-path:polygon(22% 0,100% 0,78% 100%,0 100%);
+    pointer-events:none;
+  }
+  .staff-enhanced .staff-photo img{
+    filter:saturate(.8) brightness(.78);
+    transition:filter .35s ease,transform .5s ease;
+  }
+  .staff-enhanced .staff-card:hover .staff-photo img,
+  .staff-enhanced .staff-card:focus-visible .staff-photo img{
+    filter:saturate(1) brightness(1);
+    transform:scale(1.04);
+  }
+  .staff-enhanced .staff-card .role{margin-bottom:.25rem;font-size:.67rem;}
+  .staff-enhanced .staff-card h4{margin-bottom:.25rem;font-size:clamp(.92rem,1.25vw,1.15rem);}
+  .staff-enhanced .staff-card .title-label{
+    padding:0;
+    border:0;
+    color:var(--text-faint);
+    font-size:.75rem;
+    font-weight:400;
+  }
+  .staff-enhanced .staff-card .quote,
+  .staff-enhanced .staff-card .staff-threads{display:none;}
+  .staff-profile{
+    position:relative;
+    display:grid;
+    grid-template-columns:minmax(260px,.82fr) minmax(0,1.18fr);
+    gap:clamp(2.4rem,6vw,6.5rem);
+    align-items:center;
+    max-width:980px;
+    margin:0 auto;
+    padding:clamp(1.2rem,3vw,2.4rem);
+    border:1px solid var(--surface-line);
+    background:linear-gradient(135deg,rgba(201,168,118,.08),rgba(222,157,186,.035));
+    animation:page-in .45s ease both;
+  }
+  .staff-profile::before{
+    content:'點擊空白處返回名冊';
+    position:absolute;right:1rem;bottom:.75rem;
+    color:var(--text-faint);font-size:.68rem;letter-spacing:.08em;
+    pointer-events:none;
+  }
+  .staff-profile-visual{position:relative;min-height:480px;}
+  .staff-profile-visual img{
+    width:100%;height:100%;min-height:480px;object-fit:cover;object-position:center 25%;
+    clip-path:polygon(19% 0,100% 0,81% 100%,0 100%);
+  }
+  .staff-profile-visual::after{
+    content:'';position:absolute;inset:12px;border:1px solid var(--gold-soft);
+    clip-path:polygon(18% 0,100% 0,82% 100%,0 100%);pointer-events:none;
+  }
+  .staff-profile-back{
+    display:inline-flex;align-items:center;gap:.55rem;margin-bottom:2rem;
+    padding:.55rem .9rem;border:1px solid var(--surface-line);border-radius:999px;
+    color:var(--text-mute);background:transparent;cursor:pointer;font:inherit;font-size:.78rem;
+    transition:color .25s,border-color .25s,background .25s;
+  }
+  .staff-profile-back:hover{color:var(--text);border-color:var(--gold-soft);background:rgba(201,168,118,.06);}
+  .staff-profile-role{color:var(--bloom);font-family:"Cormorant Garamond",serif;font-style:italic;letter-spacing:.16em;text-transform:uppercase;}
+  .staff-profile h3{margin:.35rem 0 .45rem;font-family:"Noto Serif TC",serif;font-size:clamp(2rem,4vw,3.7rem);font-weight:500;}
+  .staff-profile-title{color:var(--gold);letter-spacing:.16em;font-size:.82rem;}
+  .staff-profile-quote{margin:2rem 0 1.6rem;padding-left:1.2rem;border-left:1px solid var(--bloom-soft);color:var(--text-mute);font-size:1rem;line-height:2;}
+  .staff-profile .staff-threads{font-size:.82rem;color:var(--gold);}
+
   /* ---------- location ---------- */
   .location-grid{
     display:grid;
@@ -1360,6 +1462,10 @@
     .process-step:not(:last-child)::after{content:"↓";top:auto;right:1.5rem;bottom:-0.8rem;}
     .notice-head{align-items:start;flex-direction:column;gap:0.5rem;}
     .menu-grid{grid-template-columns:1fr; gap:2.6rem;}
+    .staff-directory{grid-template-columns:repeat(3,minmax(0,1fr));gap:1.4rem .7rem;}
+    .staff-profile{grid-template-columns:1fr;gap:1.7rem;max-width:620px;}
+    .staff-profile-visual{min-height:430px;}
+    .staff-profile-visual img{min-height:430px;}
   }
   @media (max-width:480px){
     .brand{font-size:0.95rem; gap:0.4rem;}
@@ -1374,6 +1480,12 @@
     .polaroid-print{width:60%;padding:6px 6px 30px;}
     .polaroid-print:first-child{left:0;top:12%;}
     .polaroid-print:last-child{right:0;top:1%;}
+    .staff-directory{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem .55rem;}
+    .staff-enhanced .staff-photo{aspect-ratio:3 / 4.5;margin-bottom:.75rem;}
+    .staff-enhanced .staff-card h4{font-size:.9rem;}
+    .staff-profile{padding:1rem;}
+    .staff-profile-visual,.staff-profile-visual img{min-height:340px;}
+    .staff-profile-quote{margin:1.4rem 0;font-size:.9rem;line-height:1.85;}
     .polaroid-print small{bottom:7px;font-size:0.72rem;}
     .polaroid-limit{grid-template-columns:1fr;gap:0.25rem;padding:0.85rem 0.9rem;}
     .polaroid-offer{align-items:flex-start;flex-direction:column;gap:0.25rem;}
@@ -1755,7 +1867,7 @@
     <div style="text-align:center; margin-bottom:3.5rem;" class="reveal">
       <p class="eyebrow">Cast</p>
       <h2 class="section-title">駐店成員</h2>
-      <p style="color:var(--text-mute);">輪值駐店的女僕們，實際排班以官方公告為準。</p>
+      <p style="color:var(--text-mute);">點選成員照片查看個人介紹；實際排班與演出安排以官方公告為準。</p>
     </div>
 
     <div class="staff-group">
@@ -1812,7 +1924,7 @@
           <div class="role">Maid</div>
           <h4>Naipa</h4>
           <p class="title-label">女僕</p>
-          <a class="staff-threads" href="https://www.threads.com/@naipa_apian" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 9.5c0-1.4 1.3-2.3 3.2-2.3 2.1 0 3.6 1.1 3.6 3 0 1.6-1 2.3-2.4 2.7l-.6.2c-1 .3-1.5.7-1.5 1.4 0 .8.7 1.3 1.8 1.3 1.1 0 1.9-.5 2.2-1.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span>Threads</span></a>
+          <a class="staff-threads" href="https://www.threads.com/@na_.naipa._pa" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/><path d="M8.5 9.5c0-1.4 1.3-2.3 3.2-2.3 2.1 0 3.6 1.1 3.6 3 0 1.6-1 2.3-2.4 2.7l-.6.2c-1 .3-1.5.7-1.5 1.4 0 .8.7 1.3 1.8 1.3 1.1 0 1.9-.5 2.2-1.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span>Threads</span></a>
         </div>
         <p class="quote">在跟大家打高難的時候，我家的龍會後跳後墜星衝喔；至於衝到哪……</p>
       </div>
@@ -2024,6 +2136,79 @@
 
   window.addEventListener('popstate', () => showPage(pageFromLocation(),true));
   showPage(pageFromLocation(),false);
+
+  const staffSection = document.getElementById('staff');
+  if(staffSection){
+    const staffCards = [...staffSection.querySelectorAll('.staff-card')];
+    const staffDirectory = document.createElement('div');
+    staffDirectory.className = 'staff-directory reveal';
+    staffDirectory.setAttribute('aria-label','駐店成員名冊');
+    const staffProfile = document.createElement('article');
+    staffProfile.className = 'staff-profile';
+    staffProfile.hidden = true;
+    staffProfile.setAttribute('aria-live','polite');
+    const firstGroup = staffSection.querySelector('.staff-group');
+    if(firstGroup) firstGroup.before(staffProfile,staffDirectory);
+
+    let selectedStaffCard = null;
+    function openStaffProfile(card){
+      const image = card.querySelector('.staff-photo img');
+      const role = card.querySelector('.role')?.textContent.trim() || 'Cast';
+      const name = card.querySelector('h4')?.textContent.trim() || '';
+      const title = card.querySelector('.title-label')?.textContent.trim() || '';
+      const quote = card.querySelector('.quote')?.textContent.trim() || '';
+      const threads = card.querySelector('.staff-threads')?.getAttribute('href') || '';
+      selectedStaffCard = card;
+      staffProfile.innerHTML = `
+        <div class="staff-profile-visual"><img src="${image ? image.src : ''}" alt="${name}"></div>
+        <div class="staff-profile-copy">
+          <button class="staff-profile-back" type="button" aria-label="返回成員名冊">← 返回名冊</button>
+          <p class="staff-profile-role">${role}</p>
+          <h3>${name}</h3>
+          <p class="staff-profile-title">${title}</p>
+          <p class="staff-profile-quote">「${quote}」</p>
+          ${threads ? `<a class="staff-threads" href="${threads}" target="_blank" rel="noopener">前往 ${name} 的 Threads ↗</a>` : ''}
+        </div>`;
+      staffDirectory.hidden = true;
+      staffProfile.hidden = false;
+      staffProfile.querySelector('.staff-profile-back').addEventListener('click',closeStaffProfile);
+      staffProfile.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    }
+    function closeStaffProfile(){
+      staffProfile.hidden = true;
+      staffDirectory.hidden = false;
+      if(selectedStaffCard) selectedStaffCard.focus();
+    }
+    staffProfile.addEventListener('click',event => {
+      if(event.target === staffProfile) closeStaffProfile();
+    });
+    staffSection.addEventListener('click',event => {
+      if(!staffProfile.hidden && !event.target.closest('.staff-profile')) closeStaffProfile();
+    });
+    document.addEventListener('keydown',event => {
+      if(event.key === 'Escape' && !staffProfile.hidden) closeStaffProfile();
+    });
+
+    staffCards.forEach(card => {
+      const name = card.querySelector('h4')?.textContent.trim() || '成員';
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      card.setAttribute('aria-label',`查看 ${name} 的介紹`);
+      card.addEventListener('click',event => {
+        if(event.target.closest('a')) return;
+        openStaffProfile(card);
+      });
+      card.addEventListener('keydown',event => {
+        if(event.key === 'Enter' || event.key === ' '){
+          event.preventDefault();
+          openStaffProfile(card);
+        }
+      });
+      staffDirectory.appendChild(card);
+    });
+    staffSection.querySelectorAll('.staff-group').forEach(group => group.remove());
+    staffSection.classList.add('staff-enhanced');
+  }
 
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
