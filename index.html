@@ -111,6 +111,10 @@
     display:block;
     animation:page-in .48s ease both;
   }
+  body.tabbed-site #location[data-page="about"]{
+    padding-top:min(8vh,4.5rem);
+    border-top:1px solid var(--surface-line);
+  }
   @keyframes page-in{
     from{opacity:0;transform:translateY(12px);}
     to{opacity:1;transform:translateY(0);}
@@ -1518,7 +1522,6 @@
       <li><a href="#rules">規則</a></li>
       <li><a href="#studio">攝影棚</a></li>
       <li><a href="#staff">女僕</a></li>
-      <li><a href="#location">位置</a></li>
     </ul>
     <div class="mobile-nav-links" aria-label="快速連結">
       <a class="primary" href="https://booking.ephemereffxiv.com/" target="_blank" rel="noopener">立即預約</a>
@@ -1948,7 +1951,7 @@
   </div>
 </section>
 
-<section id="location" data-page="location">
+<section id="location" data-page="about">
   <div class="wrap">
     <div class="location-grid">
       <div class="reveal">
@@ -2075,7 +2078,7 @@
     polaroids:'service',
     studio:'studio',
     staff:'staff',
-    location:'location'
+    location:'about'
   };
   const pageTitles = {
     top:'曇時 Cafe l’Éphémère',
@@ -2085,8 +2088,7 @@
     service:'服務指南｜曇時 Cafe l’Éphémère',
     rules:'店內規則｜曇時 Cafe l’Éphémère',
     studio:'攝影棚｜曇時 Cafe l’Éphémère',
-    staff:'女僕介紹｜曇時 Cafe l’Éphémère',
-    location:'位置｜曇時 Cafe l’Éphémère'
+    staff:'女僕介紹｜曇時 Cafe l’Éphémère'
   };
   const pageSections = [...document.querySelectorAll('section[data-page]')];
   document.body.classList.add('tabbed-site');
@@ -2183,7 +2185,7 @@
       if(event.target === staffProfile) closeStaffProfile();
     });
     staffSection.addEventListener('click',event => {
-      if(!staffProfile.hidden && !event.target.closest('.staff-profile')) closeStaffProfile();
+      if(!staffProfile.hidden && !event.target.closest('.staff-profile') && !event.target.closest('.staff-card')) closeStaffProfile();
     });
     document.addEventListener('keydown',event => {
       if(event.key === 'Escape' && !staffProfile.hidden) closeStaffProfile();
@@ -2196,6 +2198,7 @@
       card.setAttribute('aria-label',`查看 ${name} 的介紹`);
       card.addEventListener('click',event => {
         if(event.target.closest('a')) return;
+        event.stopPropagation();
         openStaffProfile(card);
       });
       card.addEventListener('keydown',event => {
