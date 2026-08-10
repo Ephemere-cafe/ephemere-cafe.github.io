@@ -661,6 +661,8 @@
     white-space:nowrap;
     font-size:0.9rem;
   }
+  .menu-item.unavailable{opacity:0.58;}
+  .menu-item .price .availability-copy{display:block;color:var(--bloom);font-size:0.72rem;text-align:right;margin-top:0.15rem;}
   .menu-note{
     margin-top:0.8rem;
     font-size:0.85rem;
@@ -1525,7 +1527,7 @@
     </ul>
     <div class="mobile-nav-links" aria-label="快速連結">
       <a class="primary" href="https://booking.ephemereffxiv.com/" target="_blank" rel="noopener">立即預約</a>
-      <a class="primary" href="https://order.ephemereffxiv.com/" target="_blank" rel="noopener">線上點餐</a>
+      <a class="primary" href="https://ephemere-cafe.github.io/order/" target="_blank" rel="noopener">線上點餐</a>
       <a href="https://www.threads.com/@lephemere.ff14" target="_blank" rel="noopener">Threads</a>
       <a href="https://discord.gg/hE7QZX9FWW" target="_blank" rel="noopener">Discord</a>
     </div>
@@ -1534,7 +1536,7 @@
     <a class="booking-btn" href="https://booking.ephemereffxiv.com/" target="_blank" rel="noopener">
       <span>立即預約</span>
     </a>
-    <a class="booking-btn" href="https://order.ephemereffxiv.com/" target="_blank" rel="noopener">
+    <a class="booking-btn" href="https://ephemere-cafe.github.io/order/" target="_blank" rel="noopener">
       <span>線上點餐</span>
     </a>
     <a class="threads-btn" href="https://www.threads.com/@lephemere.ff14" target="_blank" rel="noopener">
@@ -1553,7 +1555,7 @@
 
 <div class="mobile-quick-actions" aria-label="快速操作">
   <a href="https://booking.ephemereffxiv.com/" target="_blank" rel="noopener">立即預約</a>
-  <a href="https://order.ephemereffxiv.com/" target="_blank" rel="noopener">線上點餐</a>
+  <a href="https://ephemere-cafe.github.io/order/" target="_blank" rel="noopener">線上點餐</a>
 </div>
 
 <main id="main-content" tabindex="-1">
@@ -1661,50 +1663,13 @@
       <p class="eyebrow">Menu</p>
       <h2 class="section-title">菜單一隅</h2>
       <p>以下為曇時常設菜單，當日供應品項與最終價格請以線上點餐頁面為準。</p>
-      <a class="booking-btn" href="https://order.ephemereffxiv.com/" target="_blank" rel="noopener" style="justify-content:center; margin:1.4rem auto 0;">
+      <a class="booking-btn" href="https://ephemere-cafe.github.io/order/" target="_blank" rel="noopener" style="justify-content:center; margin:1.4rem auto 0;">
         <span>線上點餐</span>
       </a>
     </div>
 
     <div class="menu-grid" id="siteMenuGrid" aria-live="polite">
-      <div class="menu-cat reveal">
-        <h3>Appetizer 前菜</h3>
-        <div class="menu-item"><span class="name">黑衣森林傘蕈溫沙拉</span><span class="dots"></span><span class="price">10,000 Gil</span></div>
-        <div class="menu-item"><span class="name">庫爾蘋果新薯沙拉</span><span class="dots"></span><span class="price">10,000 Gil</span></div>
-      </div>
-
-      <div class="menu-cat reveal">
-        <h3>Soup 湯品</h3>
-        <div class="menu-item"><span class="name">法式焗烤起司洋蔥湯</span><span class="dots"></span><span class="price">14,000 Gil</span></div>
-      </div>
-
-      <div class="menu-cat reveal">
-        <h3>Main Course 主食</h3>
-        <div class="menu-item"><span class="name">巨匠特製紅醬蛋包飯</span><span class="dots"></span><span class="price">20,000 Gil</span></div>
-        <div class="menu-item"><span class="name">黑松露野菇燉飯</span><span class="dots"></span><span class="price">20,000 Gil</span></div>
-      </div>
-
-      <div class="menu-cat reveal">
-        <h3>Drinks 飲品</h3>
-        <div class="menu-item"><span class="name">三倍絲滑鮮奶油咖啡</span><span class="dots"></span><span class="price">12,000 Gil</span></div>
-        <div class="menu-item"><span class="name">絲絨醇厚熱巧克力</span><span class="dots"></span><span class="price">12,000 Gil</span></div>
-        <div class="menu-item"><span class="name">伊修加爾德皇家奶茶</span><span class="dots"></span><span class="price">12,000 Gil</span></div>
-      </div>
-
-      <div class="menu-cat reveal">
-        <h3>Dessert 甜品</h3>
-        <div class="menu-item"><span class="name">莊園黑巧奶油蛋糕</span><span class="dots"></span><span class="price">12,000 Gil</span></div>
-        <div class="menu-item"><span class="name">現煎黃金法式吐司</span><span class="dots"></span><span class="price">12,000 Gil</span></div>
-        <div class="menu-item"><span class="name">秋實手工柿子布丁</span><span class="dots"></span><span class="price">12,000 Gil</span></div>
-      </div>
-
-      <div class="set-block reveal">
-        <div>
-          <div class="set-title">無菜單料理 Set</div>
-          <div class="set-desc">包含 5 道菜，由店長親選過後隨機出餐~</div>
-        </div>
-        <div class="set-price">40,000 Gil</div>
-      </div>
+      <p class="menu-note" style="grid-column:1/-1;text-align:center;">正在同步今晚菜單…</p>
     </div>
   </div>
 </section>
@@ -1724,7 +1689,7 @@
         <h3>每位低消 <strong>10,000 Gil</strong></h3>
         <p>入座並接受女僕款待的主人，每位低消為 10,000 Gil；單純參觀或使用攝影棚不受低消限制。餐點與特別服務皆透過線上系統送出，確認訂單後於遊戲內完成 Gil 交易。</p>
       </div>
-      <a class="guide-cta" href="https://order.ephemereffxiv.com/" target="_blank" rel="noopener">
+      <a class="guide-cta" href="https://ephemere-cafe.github.io/order/" target="_blank" rel="noopener">
         <span>開始線上點餐</span>
         <small>Order Online ↗</small>
       </a>
@@ -1827,7 +1792,7 @@
         <strong>200,000 Gil</strong>
       </div>
       <p class="polaroid-note">※ 圖片為過往成品範例，實際構圖、裝飾與完成風格依當日拍攝及女僕安排為準；成品將於製作完成後交付，等候時間依當晚情況而定。</p>
-      <a class="guide-cta" href="https://order.ephemereffxiv.com/" target="_blank" rel="noopener">
+      <a class="guide-cta" href="https://ephemere-cafe.github.io/order/" target="_blank" rel="noopener">
         <span>挑選合照女僕</span>
         <small>Order a Polaroid ↗</small>
       </a>
@@ -2249,11 +2214,17 @@
 
     function renderSiteMenu(menu){
       var grid = document.getElementById('siteMenuGrid');
-      if(!grid || !menu) return;
+      if(!grid) return;
+      if(!menu){
+        grid.innerHTML = '<p class="menu-note" style="grid-column:1/-1;text-align:center;">目前尚未開放菜單，請稍後再查看。</p>';
+        return;
+      }
 
       var categoryOrder = [];
       var groups = {};
-      Object.keys(menu).forEach(function(key){
+      Object.keys(menu).sort(function(a,b){
+        return Number(menu[a].sortOrder||0)-Number(menu[b].sortOrder||0);
+      }).forEach(function(key){
         var item = menu[key];
         if(!item || !item.name) return;
         var category = item.category || '其他';
@@ -2263,7 +2234,10 @@
         }
         groups[category].push(item);
       });
-      if(!categoryOrder.length) return;
+      if(!categoryOrder.length){
+        grid.innerHTML = '<p class="menu-note" style="grid-column:1/-1;text-align:center;">目前尚未開放菜單，請稍後再查看。</p>';
+        return;
+      }
 
       function splitCategoryLabel(category){
         var parts = String(category || '其他').split('※');
@@ -2320,7 +2294,18 @@
           dots.className = 'dots';
           var price = document.createElement('span');
           price.className = 'price';
-          price.textContent = formatGil(item.price);
+          price.appendChild(document.createTextNode(formatGil(item.price)));
+          var availabilityText = '';
+          if(item.available===false) availabilityText = '暫停供應';
+          else if(item.stockEnabled===true && Number(item.stockRemaining||0)<=0) availabilityText = '本次額滿';
+          else if(item.stockEnabled===true) availabilityText = '剩餘 '+Number(item.stockRemaining||0)+' 份';
+          if(availabilityText){
+            var availability = document.createElement('small');
+            availability.className = 'availability-copy';
+            availability.textContent = availabilityText;
+            price.appendChild(availability);
+          }
+          if(item.available===false || (item.stockEnabled===true && Number(item.stockRemaining||0)<=0)) row.classList.add('unavailable');
           row.appendChild(name);
           row.appendChild(dots);
           row.appendChild(price);
