@@ -476,45 +476,52 @@
   }
   .reservation-hero{
     display:grid;
-    grid-template-columns:minmax(0,1fr) minmax(360px,0.82fr);
-    align-items:center;
-    gap:clamp(3rem,7vw,7rem);
+    grid-template-columns:minmax(0,0.92fr) minmax(430px,1.08fr);
+    align-items:stretch;
+    gap:clamp(2.5rem,6vw,6rem);
   }
+  .reservation-intro{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:1.5rem 0;}
   .reservation-intro .section-title{
-    max-width:8em;
-    font-size:clamp(2.2rem,5vw,4.2rem);
-    line-height:1.28;
+    max-width:9em;
+    font-size:clamp(2.35rem,5vw,4.5rem);
+    line-height:1.2;
   }
   .reservation-lead{
     max-width:35rem;
     color:var(--text-mute);
     font-size:0.98rem;
   }
-  .reservation-main-cta{width:max-content;margin-top:2rem;min-width:220px;}
+  .reservation-main-cta{width:max-content;margin-top:2.1rem;min-width:220px;}
   .reservation-mini-note{
     display:flex;
     align-items:flex-start;
     gap:0.75rem;
     max-width:35rem;
-    margin-top:1rem;
-    padding:0.85rem 1rem;
-    border-left:2px solid var(--bloom);
-    background:rgba(255,255,255,0.025);
+    margin-top:1.15rem;
+    padding:0;
     color:var(--text-mute);
-    font-size:0.8rem;
+    font-size:0.78rem;
   }
+  .reservation-mini-note > span{color:var(--bloom);}
   .reservation-mini-note strong{color:var(--text);font-weight:500;}
   .reservation-summary{
     position:relative;
-    padding:2.2rem;
+    display:flex;
+    flex-direction:column;
+    min-height:500px;
+    padding:clamp(2rem,4vw,3.3rem);
     border:1px solid var(--gold-soft);
-    border-radius:18px;
-    background:linear-gradient(145deg,rgba(201,168,118,0.13),rgba(222,157,186,0.045));
-    box-shadow:0 24px 64px rgba(0,0,0,0.24);
+    border-radius:24px 24px 72px 24px;
+    background:
+      radial-gradient(circle at 100% 0,rgba(222,157,186,0.12),transparent 34%),
+      linear-gradient(145deg,rgba(201,168,118,0.12),rgba(255,255,255,0.018));
+    box-shadow:0 30px 80px rgba(0,0,0,0.26);
+    overflow:hidden;
   }
+  .reservation-summary::before{content:"";position:absolute;top:1.25rem;right:1.25rem;width:44px;height:44px;border-top:1px solid var(--bloom-soft);border-right:1px solid var(--bloom-soft);}
   .reservation-summary-label{
     display:block;
-    margin-bottom:1.4rem;
+    margin-bottom:1.1rem;
     color:var(--gold);
     font-family:"Cormorant Garamond",serif;
     font-size:0.8rem;
@@ -522,58 +529,14 @@
     letter-spacing:0.16em;
     text-transform:uppercase;
   }
-  .reservation-stats{display:grid;grid-template-columns:1fr 1fr;}
-  .reservation-stat{padding:1.25rem 1rem;}
-  .reservation-stat:nth-child(odd){border-right:1px solid var(--surface-line);}
-  .reservation-stat:nth-child(-n+2){border-bottom:1px solid var(--surface-line);}
-  .reservation-stat strong{
-    display:block;
-    margin-bottom:0.25rem;
-    color:var(--text);
-    font-family:"Cormorant Garamond",serif;
-    font-size:clamp(2rem,4vw,3.2rem);
-    font-style:italic;
-    font-weight:500;
-    line-height:1;
-  }
-  .reservation-stat span{color:var(--text-mute);font-size:0.78rem;}
-  .reservation-details{
-    margin-top:5rem;
-    padding-top:2.2rem;
-    border-top:1px solid var(--surface-line);
-  }
-  .reservation-details-head{
-    display:flex;
-    align-items:end;
-    justify-content:space-between;
-    gap:2rem;
-    margin-bottom:1.5rem;
-  }
-  .reservation-details-head p{max-width:35rem;color:var(--text-mute);font-size:0.86rem;}
-  .reservation-feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
-  .reservation-feature{
-    min-height:200px;
-    padding:1.5rem;
-    border:1px solid var(--surface-line);
-    border-radius:14px;
-    background:rgba(255,255,255,0.018);
-  }
-  .reservation-feature .feature-number{
-    display:block;
-    margin-bottom:2rem;
-    color:var(--bloom);
-    font-family:"Cormorant Garamond",serif;
-    font-size:0.9rem;
-    font-style:italic;
-    letter-spacing:0.1em;
-  }
-  .reservation-feature h3{
-    margin-bottom:0.65rem;
-    font-family:"Noto Serif TC",serif;
-    font-size:1rem;
-    font-weight:500;
-  }
-  .reservation-feature p{color:var(--text-mute);font-size:0.84rem;}
+  .reservation-summary h3{max-width:11em;margin:0 0 0.8rem;font-family:"Noto Serif TC",serif;font-size:clamp(1.45rem,3vw,2.15rem);font-weight:500;line-height:1.5;letter-spacing:0.06em;}
+  .reservation-summary-lead{max-width:34rem;margin:0 0 1.6rem;color:var(--text-mute);font-size:0.88rem;}
+  .reservation-experiences{display:grid;margin-top:auto;border-top:1px solid var(--surface-line);}
+  .reservation-experience{display:grid;grid-template-columns:7.4rem 1fr;gap:1.2rem;align-items:center;padding:1.15rem 0;border-bottom:1px solid var(--surface-line);}
+  .reservation-experience strong{color:var(--gold);font-family:"Noto Serif TC",serif;font-size:0.95rem;font-weight:500;letter-spacing:0.05em;}
+  .reservation-experience span{color:var(--text-mute);font-size:0.82rem;line-height:1.7;}
+  .reservation-availability{display:flex;align-items:center;gap:0.65rem;margin-top:1.25rem;color:var(--text);font-size:0.78rem;letter-spacing:0.04em;}
+  .reservation-availability::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--bloom);box-shadow:0 0 0 5px rgba(222,157,186,0.08);}
   .photo-frame{
     position:relative;
     aspect-ratio:16/9;
@@ -1453,10 +1416,10 @@
     .about-grid, .location-grid, .studio-grid{grid-template-columns:1fr;}
     .reservation-hero{grid-template-columns:1fr;gap:2.8rem;}
     .reservation-intro{text-align:center;}
+    .reservation-intro{align-items:center;padding:0;}
     .reservation-intro .section-title,.reservation-lead{margin-left:auto;margin-right:auto;}
     .reservation-main-cta{width:100%;}
-    .reservation-feature-grid{grid-template-columns:1fr 1fr;}
-    .reservation-details-head{align-items:start;flex-direction:column;gap:0.5rem;}
+    .reservation-mini-note{text-align:left;}
     .polaroid-showcase{grid-template-columns:1fr;gap:2.6rem;}
     .polaroid-copy{order:-1;text-align:center;max-width:38rem;margin:0 auto;}
     .polaroid-copy .guide-cta{width:100%;}
@@ -1495,12 +1458,8 @@
     .polaroid-print small{bottom:7px;font-size:0.72rem;}
     .polaroid-limit{grid-template-columns:1fr;gap:0.25rem;padding:0.85rem 0.9rem;}
     .polaroid-offer{align-items:flex-start;flex-direction:column;gap:0.25rem;}
-    .reservation-summary{padding:1.4rem 1rem;}
-    .reservation-stat{padding:1rem 0.75rem;}
-    .reservation-details{margin-top:3.5rem;}
-    .reservation-feature-grid{grid-template-columns:1fr;}
-    .reservation-feature{min-height:auto;}
-    .reservation-feature .feature-number{margin-bottom:1rem;}
+    .reservation-summary{min-height:auto;padding:1.6rem 1.25rem;border-radius:18px 18px 42px 18px;}
+    .reservation-experience{grid-template-columns:1fr;gap:0.3rem;padding:1rem 0;}
     .opening-status{grid-template-columns:auto 1fr;text-align:left;}
     .opening-status a{grid-column:2;}
     .opening-status small,.reservation-mini-note,.polaroid-note{font-size:0.8rem!important;}
@@ -1606,53 +1565,26 @@
     <div class="reservation-hero">
       <div class="reservation-intro reveal">
         <p class="eyebrow">Private Reservation</p>
-        <h2 class="section-title">專屬預約時光</h2>
-        <p class="reservation-lead">曇時每次營業僅接受一組預約。這段時間，整個空間只為你們保留——不用在意旁人的目光，也不用匆忙趕時間，只有你、你指名的女僕，以及為你們準備的曇時。</p>
+        <h2 class="section-title">今晚，只為你們留席</h2>
+        <p class="reservation-lead">每次營業僅接待一組預約主人。在約 60 分鐘裡，讓女僕的陪伴與喜歡的旋律，陪你們慢慢度過一段不被打擾的曇時。</p>
         <a class="guide-cta reservation-main-cta" href="https://booking.ephemereffxiv.com/" target="_blank" rel="noopener">
           <span>立即預約</span>
-          <small>Reserve Your Time ↗</small>
+          <small>View Available Dates ↗</small>
         </a>
-        <div class="reservation-mini-note"><span aria-hidden="true">✦</span><p><strong>預約提醒：</strong>可預約日期與完整說明皆會在預約網站即時顯示；完成送出後，才算成功保留時段。</p></div>
+        <div class="reservation-mini-note"><span aria-hidden="true">✦</span><p>可預約日期與當日值班人員，皆以預約網站顯示為準。</p></div>
       </div>
 
       <aside class="reservation-summary reveal" aria-label="預約內容摘要">
-        <span class="reservation-summary-label">Reservation at a glance</span>
-        <div class="reservation-stats">
-          <div class="reservation-stat"><strong>01</strong><span>每次營業僅一組</span></div>
-          <div class="reservation-stat"><strong>60</strong><span>約 60 分鐘</span></div>
-          <div class="reservation-stat"><strong>01</strong><span>指名一位女僕</span></div>
-          <div class="reservation-stat"><strong>03</strong><span>最多點播三首歌</span></div>
+        <span class="reservation-summary-label">A private evening at Éphémère</span>
+        <h3>一段依照你們心情<br>慢慢展開的夜晚</h3>
+        <p class="reservation-summary-lead">從陪伴到音樂，為這次相聚留下一段更完整、更從容的體驗。</p>
+        <div class="reservation-experiences">
+          <div class="reservation-experience"><strong>專屬時段</strong><span>約 60 分鐘，每次營業僅接待一組預約主人。</span></div>
+          <div class="reservation-experience"><strong>女僕陪伴</strong><span>可依當日排班指名一位女僕，陪伴整段預約時光。</span></div>
+          <div class="reservation-experience"><strong>自由點歌</strong><span>最多選擇三首喜歡的歌曲，讓旋律留在今晚。</span></div>
         </div>
+        <div class="reservation-availability">預約日期與值班名單即時更新</div>
       </aside>
-    </div>
-
-    <div class="reservation-details reveal">
-      <div class="reservation-details-head">
-        <span class="guide-label">What awaits｜預約內容</span>
-        <p>一段只屬於你們的時間，從空間、陪伴到旋律，都依照今晚的心情慢慢展開。</p>
-      </div>
-      <div class="reservation-feature-grid">
-        <article class="reservation-feature">
-          <span class="feature-number">01</span>
-          <h3>獨享空間</h3>
-          <p>預約時段只接待本次預約的主人，不與其他組主人共享空間，讓整段時光保有安靜與自在。</p>
-        </article>
-        <article class="reservation-feature">
-          <span class="feature-number">02</span>
-          <h3>約 60 分鐘</h3>
-          <p>放慢腳步，不必匆忙，在曇時好好享受這段專屬的停留。</p>
-        </article>
-        <article class="reservation-feature">
-          <span class="feature-number">03</span>
-          <h3>指名陪伴</h3>
-          <p>可指名一位女僕全程陪伴，與你一同度過今晚的專屬時光。</p>
-        </article>
-        <article class="reservation-feature">
-          <span class="feature-number">04</span>
-          <h3>自由點歌</h3>
-          <p>可向蒼點播最多三首歌曲，讓喜歡的旋律陪著時間慢慢流動。</p>
-        </article>
-      </div>
     </div>
   </div>
 </section>
