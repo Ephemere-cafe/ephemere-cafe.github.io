@@ -475,28 +475,39 @@
     pointer-events:none;
   }
   .reservation-hero{
-    display:grid;
-    grid-template-columns:minmax(0,0.92fr) minmax(430px,1.08fr);
-    align-items:stretch;
-    gap:clamp(2.5rem,6vw,6rem);
+    max-width:960px;
+    margin:0 auto;
   }
-  .reservation-intro{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:1.5rem 0;}
+  .reservation-intro{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    max-width:760px;
+    margin:0 auto;
+    padding:0;
+    text-align:center;
+  }
+  .reservation-intro .eyebrow{font-size:0.9rem;letter-spacing:0.2em;}
   .reservation-intro .section-title{
-    max-width:9em;
-    font-size:clamp(2.35rem,5vw,4.5rem);
-    line-height:1.2;
+    max-width:none;
+    margin-bottom:1.35rem;
+    font-size:clamp(2.4rem,5vw,3.8rem);
+    line-height:1.28;
+    letter-spacing:0.025em;
   }
+  .reservation-title-line{display:block;}
   .reservation-lead{
-    max-width:35rem;
+    max-width:620px;
+    margin:0 auto;
     color:var(--text-mute);
     font-size:0.98rem;
   }
-  .reservation-main-cta{width:max-content;margin-top:2.1rem;min-width:220px;}
+  .reservation-main-cta{width:max-content;margin-top:2rem;min-width:220px;}
   .reservation-mini-note{
     display:flex;
-    align-items:flex-start;
+    align-items:center;
     gap:0.75rem;
-    max-width:35rem;
+    max-width:620px;
     margin-top:1.15rem;
     padding:0;
     color:var(--text-mute);
@@ -506,37 +517,42 @@
   .reservation-mini-note strong{color:var(--text);font-weight:500;}
   .reservation-summary{
     position:relative;
-    display:flex;
-    flex-direction:column;
-    min-height:500px;
-    padding:clamp(2rem,4vw,3.3rem);
+    display:block;
+    min-height:0;
+    margin-top:clamp(2.8rem,6vw,4.5rem);
+    padding:clamp(1.5rem,3vw,2.25rem);
     border:1px solid var(--gold-soft);
-    border-radius:24px 24px 72px 24px;
+    border-radius:18px;
     background:
       radial-gradient(circle at 100% 0,rgba(222,157,186,0.12),transparent 34%),
       linear-gradient(145deg,rgba(201,168,118,0.12),rgba(255,255,255,0.018));
-    box-shadow:0 30px 80px rgba(0,0,0,0.26);
+    box-shadow:0 24px 64px rgba(0,0,0,0.2);
     overflow:hidden;
   }
-  .reservation-summary::before{content:"";position:absolute;top:1.25rem;right:1.25rem;width:44px;height:44px;border-top:1px solid var(--bloom-soft);border-right:1px solid var(--bloom-soft);}
+  .reservation-summary::before{content:"";position:absolute;top:1.1rem;right:1.1rem;width:34px;height:34px;border-top:1px solid var(--bloom-soft);border-right:1px solid var(--bloom-soft);}
   .reservation-summary-label{
     display:block;
-    margin-bottom:1.1rem;
+    margin-bottom:1.4rem;
+    text-align:center;
     color:var(--gold);
     font-family:"Cormorant Garamond",serif;
     font-size:0.8rem;
     font-style:italic;
-    letter-spacing:0.16em;
+    letter-spacing:0.14em;
     text-transform:uppercase;
   }
-  .reservation-summary h3{max-width:11em;margin:0 0 0.8rem;font-family:"Noto Serif TC",serif;font-size:clamp(1.45rem,3vw,2.15rem);font-weight:500;line-height:1.5;letter-spacing:0.06em;}
-  .reservation-summary-lead{max-width:34rem;margin:0 0 1.6rem;color:var(--text-mute);font-size:0.88rem;}
-  .reservation-experiences{display:grid;margin-top:auto;border-top:1px solid var(--surface-line);}
-  .reservation-experience{display:grid;grid-template-columns:7.4rem 1fr;gap:1.2rem;align-items:center;padding:1.15rem 0;border-bottom:1px solid var(--surface-line);}
-  .reservation-experience strong{color:var(--gold);font-family:"Noto Serif TC",serif;font-size:0.95rem;font-weight:500;letter-spacing:0.05em;}
-  .reservation-experience span{color:var(--text-mute);font-size:0.82rem;line-height:1.7;}
-  .reservation-availability{display:flex;align-items:center;gap:0.65rem;margin-top:1.25rem;color:var(--text);font-size:0.78rem;letter-spacing:0.04em;}
+  .reservation-experiences{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;}
+  .reservation-experience{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:1.35rem;border:1px solid var(--surface-line);border-radius:12px;background:rgba(255,255,255,0.018);text-align:left;}
+  .reservation-experience strong{margin-bottom:0.65rem;color:var(--gold);font-family:"Noto Serif TC",serif;font-size:0.95rem;font-weight:500;letter-spacing:0.05em;}
+  .reservation-experience span{color:var(--text-mute);font-size:0.82rem;line-height:1.75;overflow-wrap:anywhere;}
+  .reservation-availability{display:flex;align-items:center;justify-content:center;gap:0.65rem;margin-top:1.35rem;color:var(--text);font-size:0.78rem;letter-spacing:0.04em;}
   .reservation-availability::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--bloom);box-shadow:0 0 0 5px rgba(222,157,186,0.08);}
+  @media (max-width:980px) and (min-width:861px){
+    .reservation-intro .section-title{font-size:3rem;}
+    .reservation-summary{padding:1.6rem;}
+    .reservation-summary-label{font-size:0.7rem;letter-spacing:0.1em;}
+    .reservation-experience{padding:1.1rem;}
+  }
   .photo-frame{
     position:relative;
     aspect-ratio:16/9;
@@ -1414,12 +1430,16 @@
     .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
     .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
     .about-grid, .location-grid, .studio-grid{grid-template-columns:1fr;}
-    .reservation-hero{grid-template-columns:1fr;gap:2.8rem;}
-    .reservation-intro{text-align:center;}
-    .reservation-intro{align-items:center;padding:0;}
+    .reservation-hero{display:block;}
+    .reservation-intro{display:flex;flex-direction:column;align-items:center;gap:0;padding:0;text-align:center;}
     .reservation-intro .section-title,.reservation-lead{margin-left:auto;margin-right:auto;}
+    .reservation-intro .eyebrow{white-space:normal;}
     .reservation-main-cta{width:100%;}
     .reservation-mini-note{text-align:left;}
+    .reservation-summary-label{white-space:normal;}
+    .reservation-summary{display:block;}
+    .reservation-experiences{grid-template-columns:1fr;width:100%;}
+    .reservation-availability{width:100%;}
     .polaroid-showcase{grid-template-columns:1fr;gap:2.6rem;}
     .polaroid-copy{order:-1;text-align:center;max-width:38rem;margin:0 auto;}
     .polaroid-copy .guide-cta{width:100%;}
@@ -1458,7 +1478,9 @@
     .polaroid-print small{bottom:7px;font-size:0.72rem;}
     .polaroid-limit{grid-template-columns:1fr;gap:0.25rem;padding:0.85rem 0.9rem;}
     .polaroid-offer{align-items:flex-start;flex-direction:column;gap:0.25rem;}
-    .reservation-summary{min-height:auto;padding:1.6rem 1.25rem;border-radius:18px 18px 42px 18px;}
+    .reservation-summary{min-height:auto;padding:1.35rem 1rem;border-radius:14px;}
+    .reservation-intro .section-title{font-size:clamp(2rem,10.5vw,2.7rem);}
+    .reservation-title-line{white-space:normal;}
     .reservation-experience{grid-template-columns:1fr;gap:0.3rem;padding:1rem 0;}
     .opening-status{grid-template-columns:auto 1fr;text-align:left;}
     .opening-status a{grid-column:2;}
@@ -1565,7 +1587,7 @@
     <div class="reservation-hero">
       <div class="reservation-intro reveal">
         <p class="eyebrow">Private Reservation</p>
-        <h2 class="section-title">今晚，只為你們留席</h2>
+        <h2 class="section-title"><span class="reservation-title-line">今晚，只為你們</span><span class="reservation-title-line">留一席專屬時光</span></h2>
         <p class="reservation-lead">每次營業僅接待一組預約主人。在約 60 分鐘裡，讓女僕的陪伴與喜歡的旋律，陪你們慢慢度過一段不被打擾的曇時。</p>
         <a class="guide-cta reservation-main-cta" href="https://booking.ephemereffxiv.com/" target="_blank" rel="noopener">
           <span>立即預約</span>
@@ -1575,9 +1597,7 @@
       </div>
 
       <aside class="reservation-summary reveal" aria-label="預約內容摘要">
-        <span class="reservation-summary-label">A private evening at Éphémère</span>
-        <h3>一段依照你們心情<br>慢慢展開的夜晚</h3>
-        <p class="reservation-summary-lead">從陪伴到音樂，為這次相聚留下一段更完整、更從容的體驗。</p>
+        <span class="reservation-summary-label">Your private evening includes</span>
         <div class="reservation-experiences">
           <div class="reservation-experience"><strong>專屬時段</strong><span>約 60 分鐘，每次營業僅接待一組預約主人。</span></div>
           <div class="reservation-experience"><strong>女僕陪伴</strong><span>可依當日排班指名一位女僕，陪伴整段預約時光。</span></div>
