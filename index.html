@@ -2059,6 +2059,7 @@
   const staffSection = document.getElementById('staff');
   if(staffSection){
     const staffCards = [...staffSection.querySelectorAll('.staff-card')];
+    const staffTemplates = new Map(staffCards.map(card => [card.querySelector('h4')?.textContent.trim() || '', card.cloneNode(true)]));
     const staffDirectory = document.createElement('div');
     staffDirectory.className = 'staff-directory reveal';
     staffDirectory.setAttribute('aria-label','駐店成員名冊');
@@ -2070,6 +2071,17 @@
     if(firstGroup) firstGroup.before(staffProfile,staffDirectory);
 
     let selectedStaffCard = null;
+    const safeText = value => String(value || '').replace(/[&<>"']/g,char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    const safeUrl = value => /^https:\/\//i.test(String(value || '').trim()) ? String(value).trim() : '';
+    const placeholderImage = () => 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 780"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2c2230"/><stop offset="1" stop-color="#15111c"/></linearGradient></defs><rect width="600" height="780" fill="url(#g)"/><circle cx="300" cy="325" r="92" fill="none" stroke="#c99aaf" stroke-width="3" opacity=".7"/><path d="M300 225c18 56 74 82 74 134 0 47-33 84-74 110-41-26-74-63-74-110 0-52 56-78 74-134Z" fill="none" stroke="#c8a66b" stroke-width="3" opacity=".75"/><path d="M155 590h290" stroke="#c99aaf" stroke-width="2" opacity=".45"/></svg>');
+    const roleLabel = role => {
+      const value = String(role || '').trim();
+      if(/副店長/.test(value)) return 'Vice Manager';
+      if(/店長|管理/.test(value)) return 'Manager';
+      if(/樂手|演奏/.test(value)) return 'Musician';
+      if(/女僕/.test(value)) return 'Maid';
+      return value || 'Cast';
+    };
     function openStaffProfile(card){
       const image = card.querySelector('.staff-photo img');
       const role = card.querySelector('.role')?.textContent.trim() || 'Cast';
@@ -2078,15 +2090,16 @@
       const quote = card.querySelector('.quote')?.textContent.trim() || '';
       const threads = card.querySelector('.staff-threads')?.getAttribute('href') || '';
       selectedStaffCard = card;
+      const threadUrl = safeUrl(threads);
       staffProfile.innerHTML = `
-        <div class="staff-profile-visual"><img src="${image ? image.src : ''}" alt="${name}"></div>
+        <div class="staff-profile-visual"><img src="${image ? image.src : placeholderImage()}" alt="${safeText(name)}"></div>
         <div class="staff-profile-copy">
           <button class="staff-profile-back" type="button" aria-label="返回成員名冊">← 返回名冊</button>
-          <p class="staff-profile-role">${role}</p>
-          <h3>${name}</h3>
-          <p class="staff-profile-title">${title}</p>
-          <p class="staff-profile-quote">「${quote}」</p>
-          ${threads ? `<a class="staff-threads" href="${threads}" target="_blank" rel="noopener">前往 ${name} 的 Threads ↗</a>` : ''}
+          <p class="staff-profile-role">${safeText(role)}</p>
+          <h3>${safeText(name)}</h3>
+          <p class="staff-profile-title">${safeText(title)}</p>
+          <p class="staff-profile-quote">「${safeText(quote || '期待在曇時與主人相見。')}」</p>
+          ${threadUrl ? `<a class="staff-threads" href="${safeText(threadUrl)}" target="_blank" rel="noopener">前往 ${safeText(name)} 的 Threads ↗</a>` : ''}
         </div>`;
       staffDirectory.hidden = true;
       staffProfile.hidden = false;
@@ -2108,7 +2121,9 @@
       if(event.key === 'Escape' && !staffProfile.hidden) closeStaffProfile();
     });
 
-    staffCards.forEach(card => {
+    function prepareStaffCard(card){
+      if(card.dataset.staffReady === '1') return card;
+      card.dataset.staffReady = '1';
       const name = card.querySelector('h4')?.textContent.trim() || '成員';
       card.setAttribute('role','button');
       card.setAttribute('tabindex','0');
@@ -2124,10 +2139,67 @@
           openStaffProfile(card);
         }
       });
-      staffDirectory.appendChild(card);
-    });
+      return card;
+    }
+    function createStaffCard(){
+      const card = document.createElement('div');
+      card.className = 'staff-card reveal in';
+      card.innerHTML = '<div class="staff-main"><div class="staff-photo"><img loading="lazy" decoding="async" alt=""></div><div class="role">Cast</div><h4></h4><p class="title-label"></p><a class="staff-threads" target="_blank" rel="noopener"><span>Threads</span></a></div><p class="quote"></p>';
+      return card;
+    }
+    function applyRosterEntry(card,id,entry){
+      const name = String(entry.name || '未命名成員').trim();
+      const title = String(entry.role || '').trim();
+      const img = card.querySelector('.staff-photo img');
+      const role = card.querySelector('.role');
+      const heading = card.querySelector('h4');
+      const titleNode = card.querySelector('.title-label');
+      const quote = card.querySelector('.quote');
+      let threads = card.querySelector('.staff-threads');
+      card.dataset.rosterId = id;
+      if(img){ img.src = entry.photo || img.getAttribute('src') || placeholderImage(); img.alt = name; }
+      if(role) role.textContent = entry.siteRole || roleLabel(title);
+      if(heading) heading.textContent = name;
+      if(titleNode) titleNode.textContent = title || '駐店成員';
+      if(quote && entry.quote) quote.textContent = entry.quote;
+      if(quote && !quote.textContent.trim()) quote.textContent = '期待在曇時與主人相見。';
+      const threadUrl = safeUrl(entry.threads || (threads && threads.getAttribute('href')));
+      if(threadUrl){
+        if(!threads){
+          threads = document.createElement('a');
+          threads.className = 'staff-threads';
+          threads.target = '_blank';
+          threads.rel = 'noopener';
+          threads.innerHTML = '<span>Threads</span>';
+          card.querySelector('.staff-main').appendChild(threads);
+        }
+        threads.href = threadUrl;
+        threads.hidden = false;
+      }else if(threads){ threads.hidden = true; }
+      prepareStaffCard(card);
+      card.setAttribute('aria-label',`查看 ${name} 的介紹`);
+      return card;
+    }
+    staffCards.forEach(card => staffDirectory.appendChild(prepareStaffCard(card)));
     staffSection.querySelectorAll('.staff-group').forEach(group => group.remove());
     staffSection.classList.add('staff-enhanced');
+    window.ephemereStaffDirectory = {
+      syncRoster(roster){
+        const entries = Object.keys(roster || {}).map((id,index) => ({id,index,entry:roster[id] || {}}))
+          .filter(item => item.entry.name && item.entry.websiteVisible !== false)
+          .sort((a,b) => Number(a.entry.sortOrder || (a.index + 1)) - Number(b.entry.sortOrder || (b.index + 1)));
+        if(!entries.length) return;
+        closeStaffProfile();
+        const fragment = document.createDocumentFragment();
+        entries.forEach(({id,entry}) => {
+          const template = staffTemplates.get(String(entry.name || '').trim());
+          const current = staffDirectory.querySelector(`[data-roster-id="${CSS.escape(id)}"]`);
+          const card = current || (template ? template.cloneNode(true) : createStaffCard());
+          fragment.appendChild(applyRosterEntry(card,id,entry));
+        });
+        staffDirectory.replaceChildren(fragment);
+      }
+    };
   }
 
   const revealEls = document.querySelectorAll('.reveal');
@@ -2275,27 +2347,7 @@
 
     db.ref('lephemere/staffRoster').on('value', function(snap){
       var roster = snap.val() || {};
-      var byName = {};
-      Object.keys(roster).forEach(function(k){
-        var s = roster[k];
-        if(s && s.name) byName[s.name.trim()] = s;
-      });
-      document.querySelectorAll('.staff-photo').forEach(function(box){
-        var img = box.querySelector('img');
-        var name = img ? (img.getAttribute('alt') || '').trim() : null;
-        if(!name) return;
-        var entry = byName[name];
-        if(entry && entry.photo){
-          if(!img){
-            img = document.createElement('img');
-            img.loading = 'lazy';
-            img.decoding = 'async';
-            img.alt = name;
-            box.appendChild(img);
-          }
-          img.src = entry.photo;
-        }
-      });
+      if(window.ephemereStaffDirectory) window.ephemereStaffDirectory.syncRoster(roster);
     });
   }catch(e){ /* 若離線或連線失敗，維持網站原本內建的照片 */ }
 })();
