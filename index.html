@@ -2052,13 +2052,22 @@
   .home-shift-date{font-size:.76rem;color:var(--gold);}
   .home-shift-person{
     min-width:0;
-    padding:.28rem .68rem .28rem .3rem;
+    gap:.5rem;
+    padding:.5rem .72rem;
     border:1px solid var(--surface-line);
     border-radius:999px;
     background:rgba(39,31,47,.8);
   }
   .home-shift-person:hover{transform:translateY(-2px);border-color:var(--bloom-soft);background:rgba(222,157,186,.08);}
-  .home-shift-avatar{width:29px;height:29px;}
+  .home-shift-copy{text-align:left;}
+  .home-shift-person::after{
+    content:"↗";
+    color:var(--gold);
+    font-size:.68rem;
+    opacity:.5;
+    transition:opacity .2s ease,transform .2s ease;
+  }
+  .home-shift-person:hover::after{opacity:1;transform:translate(1px,-1px);}
 
   /* 內頁維持雜誌式留白與細線，照片完整顯示 */
   .about-grid>.photo-frame{display:flex;aspect-ratio:1400/787;}
@@ -2887,17 +2896,7 @@
         button.type = 'button';
         button.className = 'home-shift-person';
         button.setAttribute('aria-label','查看 '+member.name+' 的介紹');
-        var avatar = document.createElement('span');
-        avatar.className = 'home-shift-avatar';
-        if(member.photo){
-          var img = document.createElement('img');
-          img.src = member.photo;
-          img.alt = '';
-          img.loading = 'lazy';
-          avatar.appendChild(img);
-        }else{
-          avatar.textContent = String(member.name).slice(0,1);
-        }
+        button.title = '前往店員名冊查看 '+member.name;
         var copy = document.createElement('span');
         copy.className = 'home-shift-copy';
         var name = document.createElement('strong');
@@ -2906,7 +2905,6 @@
         role.textContent = member.role || '駐店成員';
         copy.appendChild(name);
         copy.appendChild(role);
-        button.appendChild(avatar);
         button.appendChild(copy);
         button.addEventListener('click',function(){
           if(!window.ephemereStaffDirectory || !window.ephemereStaffDirectory.openByName(member.name)) location.hash = '#staff';
