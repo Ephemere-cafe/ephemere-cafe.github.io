@@ -2074,6 +2074,23 @@
   .about-grid>.photo-frame img{width:100%;height:100%;min-height:0;object-fit:contain;}
   .reservation-hero{align-items:center;gap:clamp(2.5rem,6vw,5rem);}
   .reservation-experience{padding-block:1.2rem;}
+  .service-info-list{margin-top:.85rem;border-top:1px solid var(--surface-line);}
+  .service-info-row{
+    display:grid;
+    grid-template-columns:110px minmax(0,1fr);
+    gap:1.5rem;
+    padding:1rem 0;
+    border-bottom:1px solid var(--surface-line);
+  }
+  .service-info-row dt{
+    color:var(--text);
+    font-family:"Noto Serif TC",serif;
+    font-size:.9rem;
+    font-weight:500;
+    letter-spacing:.05em;
+  }
+  .service-info-row dd{margin:0;color:var(--text-mute);font-size:.84rem;line-height:1.85;}
+  .service-info-row b{color:var(--gold);font-weight:500;white-space:nowrap;}
   #studio .wrap>div:first-child,
   #staff .wrap>div:first-child{text-align:center;}
   #studio .wrap>div:first-child .section-title,
@@ -2087,6 +2104,7 @@
     .hero .en{font-size:clamp(1.05rem,5vw,1.4rem);}
     .hero p.tag{width:min(88vw,34em);font-size:.9rem;}
     .about-grid>.photo-frame{order:0;}
+    .service-info-row{grid-template-columns:1fr;gap:.3rem;}
   }
   @media(max-width:480px){
     header .brand{font-size:.95rem;letter-spacing:.1em;}
@@ -2249,9 +2267,21 @@
 
     <div class="service-summary reveal">
       <div>
-        <span class="summary-label">入座低消</span>
-        <h3>每位低消 <strong>10,000 Gil</strong></h3>
-        <p>入座並接受女僕款待的主人，每位低消為 10,000 Gil；單純參觀或使用攝影棚不受低消限制。餐點與特別服務皆透過線上系統送出，確認訂單後於遊戲內完成 Gil 交易。</p>
+        <span class="summary-label">來店與消費方式</span>
+        <dl class="service-info-list">
+          <div class="service-info-row">
+            <dt>入座低消</dt>
+            <dd>若選擇入座用餐，由女僕為您提供桌邊服務，每位主人低消為 <b>10,000 Gil</b>。</dd>
+          </div>
+          <div class="service-info-row">
+            <dt>自由參觀</dt>
+            <dd>前來參觀店內或使用攝影棚，不受低消限制。</dd>
+          </div>
+          <div class="service-info-row">
+            <dt>點餐付款</dt>
+            <dd>餐點與特別服務請透過線上點餐送出；待女僕確認訂單後，再於遊戲內完成 Gil 交易。</dd>
+          </div>
+        </dl>
       </div>
       <a class="guide-cta" href="https://ephemere-cafe.github.io/order/" target="_blank" rel="noopener">
         <span>開始線上點餐</span>
