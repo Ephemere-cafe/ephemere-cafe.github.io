@@ -2119,6 +2119,33 @@
     .home-shift-person{flex:none;}
     .scroll-cue{margin-top:2.2rem;}
   }
+
+  .site-music-player{
+    position:fixed;right:1.25rem;bottom:1.25rem;z-index:97;
+    display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:.75rem;
+    width:min(360px,calc(100vw - 2rem));padding:.72rem .85rem;
+    border:1px solid var(--gold-soft);border-radius:999px;
+    background:rgba(18,15,26,.9);box-shadow:0 18px 48px rgba(0,0,0,.32);backdrop-filter:blur(14px);
+    color:var(--text);transition:opacity .25s ease,transform .25s ease;
+  }
+  .site-music-player[hidden]{display:none!important;}
+  .site-music-toggle{
+    width:42px;height:42px;display:grid;place-items:center;flex:none;
+    border:1px solid var(--gold-soft);border-radius:50%;background:rgba(201,168,118,.12);
+    color:var(--gold);font:600 .9rem/1 inherit;cursor:pointer;
+  }
+  .site-music-toggle:hover{background:rgba(201,168,118,.2);border-color:var(--gold);}
+  .site-music-toggle:focus-visible,.site-music-volume:focus-visible{outline:2px solid var(--bloom);outline-offset:3px;}
+  .site-music-copy{min-width:0;text-align:left;}
+  .site-music-copy small{display:block;color:var(--gold);font-family:"Cormorant Garamond",serif;font-size:.62rem;letter-spacing:.17em;text-transform:uppercase;line-height:1.2;}
+  .site-music-copy strong{display:block;margin-top:.2rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:"Noto Serif TC",serif;font-size:.78rem;font-weight:500;}
+  .site-music-copy span{display:block;margin-top:.12rem;color:var(--text-faint);font-size:.62rem;line-height:1.2;}
+  .site-music-volume{width:76px;accent-color:var(--gold);cursor:pointer;}
+  @media(max-width:860px){
+    .site-music-player{left:.75rem;right:.75rem;bottom:calc(76px + env(safe-area-inset-bottom));width:auto;max-width:none;padding:.6rem .72rem;}
+    .site-music-toggle{width:38px;height:38px;}
+    .site-music-volume{width:64px;}
+  }
 </style>
 </head>
 <body>
@@ -2168,6 +2195,17 @@
   <a href="https://booking.ephemereffxiv.com/" target="_blank" rel="noopener">立即預約</a>
   <a href="https://ephemere-cafe.github.io/order/" target="_blank" rel="noopener">線上點餐</a>
 </div>
+
+<aside class="site-music-player" id="siteMusicPlayer" aria-label="官網背景音樂播放器" hidden>
+  <audio id="siteMusicAudio" preload="none" loop></audio>
+  <button class="site-music-toggle" id="siteMusicToggle" type="button" aria-label="播放背景音樂" aria-pressed="false"><span id="siteMusicIcon" aria-hidden="true">▶</span></button>
+  <div class="site-music-copy">
+    <small>Now Playing</small>
+    <strong id="siteMusicTitle">曇時店歌</strong>
+    <span id="siteMusicState" aria-live="polite">點擊播放</span>
+  </div>
+  <input class="site-music-volume" id="siteMusicVisitorVolume" type="range" min="0" max="100" value="30" aria-label="背景音樂音量">
+</aside>
 
 <main id="main-content" tabindex="-1">
 <section class="hero" id="top" data-page="top">
@@ -2866,6 +2904,96 @@
     var liveStaffSchedules = {};
     var liveLegacyStaffSchedules = {};
     var liveTodayStaff = {};
+    var siteMusicAudio = document.getElementById('siteMusicAudio');
+    var siteMusicPlayer = document.getElementById('siteMusicPlayer');
+    var siteMusicToggle = document.getElementById('siteMusicToggle');
+    var siteMusicIcon = document.getElementById('siteMusicIcon');
+    var siteMusicTitle = document.getElementById('siteMusicTitle');
+    var siteMusicState = document.getElementById('siteMusicState');
+    var siteMusicVolume = document.getElementById('siteMusicVisitorVolume');
+    var siteMusicSource = '';
+    var visitorMusicVolume = null;
+    try{
+      var savedMusicVolume = localStorage.getItem('lephemereSiteMusicVolume');
+      if(savedMusicVolume !== null) visitorMusicVolume = Math.min(1,Math.max(0,Number(savedMusicVolume)));
+    }catch(e){}
+
+    function updateSiteMusicPlayerState(message){
+      if(!siteMusicAudio || !siteMusicToggle) return;
+      var playing = !siteMusicAudio.paused && !siteMusicAudio.ended;
+      siteMusicIcon.textContent = playing ? 'Ⅱ' : '▶';
+      siteMusicToggle.setAttribute('aria-pressed',String(playing));
+      siteMusicToggle.setAttribute('aria-label',playing ? '暫停背景音樂' : '播放背景音樂');
+      siteMusicState.textContent = message || (playing ? '播放中' : '點擊播放');
+    }
+
+    function pauseSiteMusic(message){
+      if(siteMusicAudio) siteMusicAudio.pause();
+      try{ localStorage.setItem('lephemereSiteMusicWanted','off'); }catch(e){}
+      updateSiteMusicPlayerState(message || '已暫停');
+    }
+
+    function playSiteMusic(){
+      if(!siteMusicAudio || !siteMusicSource) return;
+      siteMusicAudio.play().then(function(){
+        try{ localStorage.setItem('lephemereSiteMusicWanted','on'); }catch(e){}
+        updateSiteMusicPlayerState('播放中');
+      }).catch(function(){
+        updateSiteMusicPlayerState('請點擊播放');
+      });
+    }
+
+    function applySiteMusicSettings(value){
+      value = value && typeof value === 'object' ? value : {};
+      var enabled = value.enabled === true;
+      var url = String(value.url || '').trim();
+      var validUrl = /^https:\/\//i.test(url);
+      if(!siteMusicPlayer || !siteMusicAudio) return;
+      if(!enabled || !validUrl){
+        siteMusicAudio.pause();
+        siteMusicPlayer.hidden = true;
+        siteMusicSource = '';
+        siteMusicAudio.removeAttribute('src');
+        siteMusicAudio.load();
+        return;
+      }
+      siteMusicPlayer.hidden = false;
+      siteMusicTitle.textContent = String(value.title || '曇時店歌').trim() || '曇時店歌';
+      var wasPlaying = !siteMusicAudio.paused && !!siteMusicSource;
+      if(siteMusicSource !== url){
+        siteMusicSource = url;
+        siteMusicAudio.src = url;
+        siteMusicAudio.load();
+      }
+      var defaultVolume = Math.min(1,Math.max(.05,Number(value.volume || .3)));
+      var volume = visitorMusicVolume === null ? defaultVolume : visitorMusicVolume;
+      siteMusicAudio.volume = volume;
+      siteMusicVolume.value = String(Math.round(volume*100));
+      var wantsMusic = false;
+      try{ wantsMusic = localStorage.getItem('lephemereSiteMusicWanted') === 'on'; }catch(e){}
+      if(wasPlaying || wantsMusic) playSiteMusic();
+      else updateSiteMusicPlayerState('點擊播放');
+    }
+
+    if(siteMusicToggle){
+      siteMusicToggle.addEventListener('click',function(){
+        if(siteMusicAudio.paused) playSiteMusic();
+        else pauseSiteMusic();
+      });
+    }
+    if(siteMusicVolume){
+      siteMusicVolume.addEventListener('input',function(){
+        visitorMusicVolume = Math.min(1,Math.max(0,Number(this.value || 0)/100));
+        siteMusicAudio.volume = visitorMusicVolume;
+        try{ localStorage.setItem('lephemereSiteMusicVolume',String(visitorMusicVolume)); }catch(e){}
+      });
+    }
+    if(siteMusicAudio){
+      siteMusicAudio.addEventListener('play',function(){ updateSiteMusicPlayerState('播放中'); });
+      siteMusicAudio.addEventListener('pause',function(){ updateSiteMusicPlayerState('已暫停'); });
+      siteMusicAudio.addEventListener('waiting',function(){ updateSiteMusicPlayerState('載入中…'); });
+      siteMusicAudio.addEventListener('error',function(){ updateSiteMusicPlayerState('音樂暫時無法播放'); });
+    }
 
     function localDateKey(){
       var d = new Date();
@@ -3075,6 +3203,10 @@
       liveTodayStaff = snap.val() || {};
       rebuildLiveStaffSchedules();
       renderHomeShift();
+    });
+
+    db.ref('lephemere/todayStaff/_site/backgroundMusic').on('value', function(snap){
+      applySiteMusicSettings(snap.val());
     });
   }catch(e){ /* 若離線或連線失敗，維持網站原本內建的照片 */ }
 })();
