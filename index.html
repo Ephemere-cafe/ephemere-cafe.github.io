@@ -3012,7 +3012,7 @@
       var embedded = liveTodayStaff && liveTodayStaff.schedules && typeof liveTodayStaff.schedules === 'object'
         ? liveTodayStaff.schedules
         : {};
-      liveStaffSchedules = Object.assign({}, liveLegacyStaffSchedules, embedded);
+      liveStaffSchedules = Object.assign({}, embedded, liveLegacyStaffSchedules);
       if(liveTodayStaff.date && Array.isArray(liveTodayStaff.staffIds)){
         liveStaffSchedules[liveTodayStaff.date] = liveStaffSchedules[liveTodayStaff.date] || {
           date:liveTodayStaff.date,
@@ -3199,8 +3199,14 @@
       renderHomeShift();
     });
 
-    db.ref('lephemere/todayStaff').on('value', function(snap){
-      liveTodayStaff = snap.val() || {};
+    db.ref('lephemere/todayStaff/date').on('value', function(snap){
+      liveTodayStaff.date = snap.val() || '';
+      rebuildLiveStaffSchedules();
+      renderHomeShift();
+    });
+
+    db.ref('lephemere/todayStaff/staffIds').on('value', function(snap){
+      liveTodayStaff.staffIds = Array.isArray(snap.val()) ? snap.val() : [];
       rebuildLiveStaffSchedules();
       renderHomeShift();
     });
