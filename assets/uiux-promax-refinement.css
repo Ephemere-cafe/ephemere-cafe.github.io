@@ -1,0 +1,444 @@
+/*
+ * 曇時 Cafe l'Éphémère — UI/UX Pro Max refinement
+ * Visual layer only. Existing DOM hooks, routes, Firebase bindings and scripts remain untouched.
+ * Direction: E-Ink Paper × Editorial Grid × Nature Distilled × Vintage Analog.
+ */
+
+:root{
+  --bg:#f0e8dc;
+  --bg-alt:#e5d8c9;
+  --surface:#fbf7f0;
+  --surface-strong:#fffdf8;
+  --surface-line:rgba(58,43,35,.18);
+  --text:#43342d;
+  --text-mute:#706159;
+  --text-faint:#95877e;
+  --bloom:#aa6878;
+  --bloom-deep:#84505e;
+  --bloom-soft:rgba(170,104,120,.16);
+  --gold:#a67d49;
+  --gold-soft:rgba(166,125,73,.28);
+  --sage:#71806d;
+  --sage-soft:#dce2d7;
+  --ink:#2f2521;
+  --night:#201822;
+  --night-soft:#2c2230;
+  --paper-shadow:0 24px 65px rgba(66,47,37,.14);
+  --soft-shadow:0 12px 34px rgba(66,47,37,.09);
+}
+
+html{scroll-padding-top:92px;}
+body{
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.24) 1px,transparent 1px) 0 0/24px 24px,
+    linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px) 0 0/24px 24px,
+    var(--bg);
+  color:var(--text);
+  font-weight:400;
+  letter-spacing:.012em;
+}
+body::before{
+  opacity:.22;
+  background-image:
+    radial-gradient(circle at 18% 10%,rgba(255,255,255,.75),transparent 32rem),
+    radial-gradient(circle at 88% 82%,rgba(170,104,120,.1),transparent 30rem);
+}
+
+.wrap{max-width:1240px;padding-inline:clamp(1.25rem,5.4vw,5.5rem);}
+section{padding:clamp(5.75rem,11vh,9rem) 0;}
+.section-title{
+  max-width:15em;
+  margin-bottom:1.55rem;
+  color:var(--ink);
+  font-size:clamp(2.1rem,4.7vw,3.8rem);
+  font-weight:500;
+  letter-spacing:.035em;
+  line-height:1.28;
+  text-wrap:balance;
+}
+.eyebrow{
+  margin-bottom:.95rem;
+  color:var(--bloom-deep);
+  font-size:.8rem;
+  font-style:normal;
+  font-weight:500;
+  letter-spacing:.3em;
+}
+.eyebrow::before{content:"JOURNAL  ·  ";color:var(--gold);}
+.ornament{margin-bottom:1.8rem;}
+.photo-frame{border:0;background:var(--surface-strong);box-shadow:var(--paper-shadow);}
+
+/* Editorial masthead */
+header,
+header.scrolled{
+  min-height:86px;
+  padding:.7rem clamp(1.1rem,3.8vw,4rem);
+  color:var(--ink);
+  background:rgba(251,247,240,.94);
+  border-bottom:1px solid rgba(58,43,35,.15);
+  box-shadow:none;
+  backdrop-filter:blur(18px) saturate(1.05);
+}
+header::after{
+  content:"";
+  position:absolute;
+  left:clamp(1.1rem,3.8vw,4rem);
+  right:clamp(1.1rem,3.8vw,4rem);
+  bottom:5px;
+  height:1px;
+  background:rgba(58,43,35,.08);
+  pointer-events:none;
+}
+.brand-logo{width:44px;height:44px;border:1px solid var(--gold-soft);box-shadow:none;}
+.brand-copy strong{color:var(--ink);font-size:1.05rem;font-weight:600;letter-spacing:.22em;}
+.brand-copy small{margin-top:.28rem;color:var(--text-mute);font-size:.68rem;letter-spacing:.14em;}
+nav a{color:var(--text-mute);font-size:.76rem;font-weight:500;letter-spacing:.14em;}
+nav a::after{height:1px;background:var(--bloom-deep);}
+nav a:hover,nav a[aria-current="page"]{color:var(--ink);}
+.header-actions{gap:.45rem;}
+.header-actions .booking-btn,
+.header-actions .threads-btn{
+  min-height:40px;
+  border-radius:0;
+  box-shadow:none;
+  font-size:.74rem;
+  letter-spacing:.1em;
+}
+.header-actions .booking-btn:first-of-type{background:var(--night);border-color:var(--night);}
+.header-actions .booking-btn:nth-of-type(2){background:var(--sage);border-color:var(--sage);}
+.header-actions .booking-btn:hover{background:var(--bloom-deep);border-color:var(--bloom-deep);transform:none;}
+
+/* Hero: asymmetric magazine cover */
+.hero{
+  width:min(1580px,100%);
+  min-height:100svh;
+  padding:clamp(7.1rem,13vh,9.2rem) clamp(.8rem,3.4vw,3.5rem) clamp(4rem,7vh,5.5rem);
+  text-align:left;
+}
+.hero::before{
+  inset:7.3rem 1.3vw 2rem;
+  border:1px solid rgba(58,43,35,.12);
+  border-radius:0;
+  background:
+    linear-gradient(135deg,rgba(255,253,248,.72),rgba(229,216,201,.56)),
+    var(--bg-alt);
+  box-shadow:var(--paper-shadow);
+}
+.hero::after{
+  width:260px;
+  height:260px;
+  left:auto;
+  right:-112px;
+  bottom:10px;
+  border-color:var(--bloom);
+  opacity:.14;
+}
+.hero-journal{
+  grid-template-columns:minmax(300px,.82fr) minmax(0,1.75fr) minmax(190px,.5fr);
+  grid-template-rows:minmax(560px,67vh) auto;
+  max-width:1420px;
+}
+.hero-photo{
+  height:100%;
+  border-radius:0;
+  background:#cfc0b3;
+  box-shadow:0 26px 65px rgba(48,32,26,.22);
+}
+.hero-photo::before{
+  content:"VOL. 01  /  EPHEMERAL EVENING";
+  position:absolute;
+  z-index:2;
+  top:1.15rem;
+  right:1.25rem;
+  padding:.35rem .55rem;
+  color:#fffaf1;
+  background:rgba(32,24,34,.68);
+  font-family:"Cormorant Garamond",serif;
+  font-size:.67rem;
+  letter-spacing:.2em;
+}
+.hero-photo::after{background:linear-gradient(90deg,rgba(30,22,19,.36),rgba(30,22,19,.06) 48%,rgba(30,22,19,.17));}
+.hero-photo img{filter:saturate(.82) contrast(1.02);}
+.hero-letter{
+  width:min(520px,118%);
+  margin-left:-1.55rem;
+  padding:clamp(2.35rem,4.8vw,4.8rem) clamp(2rem,3.8vw,3.9rem);
+  border:1px solid rgba(166,125,73,.46);
+  background:rgba(255,253,248,.965);
+  box-shadow:0 22px 54px rgba(44,30,24,.24);
+}
+.hero-letter::before{inset:12px;border-color:rgba(166,125,73,.3);}
+.hero-letter::after{inset:18px;border-color:rgba(170,104,120,.13);}
+.hero-kicker{color:var(--gold);font-size:.75rem;letter-spacing:.3em;}
+.hero h1{color:var(--ink);font-size:clamp(4.6rem,8.3vw,7.4rem);font-weight:500;letter-spacing:.14em;}
+.hero .en{margin:.8rem 0 1.25rem;color:var(--text);font-size:clamp(1.3rem,2.3vw,2rem);letter-spacing:.055em;}
+.hero .tag{max-width:21em;color:var(--text-mute);font-size:.9rem;line-height:2.05;}
+.hero-actions{gap:.5rem;margin-top:1.65rem;}
+.hero-actions a{
+  min-width:124px;
+  padding:.7rem 1rem;
+  border-radius:0;
+  font-size:.76rem;
+  letter-spacing:.08em;
+}
+.hero-actions a:first-child{background:var(--bloom-deep);border-color:var(--bloom-deep);}
+.hero-actions a:last-child{background:var(--sage);border-color:var(--sage);}
+.hero-actions a:hover{filter:none;transform:translateY(-2px);}
+.opening-status{
+  width:calc(100% + 1.7rem);
+  margin:0 -1.7rem -1.7rem 0;
+  padding:2.1rem 1.5rem;
+  color:#f5eee6;
+  background:rgba(32,24,34,.96);
+  border:1px solid rgba(201,168,118,.38);
+  border-radius:0;
+  box-shadow:0 18px 42px rgba(35,23,30,.28);
+}
+.opening-status::before{color:#dca3b7;}
+.opening-status strong{color:#fff8ed;}
+.opening-status small{color:#b8aebb;}
+.opening-status a{color:#d8bc91;border-bottom-color:#d8bc91;}
+.opening-dot{background:#8ca083;box-shadow:0 0 0 5px rgba(140,160,131,.16);}
+.home-shift{
+  width:calc(100% - 6rem);
+  margin:1.45rem auto 0;
+  padding:1.15rem 1.5rem;
+  border:1px solid rgba(58,43,35,.16);
+  border-radius:0;
+  background:rgba(255,253,248,.78);
+  box-shadow:none;
+}
+.home-shift-label{font-size:.78rem;letter-spacing:.18em;}
+.home-shift-person{border-radius:2px;background:transparent;box-shadow:none;}
+.home-shift-person:hover{background:var(--surface-strong);}
+
+/* Page rhythm and section identities */
+#about,#menu,#rules,#staff{background:rgba(255,253,248,.44);}
+#reservation,#service,#studio,#location{background:rgba(229,216,201,.32);}
+body.tabbed-site #location[data-page="about"]{border-top:1px solid var(--surface-line);}
+#about .eyebrow::before{content:"01  /  ";}
+#reservation .eyebrow::before{content:"02  /  ";}
+#menu .eyebrow::before{content:"03  /  ";}
+#service .eyebrow::before{content:"04  /  ";}
+#rules .eyebrow::before{content:"05  /  ";}
+#studio .eyebrow::before{content:"06  /  ";}
+#staff .eyebrow::before{content:"07  /  ";}
+
+/* About */
+#about .wrap,#location .wrap{max-width:1320px;}
+.about-grid{grid-template-columns:minmax(300px,.78fr) minmax(0,1.42fr);gap:0;align-items:center;}
+.about-grid>div:first-child{
+  margin-right:-3.5rem;
+  padding:clamp(2.4rem,5vw,5rem);
+  border:1px solid rgba(166,125,73,.34);
+  background:rgba(255,253,248,.97);
+  box-shadow:var(--paper-shadow);
+}
+.about-grid>div:first-child::after{content:"CAFE L'ÉPHÉMÈRE  ·  EST. IN EORZEA";letter-spacing:.22em;}
+.about-grid p:not(.eyebrow){font-size:.96rem;line-height:2.15;}
+.about-grid .photo-frame{aspect-ratio:16/10;transform:none;}
+.about-grid .photo-frame::after{
+  content:"短暫相遇，也值得被好好記住。";
+  position:absolute;
+  right:1rem;
+  bottom:1rem;
+  padding:.5rem .7rem;
+  color:#fffaf2;
+  background:rgba(32,24,34,.76);
+  font-family:"Noto Serif TC",serif;
+  font-size:.72rem;
+  letter-spacing:.1em;
+}
+
+/* Reservation */
+.reservation-hero{grid-template-columns:1.28fr .72fr;gap:0;max-width:1120px;margin-inline:auto;}
+.reservation-intro,.reservation-summary{border-radius:0;box-shadow:none;}
+.reservation-intro{padding:clamp(2.5rem,5.8vw,5.4rem);border-color:rgba(58,43,35,.16);background:var(--surface-strong);}
+.reservation-summary{align-self:center;margin-left:-1px;padding:clamp(2.2rem,4vw,4rem);background:var(--night);border-color:var(--night);color:#efe8df;box-shadow:var(--paper-shadow);}
+.reservation-summary-label,.reservation-summary .summary-label{color:#d9bd91;}
+.reservation-experience{border-bottom-color:rgba(239,232,223,.14);}
+.reservation-experience strong{color:#fff8ef;}
+.reservation-experience span,.reservation-availability{color:#b9afb9;}
+.reservation-availability{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);}
+.reservation-main-cta,.guide-cta,.menu-head .booking-btn{border-radius:0!important;background:var(--bloom-deep)!important;border-color:var(--bloom-deep)!important;}
+
+/* Menu: editorial columns rather than generic cards */
+.menu-head{
+  max-width:1000px;
+  margin:0 auto 3.6rem;
+  padding:0 0 2.2rem;
+  text-align:left;
+  border:0;
+  border-bottom:1px solid rgba(58,43,35,.24);
+  border-radius:0;
+  background:transparent;
+}
+.menu-head .section-title,.menu-head p{max-width:19em;margin-left:0;margin-right:0;}
+.menu-head .booking-btn{margin:1.5rem 0 0!important;}
+.menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:3.2rem 5rem;}
+.menu-cat{
+  position:relative;
+  padding:1.65rem 0 0;
+  border:0;
+  border-top:1px solid var(--ink);
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+.menu-cat::before{content:"MENU";position:absolute;right:0;top:.35rem;color:var(--text-faint);font-family:"Cormorant Garamond",serif;font-size:.62rem;letter-spacing:.22em;}
+.menu-cat h3{padding:0 4.5rem .9rem 0;border-bottom:1px solid var(--gold-soft);font-size:1.2rem;letter-spacing:.14em;}
+.menu-item{padding:.78rem 0;border-bottom-color:rgba(58,43,35,.1);}
+.menu-item .name{font-size:.86rem;white-space:normal;}
+.menu-item .price{font-size:.78rem;font-variant-numeric:tabular-nums;}
+.menu-item .dots{opacity:.48;}
+.set-block{border-radius:0;background:var(--night);border-color:var(--night);color:#efe8df;}
+.set-block .set-title,.set-block .set-price{color:#fff8ef;}
+.set-block .set-desc{color:#b9afb9;}
+
+/* Services and rules */
+.service-summary,.guide-block,.notice-panel{border-radius:0;box-shadow:none;}
+.service-summary{border-top:2px solid var(--ink);}
+.experience-grid{gap:0;border-top:1px solid var(--surface-line);border-left:1px solid var(--surface-line);}
+.experience-card{
+  min-height:230px;
+  padding:2.2rem;
+  border:0;
+  border-right:1px solid var(--surface-line);
+  border-bottom:1px solid var(--surface-line);
+  border-radius:0;
+  background:var(--surface-strong);
+}
+.experience-card:nth-child(2){background:#eee4da;}
+.experience-card:nth-child(3){background:var(--sage-soft);}
+.experience-card h4{font-size:1.2rem;}
+.notice-panel{border-top:2px solid var(--ink);}
+.notice-card{min-height:180px;padding:2rem;}
+
+/* Polaroid and studio */
+#polaroids{background:linear-gradient(180deg,rgba(170,104,120,.03),rgba(170,104,120,.11),rgba(170,104,120,.03));}
+.polaroid-print{border-radius:0;box-shadow:0 22px 50px rgba(52,36,28,.2);}
+.polaroid-limit{border-radius:0;}
+.studio-grid{gap:clamp(1rem,2.2vw,2rem);}
+.studio-card{
+  padding:10px 10px 1.9rem;
+  border:0;
+  border-radius:0;
+  background:var(--surface-strong);
+  box-shadow:0 16px 36px rgba(52,36,28,.12);
+}
+.studio-card:nth-child(1){transform:rotate(-.65deg);}
+.studio-card:nth-child(2){transform:translateY(1.6rem) rotate(.55deg);}
+.studio-card:nth-child(3){transform:rotate(-.35deg);}
+.studio-card:hover{transform:translateY(-5px) rotate(0);}
+.studio-card:nth-child(2):hover{transform:translateY(calc(1.6rem - 5px)) rotate(0);}
+
+/* Staff: portrait editorial directory */
+.staff-directory{gap:3rem 1.25rem;}
+.staff-enhanced .staff-card,
+.staff-card{
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  overflow:visible;
+}
+.staff-card:hover{border:0;box-shadow:none;transform:translateY(-4px);}
+.staff-enhanced .staff-photo{margin-bottom:1rem;border-radius:0;background:#ddd0c3;box-shadow:0 12px 28px rgba(52,36,28,.12);}
+.staff-enhanced .staff-photo::after{border:1px solid rgba(255,253,248,.4);border-radius:0;}
+.staff-enhanced .staff-card .role{margin-top:0;color:var(--gold);font-size:.64rem;letter-spacing:.18em;}
+.staff-enhanced .staff-card h4{margin-top:.2rem;color:var(--ink);font-size:1.04rem;}
+.staff-enhanced .staff-card .title-label{padding-top:.45rem;border-top:1px solid rgba(58,43,35,.14);font-size:.72rem;}
+.staff-profile{border-radius:0;background:var(--surface-strong);box-shadow:var(--paper-shadow);}
+.staff-profile-visual{border-radius:0;box-shadow:none;}
+.staff-profile-back{border-radius:0;}
+
+/* Location and footer */
+.location-grid{grid-template-columns:.9fr 1.1fr;gap:0;max-width:1120px;margin-inline:auto;}
+.location-grid>div{border-radius:0;box-shadow:none;}
+.location-grid>div:first-child{background:var(--surface-strong);}
+.location-grid>div:last-child{margin-left:-1px;background:var(--sage-soft);}
+footer{color:#c9bec9;background:var(--night);border-top:0;}
+footer .brand{color:#fff8ef;}
+footer .social{color:#c9bec9;}
+footer .social:hover{color:#e1b0c0;}
+footer .copy{color:#8f8491;}
+.site-music-player{border-radius:0;}
+
+/* Responsive */
+@media(max-width:1100px){
+  .hero-journal{grid-template-columns:minmax(250px,.82fr) 1.6fr;grid-template-rows:minmax(520px,62vh) auto auto;}
+  .hero-letter{width:112%;}
+  .opening-status{width:min(390px,92%);margin:-2.8rem 1rem 0 0;}
+  .header-actions .threads-btn{display:none;}
+  .menu-grid{gap:2.8rem 3rem;}
+}
+
+@media(max-width:860px){
+  html{scroll-padding-top:72px;}
+  section{padding:5.2rem 0;}
+  header,header.scrolled{min-height:72px;padding:.55rem 1rem;}
+  header::after{left:1rem;right:1rem;bottom:3px;}
+  .nav-toggle{border-radius:0;background:var(--surface-strong);}
+  .nav-toggle{position:relative;z-index:2;border-color:rgba(47,37,33,.34);}
+  .nav-toggle span{background:var(--ink);}
+  nav{top:72px;background:rgba(251,247,240,.99);}
+  .mobile-nav-links .primary:first-child{background:var(--night);}
+  .mobile-nav-links .primary:nth-child(2){background:var(--sage);}
+  .mobile-quick-actions{background:rgba(251,247,240,.97);}
+  .mobile-quick-actions a{border-radius:0;background:var(--bloom-deep);}
+
+  .hero{padding:5.9rem .7rem 3rem;}
+  .hero::before{inset:5.25rem .35rem 1rem;border-radius:0;}
+  .hero-journal{display:flex;}
+  .hero-photo{width:100%;aspect-ratio:4/3;}
+  .hero-photo::before{top:.75rem;right:.75rem;font-size:.58rem;}
+  .hero-letter{width:calc(100% - 1.25rem);margin:-3rem auto 0;padding:2.45rem 1.35rem 2.15rem;}
+  .hero h1{font-size:clamp(3.7rem,19vw,5.3rem);}
+  .opening-status{width:calc(100% - 2rem);margin:.75rem auto 0;}
+  .home-shift{width:calc(100% - 1.25rem);margin:.75rem auto 0;}
+
+  .about-grid,.reservation-hero,.location-grid{grid-template-columns:1fr;}
+  .about-grid>div:first-child{margin:0;padding:2.2rem 1.5rem;}
+  .about-grid .photo-frame{order:-1;}
+  .about-grid .photo-frame::after{right:.65rem;bottom:.65rem;}
+  .reservation-summary,.location-grid>div:last-child{margin:0;}
+  .menu-grid{grid-template-columns:1fr;gap:2.6rem;}
+  .experience-grid{grid-template-columns:1fr;}
+  .experience-card{min-height:0;}
+  .studio-card:nth-child(1),.studio-card:nth-child(2),.studio-card:nth-child(3),
+  .studio-card:nth-child(2):hover{transform:none;}
+}
+
+@media(max-width:520px){
+  body{background:var(--bg);}
+  .wrap{padding-inline:1rem;}
+  .section-title{font-size:clamp(1.95rem,10vw,2.65rem);}
+  .eyebrow{font-size:.72rem;letter-spacing:.24em;}
+  .brand-copy small{max-width:138px;}
+  .hero-photo{aspect-ratio:4/3;}
+  .hero-photo img{object-position:center;}
+  .hero-letter{margin-top:-2.35rem;}
+  .hero h1{font-size:clamp(3.45rem,20vw,4.8rem);}
+  .hero .en{font-size:1.2rem;}
+  .hero-actions a{padding:.68rem .45rem;}
+  .opening-status{padding:1.55rem 1.15rem;}
+  .menu-cat::before{display:none;}
+  .menu-cat h3{padding-right:0;}
+  .staff-directory{gap:2.2rem .7rem;}
+  .staff-enhanced .staff-card h4{font-size:.9rem;}
+  .staff-enhanced .staff-card .title-label{font-size:.66rem;}
+  .site-music-player{
+    left:auto;
+    right:.75rem;
+    width:min(238px,calc(100vw - 1.5rem));
+    grid-template-columns:auto minmax(0,1fr);
+    padding:.5rem .6rem;
+  }
+  .site-music-copy small{display:none;}
+  .site-music-volume{display:none;}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-actions a:hover,.staff-card:hover,.studio-card:hover{transform:none;}
+}

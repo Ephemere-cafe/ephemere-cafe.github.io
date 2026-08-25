@@ -35,7 +35,7 @@
   }
 
   *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth;overflow-x:hidden;max-width:100%;}
 
   body{
     background:var(--bg);
@@ -2147,12 +2147,18 @@
     .site-music-volume{width:64px;}
   }
 </style>
+<link rel="stylesheet" href="assets/cafe-journal.css?v=20260824">
+<link rel="stylesheet" href="assets/uiux-promax-refinement.css?v=20260824">
+<link rel="stylesheet" href="assets/site-content.css?v=20260824">
 </head>
 <body>
 <a class="skip-link" href="#main-content">跳至主要內容</a>
 
 <header id="site-header">
-  <a class="brand" href="#top" aria-label="回到首頁"><img src="assets/logo.webp" alt="曇時 Cafe l'Éphémère" class="brand-logo">曇時 Cafe l'Éphémère</a>
+  <a class="brand" href="#top" aria-label="回到首頁">
+    <img src="assets/logo.webp" alt="" class="brand-logo">
+    <span class="brand-copy"><strong>曇時</strong><small>Cafe l'Éphémère</small></span>
+  </a>
   <nav id="nav" aria-label="主要導覽">
     <ul>
       <li><a href="#about">關於</a></li>
@@ -2220,22 +2226,37 @@
     <span class="petal-fall" style="left:82%; animation-duration:17s; animation-delay:5.4s;"></span>
     <span class="petal-fall" style="left:92%; animation-duration:13s; animation-delay:0.6s;"></span>
   </div>
-  <h1>曇時</h1>
-  <p class="en">Cafe l'Éphémère</p>
-  <p class="tag">時光如曇花般轉瞬即逝，但在此刻，我們為你定格喧囂之外的溫暖。<br>歡迎來到曇時 Cafe l'Éphémère，<br>願這短暫的停留，能成為你心中不褪色的風景。</p>
-  <div class="opening-status" aria-label="營業與預約資訊">
-    <span class="opening-dot" aria-hidden="true"></span>
-    <div><strong>不定期營業・一般來店照常接待</strong><small>專屬預約時段每次營業僅接待一組；最新開放日期請以預約頁面為準。</small></div>
-    <a href="https://booking.ephemereffxiv.com/" target="_blank" rel="noopener">查看預約時段 ↗</a>
-  </div>
-  <aside class="home-shift" id="homeShift" aria-live="polite" aria-label="本次出勤名單">
-    <div class="home-shift-head">
-      <span class="home-shift-label" id="homeShiftLabel">本次出勤</span>
-      <span class="home-shift-date" id="homeShiftDate">名單讀取中</span>
+  <div class="hero-journal">
+    <figure class="hero-photo">
+      <img src="about-staff-20260817.webp" alt="曇時 Cafe l'Éphémère 駐店成員合照" width="1920" height="1080" fetchpriority="high" decoding="async">
+    </figure>
+
+    <div class="hero-letter">
+      <p class="hero-kicker">A quiet moment, kept for you</p>
+      <h1>曇時</h1>
+      <p class="en">Cafe l'Éphémère</p>
+      <div class="hero-rule" aria-hidden="true"><span>✦</span></div>
+      <p class="tag">時光如曇花般轉瞬即逝。<br>在這段短暫的停留裡，<br>願我們為你多留一點溫度。</p>
+      <div class="hero-actions" aria-label="快速操作">
+        <a href="https://booking.ephemereffxiv.com/" target="_blank" rel="noopener">立即預約</a>
+        <a href="https://order.ephemereffxiv.com/" target="_blank" rel="noopener">線上點餐</a>
+      </div>
     </div>
-    <div class="home-shift-list" id="homeShiftList"><span class="home-shift-empty">正在準備本次出勤名單…</span></div>
-  </aside>
-  <div class="scroll-cue"><span class="cue-desktop">從 上 方 選 單 開 始</span><span class="cue-mobile">點 選 右 上 選 單</span><span class="stick"></span></div>
+
+    <div class="opening-status" aria-label="營業與預約資訊">
+      <span class="opening-dot" aria-hidden="true"></span>
+      <div><strong>不定期營業<br>一般來店照常接待</strong><small>專屬預約時段每次營業僅接待一組；最新開放日期請以預約頁面為準。</small></div>
+      <a href="https://booking.ephemereffxiv.com/" target="_blank" rel="noopener">查看預約時段 ↗</a>
+    </div>
+
+    <aside class="home-shift" id="homeShift" aria-live="polite" aria-label="本次出勤名單">
+      <div class="home-shift-head">
+        <span class="home-shift-label" id="homeShiftLabel">本次出勤</span>
+        <span class="home-shift-date" id="homeShiftDate">名單讀取中</span>
+      </div>
+      <div class="home-shift-list" id="homeShiftList"><span class="home-shift-empty">正在準備本次出勤名單…</span></div>
+    </aside>
+  </div>
 </section>
 
 <section id="about" data-page="about">
@@ -2561,7 +2582,7 @@
 </main>
 
 <footer>
-  <div class="brand"><img src="assets/logo.webp" alt="曇時 Cafe l'Éphémère" class="brand-logo">曇時 Cafe l'Éphémère</div>
+  <div class="brand"><img src="assets/logo.webp" alt="" class="brand-logo"><span class="brand-copy"><strong>曇時</strong><small>Cafe l'Éphémère</small></span></div>
   <a class="social" href="https://www.threads.com/@lephemere.ff14" target="_blank" rel="noopener">@ lephemere.ff14</a>
   <span style="color:var(--text-faint); margin:0 0.6rem;">·</span>
   <a class="social" href="https://discord.gg/hE7QZX9FWW" target="_blank" rel="noopener">Discord 社群</a>
@@ -3203,6 +3224,7 @@
   }catch(e){ /* 若離線或連線失敗，維持網站原本內建的照片 */ }
 })();
 </script>
+<script src="assets/site-content.js?v=20260824"></script>
 
 </body>
 </html>
