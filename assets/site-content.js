@@ -8,12 +8,17 @@
   var fallbackHero = heroImage ? heroImage.getAttribute('src') : '';
   var fallbackPolaroids = gallery ? Array.prototype.map.call(gallery.children, function(node){ return node.cloneNode(true); }) : [];
   var heroSettings = null;
+  var contentReady = { hero: !heroImage, polaroids: !gallery };
 
   function safeUrl(value){
     try { var url = new URL(String(value || ''), document.baseURI); return url.protocol === 'https:' ? url.href : ''; }
     catch(_error){ return ''; }
   }
-  function clamp(value){ return Math.min(100, Math.max(0, Number(value) || 0)); }
+  function clamp(value, min, max){ return Math.min(max, Math.max(min, Number(value) || 0)); }
+  function markContentReady(key){
+    contentReady[key] = true;
+    if(contentReady.hero && contentReady.polaroids) document.documentElement.classList.remove('site-content-loading');
+  }
   function useMobileHero(){ return window.matchMedia('(max-width: 860px)').matches; }
   function applyHero(data){
     if(!heroImage) return;
@@ -24,8 +29,14 @@
     var src = mobile ? (mobileUrl || desktopUrl || fallbackHero) : (desktopUrl || mobileUrl || fallbackHero);
     var x = mobile ? heroSettings && heroSettings.mobileFocalX : heroSettings && heroSettings.desktopFocalX;
     var y = mobile ? heroSettings && heroSettings.mobileFocalY : heroSettings && heroSettings.desktopFocalY;
+    var zoom = mobile ? heroSettings && heroSettings.mobileZoom : heroSettings && heroSettings.desktopZoom;
+    var reveal = function(){ markContentReady('hero'); };
+    heroImage.addEventListener('load', reveal, { once: true });
+    heroImage.addEventListener('error', reveal, { once: true });
     heroImage.src = src;
-    heroImage.style.objectPosition = clamp(x == null ? 50 : x) + '% ' + clamp(y == null ? 50 : y) + '%';
+    heroImage.style.objectPosition = clamp(x == null ? 50 : x, 0, 100) + '% ' + clamp(y == null ? 50 : y, 0, 100) + '%';
+    heroImage.style.transform = 'scale(' + (clamp(zoom == null ? 100 : zoom, 100, 180) / 100) + ')';
+    if(heroImage.complete) reveal();
     if(heroSettings) heroImage.dataset.managedHero = 'true';
     else delete heroImage.dataset.managedHero;
   }
@@ -33,6 +44,7 @@
     if(!gallery) return;
     gallery.classList.remove('is-managed');
     gallery.replaceChildren.apply(gallery, fallbackPolaroids.map(function(node){ return node.cloneNode(true); }));
+    markContentReady('polaroids');
   }
   function renderPolaroids(value){
     if(!gallery) return;
@@ -54,9 +66,14 @@
       image.decoding = 'async';
       image.src = url;
       image.alt = item.alt || '曇時 Cafe l’Éphémère 拍立得成品範例';
-      var title = document.createElement('small');
-      title.textContent = item.title || ('Memory Sample ' + String(index + 1).padStart(2,'0'));
-      link.append(image, title);
+      var meta = document.createElement('span');
+      meta.className = 'polaroid-meta';
+      var label = document.createElement('small');
+      label.textContent = 'PHOTO BY · 作品店員';
+      var title = document.createElement('strong');
+      title.textContent = item.title || ('拍立得作品 ' + String(index + 1).padStart(2,'0'));
+      meta.append(label, title);
+      link.append(image, meta);
       if(item.caption){
         var caption = document.createElement('span');
         caption.className = 'polaroid-caption';
@@ -67,10 +84,11 @@
     });
     gallery.classList.add('is-managed');
     gallery.replaceChildren(fragment);
+    markContentReady('polaroids');
   }
 
-  db.ref('lephemere/siteContent/homeHero').on('value', function(snapshot){ applyHero(snapshot.val()); });
-  db.ref('lephemere/siteContent/polaroids').on('value', function(snapshot){ renderPolaroids(snapshot.val()); });
+  db.ref('lephemere/siteContent/homeHero').on('value', function(snapshot){ applyHero(snapshot.val()); }, function(){ applyHero(null); });
+  db.ref('lephemere/siteContent/polaroids').on('value', function(snapshot){ renderPolaroids(snapshot.val()); }, function(){ restoreFallbackPolaroids(); });
   var heroMedia = window.matchMedia('(max-width: 860px)');
   var onHeroBreakpoint = function(){ applyHero(heroSettings); };
   if(heroMedia.addEventListener) heroMedia.addEventListener('change', onHeroBreakpoint);
