@@ -45,9 +45,124 @@
   }
   function restoreFallbackPolaroids(){
     if(!gallery) return;
-    gallery.classList.remove('is-managed');
-    gallery.replaceChildren.apply(gallery, fallbackPolaroids.map(function(node){ return node.cloneNode(true); }));
+    var records=fallbackPolaroids.map(function(node,index){
+      var image=node.querySelector('img');
+      var label=node.querySelector('small');
+      return {groupKey:'fallback',staffName:'作品精選',node:node,title:label?label.textContent:('拍立得作品 '+(index+1)),imageUrl:image?image.getAttribute('src'):''};
+    });
+    renderCarousel(records,false);
     markContentReady('polaroids');
+  }
+  function createManagedCard(item,index){
+    var url = safeUrl(item.imageUrl);
+    var link = document.createElement('a');
+    link.className = 'polaroid-print';
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.setAttribute('aria-label', '查看' + (item.title || ('拍立得成品範例 ' + (index + 1))) + '大圖');
+    var image = document.createElement('img');
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    image.src = url;
+    image.alt = item.alt || '曇時 Cafe l’Éphémère 拍立得成品範例';
+    var meta = document.createElement('span');
+    meta.className = 'polaroid-meta';
+    var label = document.createElement('small');
+    label.textContent = 'PHOTO BY · ' + (item.staffName || '其他作品');
+    var title = document.createElement('strong');
+    title.textContent = item.title || ('拍立得作品 ' + String(index + 1).padStart(2,'0'));
+    meta.append(label, title);
+    link.append(image, meta);
+    if(item.caption){
+      var caption = document.createElement('span');
+      caption.className = 'polaroid-caption';
+      caption.textContent = item.caption;
+      link.appendChild(caption);
+    }
+    return link;
+  }
+  function renderCarousel(records,managed){
+    if(!gallery) return;
+    var groups=[];
+    records.forEach(function(item){
+      var key=String(item.groupKey||item.staffId||'other');
+      var group=groups.find(function(entry){return entry.key===key;});
+      if(!group){group={key:key,name:item.staffName||'其他作品',items:[]};groups.push(group);}
+      group.items.push(item);
+    });
+    if(!groups.length) return;
+    var selectedGroup=0,selectedSlide=0,touchStartX=0;
+    var tabs=document.createElement('div');
+    tabs.className='polaroid-staff-tabs';
+    tabs.setAttribute('role','tablist');
+    tabs.setAttribute('aria-label','依女僕切換拍立得作品');
+    var stage=document.createElement('div');
+    stage.className='polaroid-carousel-stage';
+    stage.setAttribute('aria-live','polite');
+    var footer=document.createElement('div');
+    footer.className='polaroid-carousel-footer';
+    var dots=document.createElement('div');
+    dots.className='polaroid-dots';
+    var counter=document.createElement('span');
+    counter.className='polaroid-counter';
+    footer.append(dots,counter);
+    function button(label,className){
+      var node=document.createElement('button');
+      node.type='button';node.className='polaroid-carousel-button '+className;
+      node.setAttribute('aria-label',label);node.textContent=className==='prev'?'‹':'›';
+      return node;
+    }
+    var previous=button('上一張拍立得作品','prev');
+    var next=button('下一張拍立得作品','next');
+    function drawTabs(){
+      tabs.replaceChildren();
+      groups.forEach(function(group,index){
+        var tab=document.createElement('button');
+        tab.type='button';tab.className='polaroid-staff-tab';tab.setAttribute('role','tab');
+        tab.setAttribute('aria-selected',index===selectedGroup?'true':'false');
+        tab.textContent=group.name+' · '+group.items.length;
+        tab.addEventListener('click',function(){selectedGroup=index;selectedSlide=0;draw();});
+        tabs.appendChild(tab);
+      });
+    }
+    function draw(){
+      var group=groups[selectedGroup];
+      if(selectedSlide>=group.items.length) selectedSlide=0;
+      stage.replaceChildren();
+      group.items.forEach(function(item,index){
+        var card=managed?createManagedCard(item,index):item.node.cloneNode(true);
+        card.classList.add('polaroid-print');
+        card.classList.toggle('is-active',index===selectedSlide);
+        card.hidden=index!==selectedSlide;
+        stage.appendChild(card);
+      });
+      previous.hidden=group.items.length<2;next.hidden=group.items.length<2;
+      stage.append(previous,next);
+      dots.replaceChildren();
+      group.items.forEach(function(_item,index){
+        var dot=document.createElement('button');
+        dot.type='button';dot.className='polaroid-dot';dot.setAttribute('aria-label','前往第 '+(index+1)+' 張作品');
+        dot.setAttribute('aria-current',index===selectedSlide?'true':'false');
+        dot.addEventListener('click',function(){selectedSlide=index;draw();});
+        dots.appendChild(dot);
+      });
+      counter.textContent=(selectedSlide+1)+' / '+group.items.length;
+      drawTabs();
+    }
+    function move(direction){
+      var length=groups[selectedGroup].items.length;
+      if(length<2) return;
+      selectedSlide=(selectedSlide+direction+length)%length;draw();
+    }
+    previous.addEventListener('click',function(){move(-1);});
+    next.addEventListener('click',function(){move(1);});
+    stage.addEventListener('touchstart',function(event){touchStartX=event.changedTouches[0].clientX;},{passive:true});
+    stage.addEventListener('touchend',function(event){var delta=event.changedTouches[0].clientX-touchStartX;if(Math.abs(delta)>45) move(delta<0?1:-1);},{passive:true});
+    gallery.classList.toggle('is-managed',managed);
+    gallery.classList.add('is-carousel');
+    gallery.replaceChildren(tabs,stage,footer);
+    draw();
   }
   function renderPolaroids(value){
     if(!gallery) return;
@@ -55,38 +170,8 @@
       .filter(function(item){ return item.visible !== false && safeUrl(item.imageUrl); })
       .sort(function(a,b){ return Number(a.sortOrder || 0) - Number(b.sortOrder || 0) || Number(a.createdAt || 0) - Number(b.createdAt || 0); });
     if(!records.length){ restoreFallbackPolaroids(); return; }
-    var fragment = document.createDocumentFragment();
-    records.forEach(function(item, index){
-      var url = safeUrl(item.imageUrl);
-      var link = document.createElement('a');
-      link.className = 'polaroid-print';
-      link.href = url;
-      link.target = '_blank';
-      link.rel = 'noopener';
-      link.setAttribute('aria-label', '查看' + (item.title || ('拍立得成品範例 ' + (index + 1))) + '大圖');
-      var image = document.createElement('img');
-      image.loading = 'lazy';
-      image.decoding = 'async';
-      image.src = url;
-      image.alt = item.alt || '曇時 Cafe l’Éphémère 拍立得成品範例';
-      var meta = document.createElement('span');
-      meta.className = 'polaroid-meta';
-      var label = document.createElement('small');
-      label.textContent = 'PHOTO BY · 作品店員';
-      var title = document.createElement('strong');
-      title.textContent = item.title || ('拍立得作品 ' + String(index + 1).padStart(2,'0'));
-      meta.append(label, title);
-      link.append(image, meta);
-      if(item.caption){
-        var caption = document.createElement('span');
-        caption.className = 'polaroid-caption';
-        caption.textContent = item.caption;
-        link.appendChild(caption);
-      }
-      fragment.appendChild(link);
-    });
-    gallery.classList.add('is-managed');
-    gallery.replaceChildren(fragment);
+    records.forEach(function(item){item.groupKey=item.staffId||('name:'+String(item.staffName||'其他作品'));item.staffName=item.staffName||'其他作品';});
+    renderCarousel(records,true);
     markContentReady('polaroids');
   }
 
