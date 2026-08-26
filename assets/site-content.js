@@ -11,7 +11,9 @@
   var contentReady = { hero: !heroImage, polaroids: !gallery };
 
   function safeUrl(value){
-    try { var url = new URL(String(value || ''), document.baseURI); return url.protocol === 'https:' ? url.href : ''; }
+    var text = String(value || '').trim();
+    if(!/^https:\/\//i.test(text)) return '';
+    try { var url = new URL(text); return url.protocol === 'https:' ? url.href : ''; }
     catch(_error){ return ''; }
   }
   function clamp(value, min, max){ return Math.min(max, Math.max(min, Number(value) || 0)); }
@@ -35,6 +37,7 @@
     heroImage.addEventListener('error', reveal, { once: true });
     heroImage.src = src;
     heroImage.style.objectPosition = clamp(x == null ? 50 : x, 0, 100) + '% ' + clamp(y == null ? 50 : y, 0, 100) + '%';
+    heroImage.style.transformOrigin = clamp(x == null ? 50 : x, 0, 100) + '% ' + clamp(y == null ? 50 : y, 0, 100) + '%';
     heroImage.style.transform = 'scale(' + (clamp(zoom == null ? 100 : zoom, 100, 180) / 100) + ')';
     if(heroImage.complete) reveal();
     if(heroSettings) heroImage.dataset.managedHero = 'true';
