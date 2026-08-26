@@ -2153,6 +2153,7 @@
 <link rel="stylesheet" href="assets/site-content.css?v=20260825c">
 <link rel="stylesheet" href="assets/readability-scale.css?v=20260826">
 <link rel="stylesheet" href="assets/layout-polaroid-carousel.css?v=20260826b">
+<link rel="stylesheet" href="assets/staff-profile-editorial.css?v=20260826b">
 </head>
 <body>
 <a class="skip-link" href="#main-content">跳至主要內容</a>
@@ -2758,6 +2759,20 @@
     let selectedStaffCard = null;
     const safeText = value => String(value || '').replace(/[&<>"']/g,char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
     const safeUrl = value => /^https:\/\//i.test(String(value || '').trim()) ? String(value).trim() : '';
+    const photoNumber = (value,fallback,min,max) => {
+      const number = Number(value);
+      return Math.max(min,Math.min(max,Number.isFinite(number)?number:fallback));
+    };
+    const photoLayout = (entry,mode) => {
+      const saved = entry && entry.photoLayout && entry.photoLayout[mode] || {};
+      return {x:photoNumber(saved.x,50,0,100),y:photoNumber(saved.y,50,0,100),zoom:photoNumber(saved.zoom,100,100,220)};
+    };
+    const applyPhotoLayout = (img,layout,prefix) => {
+      if(!img) return;
+      img.style.setProperty(`--staff-${prefix}-position`,`${layout.x}% ${layout.y}%`);
+      img.style.setProperty(`--staff-${prefix}-origin`,`${layout.x}% ${layout.y}%`);
+      img.style.setProperty(`--staff-${prefix}-scale`,String(layout.zoom/100));
+    };
     const placeholderImage = () => 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 780"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2c2230"/><stop offset="1" stop-color="#15111c"/></linearGradient></defs><rect width="600" height="780" fill="url(#g)"/><circle cx="300" cy="325" r="92" fill="none" stroke="#c99aaf" stroke-width="3" opacity=".7"/><path d="M300 225c18 56 74 82 74 134 0 47-33 84-74 110-41-26-74-63-74-110 0-52 56-78 74-134Z" fill="none" stroke="#c8a66b" stroke-width="3" opacity=".75"/><path d="M155 590h290" stroke="#c99aaf" stroke-width="2" opacity=".45"/></svg>');
     const roleLabel = role => {
       const value = String(role || '').trim();
@@ -2774,10 +2789,20 @@
       const title = card.querySelector('.title-label')?.textContent.trim() || '';
       const quote = card.querySelector('.quote')?.textContent.trim() || '';
       const threads = card.querySelector('.staff-threads')?.getAttribute('href') || '';
+      const profileLayout = {
+        x:photoNumber(card.dataset.profileX,50,0,100),
+        y:photoNumber(card.dataset.profileY,50,0,100),
+        zoom:photoNumber(card.dataset.profileZoom,100,100,220)
+      };
+      const directoryCards = [...staffDirectory.querySelectorAll('.staff-card')];
+      const profileIndex = Math.max(1,directoryCards.indexOf(card)+1);
       selectedStaffCard = card;
       const threadUrl = safeUrl(threads);
       staffProfile.innerHTML = `
-        <div class="staff-profile-visual"><img src="${image ? image.src : placeholderImage()}" alt="${safeText(name)}"></div>
+        <div class="staff-profile-visual">
+          <span class="staff-profile-volume">VOL. ${String(profileIndex).padStart(2,'0')}</span>
+          <div class="staff-profile-image-frame"><img src="${image ? image.src : placeholderImage()}" alt="${safeText(name)}"></div>
+        </div>
         <div class="staff-profile-copy">
           <button class="staff-profile-back" type="button" aria-label="返回成員名冊">← 返回名冊</button>
           <p class="staff-profile-role">${safeText(role)}</p>
@@ -2786,6 +2811,7 @@
           <p class="staff-profile-quote">「${safeText(quote || '期待在曇時與主人相見。')}」</p>
           ${threadUrl ? `<a class="staff-threads" href="${safeText(threadUrl)}" target="_blank" rel="noopener">前往 ${safeText(name)} 的 Threads ↗</a>` : ''}
         </div>`;
+      applyPhotoLayout(staffProfile.querySelector('.staff-profile-image-frame img'),profileLayout,'profile');
       staffDirectory.hidden = true;
       staffProfile.hidden = false;
       staffProfile.querySelector('.staff-profile-back').addEventListener('click',closeStaffProfile);
@@ -2843,6 +2869,12 @@
       let threads = card.querySelector('.staff-threads');
       card.dataset.rosterId = id;
       if(img){ img.src = entry.photo || img.getAttribute('src') || placeholderImage(); img.alt = name; }
+      const directoryLayout = photoLayout(entry,'directory');
+      const profileLayout = photoLayout(entry,'profile');
+      applyPhotoLayout(img,directoryLayout,'directory');
+      card.dataset.profileX = profileLayout.x;
+      card.dataset.profileY = profileLayout.y;
+      card.dataset.profileZoom = profileLayout.zoom;
       if(role) role.textContent = entry.siteRole || roleLabel(title);
       if(heading) heading.textContent = name;
       if(titleNode) titleNode.textContent = title || '駐店成員';
