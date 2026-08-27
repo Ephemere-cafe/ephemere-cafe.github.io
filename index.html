@@ -2154,6 +2154,7 @@
 <link rel="stylesheet" href="assets/readability-scale.css?v=20260826">
 <link rel="stylesheet" href="assets/layout-polaroid-carousel.css?v=20260827a">
 <link rel="stylesheet" href="assets/staff-profile-editorial.css?v=20260826b">
+<link rel="stylesheet" href="assets/layout-home-about-compact.css?v=20260827a">
 </head>
 <body>
 <a class="skip-link" href="#main-content">跳至主要內容</a>
@@ -3112,6 +3113,33 @@
         role.textContent = member.role || '駐店成員';
         copy.appendChild(name);
         copy.appendChild(role);
+        var avatar = document.createElement('span');
+        avatar.className = 'home-shift-avatar';
+        var photoUrl = /^https:\/\//i.test(String(member.photo || '').trim()) ? String(member.photo).trim() : '';
+        if(photoUrl){
+          var avatarImage = document.createElement('img');
+          var savedAvatarLayout = member.photoLayout && member.photoLayout.directory || {};
+          var avatarValue = function(value,fallback,min,max){
+            var number = Number(value);
+            return Math.max(min,Math.min(max,Number.isFinite(number)?number:fallback));
+          };
+          var avatarLayout = {
+            x:avatarValue(savedAvatarLayout.x,50,0,100),
+            y:avatarValue(savedAvatarLayout.y,50,0,100),
+            zoom:avatarValue(savedAvatarLayout.zoom,100,100,220)
+          };
+          avatarImage.src = photoUrl;
+          avatarImage.alt = '';
+          avatarImage.loading = 'lazy';
+          avatarImage.decoding = 'async';
+          avatarImage.style.objectPosition = avatarLayout.x+'% '+avatarLayout.y+'%';
+          avatarImage.style.transformOrigin = avatarLayout.x+'% '+avatarLayout.y+'%';
+          avatarImage.style.transform = 'scale('+(avatarLayout.zoom/100)+')';
+          avatar.appendChild(avatarImage);
+        }else{
+          avatar.textContent = member.name.trim().slice(0,1) || '曇';
+        }
+        button.appendChild(avatar);
         button.appendChild(copy);
         button.addEventListener('click',function(){
           if(!window.ephemereStaffDirectory || !window.ephemereStaffDirectory.openByName(member.name)) location.hash = '#staff';
