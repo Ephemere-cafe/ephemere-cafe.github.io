@@ -1,0 +1,236 @@
+/* 2026-08-28：首頁 B 方案・照片主角式
+   僅覆寫首頁視覺配置；保留既有 Firebase 出勤、內容管理與連結結構。 */
+
+.hero{
+  min-height:auto;
+  padding-top:clamp(6.5rem,10vh,7.6rem);
+  padding-bottom:clamp(2.2rem,4vh,3.2rem);
+}
+
+.hero-journal{
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:clamp(450px,52vh,620px) auto;
+  align-items:stretch;
+  width:min(1420px,100%);
+  max-width:1420px;
+}
+
+.hero-photo{
+  grid-column:1;
+  grid-row:1;
+  min-height:0;
+  height:100%;
+  border:1px solid rgba(93,66,48,.22);
+  box-shadow:0 26px 65px rgba(48,32,26,.22);
+}
+
+.hero-photo::before{
+  top:1.2rem;
+  left:1.35rem;
+  right:auto;
+  background:rgba(35,26,30,.64);
+}
+
+.hero-photo::after{
+  z-index:1;
+  background:
+    linear-gradient(90deg,rgba(23,17,19,.78) 0%,rgba(23,17,19,.48) 31%,rgba(23,17,19,.08) 57%,rgba(23,17,19,.22) 100%),
+    linear-gradient(0deg,rgba(22,16,18,.48) 0%,transparent 48%);
+}
+
+.hero-photo img{
+  filter:saturate(.86) contrast(1.03) brightness(.88);
+}
+
+.hero-letter{
+  grid-column:1;
+  grid-row:1;
+  z-index:3;
+  align-self:end;
+  justify-self:start;
+  width:min(620px,58%);
+  margin:0;
+  padding:clamp(1.7rem,2.8vw,2.6rem);
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  text-align:left;
+}
+
+.hero-letter::before,
+.hero-letter::after{display:none;}
+
+.hero-kicker{
+  justify-content:flex-start;
+  margin-bottom:.85rem;
+  color:#d7b27d;
+  font-size:.72rem;
+  letter-spacing:.28em;
+  text-shadow:0 2px 16px rgba(0,0,0,.35);
+}
+
+.hero h1{
+  color:#fffaf3;
+  font-size:clamp(4rem,6.6vw,6.25rem);
+  line-height:.95;
+  letter-spacing:.13em;
+  text-shadow:0 4px 28px rgba(0,0,0,.38);
+}
+
+.hero .en{
+  margin:.7rem 0 0;
+  color:#fff8f0;
+  font-size:clamp(1.3rem,2.25vw,2rem);
+  text-shadow:0 3px 20px rgba(0,0,0,.5);
+}
+
+.hero-rule{
+  width:min(300px,78%);
+  margin:1.25rem 0 1.05rem;
+  color:#d7b27d;
+}
+
+.hero p.tag{
+  max-width:29em;
+  margin:0;
+  color:#f3ebe4;
+  font-size:clamp(.78rem,.92vw,.9rem);
+  line-height:1.8;
+  text-align:left;
+  text-shadow:0 2px 16px rgba(0,0,0,.62);
+}
+
+.hero p.tag br{display:none;}
+
+.hero-actions{
+  justify-content:flex-start;
+  margin-top:1.1rem;
+}
+
+.hero-actions a{
+  min-width:120px;
+  border-radius:0;
+  box-shadow:0 10px 24px rgba(20,14,17,.2);
+}
+
+.opening-status{
+  grid-column:1;
+  grid-row:1;
+  z-index:4;
+  align-self:start;
+  justify-self:end;
+  width:min(285px,29%);
+  margin:4.2rem 1.35rem 0 0;
+  padding:1.35rem 1.25rem;
+  border:1px solid rgba(219,190,167,.35);
+  border-radius:0;
+  background:rgba(32,22,31,.88);
+  box-shadow:0 18px 45px rgba(29,19,27,.28);
+  color:#fff9f4;
+  backdrop-filter:blur(8px);
+}
+
+.opening-status strong{color:#fff9f4;font-size:.9rem;line-height:1.75;}
+.opening-status small{color:#d8cac6;font-size:.72rem;line-height:1.75;}
+.opening-status a{color:#e4bd84;}
+
+.home-shift{
+  grid-column:1;
+  grid-row:2;
+  width:100%;
+  margin:1rem 0 0;
+}
+
+@media(max-width:1100px) and (min-width:861px){
+  .hero-journal{
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:clamp(440px,50vh,560px) auto;
+  }
+  .hero-letter{width:min(570px,64%);padding:2rem;}
+  .hero h1{font-size:clamp(4rem,8.5vw,6.1rem);}
+  .opening-status{width:min(255px,31%);margin:3.8rem 1rem 0 0;padding:1.15rem;}
+}
+
+@media(max-width:860px){
+  .hero{padding:5.35rem .7rem 2.5rem;}
+  .hero-journal{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:minmax(480px,72svh) auto auto;
+  }
+  .hero-photo{
+    grid-column:1;
+    grid-row:1;
+    width:100%;
+    min-height:480px;
+    aspect-ratio:auto;
+  }
+  .hero-photo::before{top:.75rem;left:.8rem;font-size:.56rem;}
+  .hero-photo::after{
+    background:
+      linear-gradient(0deg,rgba(23,17,19,.88) 0%,rgba(23,17,19,.58) 45%,rgba(23,17,19,.08) 76%),
+      linear-gradient(90deg,rgba(23,17,19,.2),transparent 65%);
+  }
+  .hero-photo img{object-position:center;}
+  .hero-letter{
+    grid-column:1;
+    grid-row:1;
+    align-self:end;
+    order:initial;
+    width:100%;
+    margin:0;
+    padding:1.8rem 1.35rem 1.45rem;
+  }
+  .hero-kicker{margin-bottom:.55rem;font-size:.6rem;}
+  .hero h1{font-size:clamp(3.25rem,17vw,4.65rem);}
+  .hero .en{font-size:1.22rem;}
+  .hero-rule{width:180px;margin:.9rem 0 .75rem;}
+  .hero p.tag{font-size:.79rem;line-height:1.75;}
+  /* 手機已有固定的快速操作列，避免主視覺再出現一組相同按鈕。 */
+  .hero-actions{display:none;}
+  .opening-status{
+    grid-column:1;
+    grid-row:2;
+    order:initial;
+    width:100%;
+    margin:.7rem 0 0;
+    padding:1.1rem;
+    backdrop-filter:none;
+  }
+  .home-shift{
+    grid-column:1;
+    grid-row:3;
+    order:initial;
+    width:100%;
+    margin:.7rem 0 0;
+  }
+  /* 保留音樂播放功能，但縮成按鈕，避免遮住營業資訊與出勤卡。 */
+  .site-music-player{
+    left:auto;
+    right:.75rem;
+    bottom:calc(76px + env(safe-area-inset-bottom));
+    width:52px;
+    min-width:52px;
+    height:52px;
+    display:grid;
+    grid-template-columns:1fr;
+    place-items:center;
+    padding:5px;
+    border-radius:50%;
+  }
+  .site-music-toggle{width:40px;height:40px;}
+  .site-music-copy,
+  .site-music-volume{display:none;}
+}
+
+@media(max-width:420px){
+  .hero-journal{grid-template-rows:minmax(455px,68svh) auto auto;}
+  .hero-photo{min-height:455px;}
+  .hero-letter{padding:1.55rem 1.05rem 1.2rem;}
+  .hero h1{font-size:clamp(3rem,18vw,4rem);}
+  .hero p.tag{max-width:24em;font-size:.75rem;}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero-photo img{transform:none;}
+}
