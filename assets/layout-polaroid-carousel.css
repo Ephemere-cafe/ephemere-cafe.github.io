@@ -1,4 +1,4 @@
-/* 2026-08-26：全站中文字斷行、服務框線與拍立得分組輪播 */
+/* 2026-08-27：服務頁拍立得前移、精簡作品標示與標題尺寸 */
 .section-title{
   line-break:strict;
   text-wrap:balance;
@@ -68,6 +68,20 @@
   box-shadow:none!important;
 }
 #service .experience-card:last-child{border-right:0!important;}
+
+/* 拍立得範例緊接特別服務，不再形成第二個帶大段頂部留白的頁面區塊。 */
+#polaroids.service-polaroid-detail{
+  margin-top:clamp(3rem,6vw,5rem);
+  padding-top:clamp(2.5rem,5vw,4rem);
+  border-top:1px solid rgba(109,82,57,.28);
+  background:none;
+  overflow:visible;
+}
+#polaroids.service-polaroid-detail::before{display:none;}
+#polaroid-title{
+  max-width:100%;
+  font-size:clamp(2.2rem,3vw,3rem)!important;
+}
 
 /* 依女僕分組；每次只顯示一張作品。 */
 .polaroid-gallery.is-carousel{
@@ -173,6 +187,10 @@
     border-bottom:1px solid rgba(109,82,57,.25)!important;
   }
   #service .experience-card:last-child{border-bottom:0!important;}
+  #polaroids.service-polaroid-detail{
+    margin-top:2.5rem;
+    padding-top:2.5rem;
+  }
   .polaroid-carousel-stage{min-height:390px;}
 }
 @media(max-width:480px){
@@ -183,6 +201,7 @@
     letter-spacing:0!important;
   }
   .phrase-title{font-size:clamp(2.15rem,10vw,2.65rem)!important;}
+  #polaroid-title{font-size:clamp(1.9rem,8.5vw,2.15rem)!important;}
   .polaroid-carousel-stage{min-height:330px;padding:.7rem 2.35rem .9rem;}
   .polaroid-carousel-button{width:38px;height:38px;}
   .polaroid-carousel-button.prev{left:.35rem;}

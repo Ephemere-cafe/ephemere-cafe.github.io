@@ -70,16 +70,8 @@
     meta.className = 'polaroid-meta';
     var label = document.createElement('small');
     label.textContent = 'PHOTO BY · ' + (item.staffName || '其他作品');
-    var title = document.createElement('strong');
-    title.textContent = item.title || ('拍立得作品 ' + String(index + 1).padStart(2,'0'));
-    meta.append(label, title);
+    meta.append(label);
     link.append(image, meta);
-    if(item.caption){
-      var caption = document.createElement('span');
-      caption.className = 'polaroid-caption';
-      caption.textContent = item.caption;
-      link.appendChild(caption);
-    }
     return link;
   }
   function renderCarousel(records,managed){
@@ -121,7 +113,7 @@
         var tab=document.createElement('button');
         tab.type='button';tab.className='polaroid-staff-tab';tab.setAttribute('role','tab');
         tab.setAttribute('aria-selected',index===selectedGroup?'true':'false');
-        tab.textContent=group.name+' · '+group.items.length;
+        tab.textContent=group.name;
         tab.addEventListener('click',function(){selectedGroup=index;selectedSlide=0;draw();});
         tabs.appendChild(tab);
       });
