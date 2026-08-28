@@ -3105,6 +3105,14 @@
         list.innerHTML = '<span class="home-shift-empty">名單正在同步，請稍候片刻。</span>';
         return;
       }
+      var localPhotoFallbacks = {
+        '夏沐':'assets/staff-xiamu.jpg',
+        '彌亞璃卡':'assets/staff-miarica.webp',
+        '小顏':'assets/staff-xiaoyan.webp',
+        '玥紅雪':'assets/staff-yuehongxue.webp',
+        'Naipa':'assets/staff-naipa.webp',
+        '蒼':'assets/staff-cang.jpg'
+      };
       var fragment = document.createDocumentFragment();
       staff.forEach(function(item){
         var member = item.data;
@@ -3123,7 +3131,9 @@
         copy.appendChild(role);
         var avatar = document.createElement('span');
         avatar.className = 'home-shift-avatar';
-        var photoUrl = /^https:\/\//i.test(String(member.photo || '').trim()) ? String(member.photo).trim() : '';
+        var remotePhotoUrl = /^https:\/\//i.test(String(member.photo || '').trim()) ? String(member.photo).trim() : '';
+        var fallbackPhotoUrl = localPhotoFallbacks[String(member.name || '').trim()] || '';
+        var photoUrl = remotePhotoUrl || fallbackPhotoUrl;
         if(photoUrl){
           var avatarImage = document.createElement('img');
           var savedAvatarLayout = member.photoLayout && member.photoLayout.directory || {};
@@ -3143,6 +3153,14 @@
           avatarImage.style.objectPosition = avatarLayout.x+'% '+avatarLayout.y+'%';
           avatarImage.style.transformOrigin = avatarLayout.x+'% '+avatarLayout.y+'%';
           avatarImage.style.transform = 'scale('+(avatarLayout.zoom/100)+')';
+          avatarImage.addEventListener('error',function(){
+            if(fallbackPhotoUrl && avatarImage.getAttribute('src')!==fallbackPhotoUrl){
+              avatarImage.src = fallbackPhotoUrl;
+              return;
+            }
+            avatarImage.remove();
+            avatar.textContent = member.name.trim().slice(0,1) || '曇';
+          });
           avatar.appendChild(avatarImage);
         }else{
           avatar.textContent = member.name.trim().slice(0,1) || '曇';

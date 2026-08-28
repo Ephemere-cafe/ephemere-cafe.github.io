@@ -9,7 +9,7 @@
 
 .hero-journal{
   grid-template-columns:minmax(0,1fr);
-  grid-template-rows:clamp(450px,52vh,620px) auto;
+  grid-template-rows:clamp(520px,56vh,640px) auto;
   align-items:stretch;
   width:min(1420px,100%);
   max-width:1420px;
@@ -54,10 +54,11 @@
   width:min(590px,56%);
   max-height:100%;
   margin:0;
-  padding:clamp(2rem,3vw,3rem);
+  box-sizing:border-box;
+  padding:clamp(2.2rem,3vw,3rem);
   overflow:hidden;
   border:0;
-  background:transparent;
+  background:linear-gradient(90deg,rgba(18,13,15,.34),rgba(18,13,15,.12) 72%,transparent);
   box-shadow:none;
   text-align:left;
 }
@@ -68,8 +69,12 @@
 .hero-kicker{
   justify-content:flex-start;
   margin-bottom:.85rem;
+  max-width:100%;
+  padding-top:.1rem;
+  overflow:visible;
   color:#d7b27d;
   font-size:.72rem;
+  line-height:1.5;
   letter-spacing:.28em;
   text-shadow:0 2px 16px rgba(0,0,0,.35);
 }
@@ -84,8 +89,11 @@
 
 .hero .en{
   margin:.7rem 0 0;
+  max-width:100%;
   color:#fff8f0;
   font-size:clamp(1.3rem,2.25vw,2rem);
+  line-height:1.25;
+  white-space:nowrap;
   text-shadow:0 3px 20px rgba(0,0,0,.5);
 }
 
@@ -149,11 +157,22 @@
 @media(max-width:1100px) and (min-width:861px){
   .hero-journal{
     grid-template-columns:minmax(0,1fr);
-    grid-template-rows:clamp(440px,50vh,560px) auto;
+    grid-template-rows:clamp(520px,55vh,590px) auto;
   }
   .hero-letter{width:min(540px,62%);padding:2.2rem;}
   .hero h1{font-size:clamp(3.4rem,7vw,4.8rem);}
   .opening-status{width:min(255px,31%);margin:3.8rem 1rem 0 0;padding:1.15rem;}
+}
+
+@media(min-width:861px) and (max-height:820px){
+  .hero{padding-top:6rem;padding-bottom:2rem;}
+  .hero-journal{grid-template-rows:520px auto;}
+  .hero-letter{width:min(560px,57%);padding:2rem 2.5rem;}
+  .hero h1{font-size:clamp(3.4rem,5vw,4.55rem);}
+  .hero .en{font-size:clamp(1.25rem,2vw,1.75rem);}
+  .hero-rule{margin:1rem 0 .85rem;}
+  .hero-actions{margin-top:.9rem;}
+  .opening-status{margin-top:3rem;}
 }
 
 @media(max-width:860px){
@@ -190,6 +209,7 @@
   .hero-kicker{margin-bottom:.55rem;font-size:.6rem;}
   .hero h1{font-size:clamp(3.25rem,17vw,4.65rem);}
   .hero .en{font-size:1.22rem;}
+  .hero .en{white-space:normal;}
   .hero-rule{width:180px;margin:.9rem 0 .75rem;}
   .hero p.tag{font-size:.79rem;line-height:1.75;}
   /* 手機已有固定的快速操作列，避免主視覺再出現一組相同按鈕。 */
