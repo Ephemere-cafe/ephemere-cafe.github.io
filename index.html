@@ -3130,7 +3130,8 @@
         copy.appendChild(role);
         var avatar = document.createElement('span');
         avatar.className = 'home-shift-avatar';
-        var remotePhotoUrl = /^https:\/\//i.test(String(member.photo || '').trim()) ? String(member.photo).trim() : '';
+        var rawPhotoUrl = String(member.photo || '').trim();
+        var remotePhotoUrl = /^(?:https:\/\/|data:image\/(?:png|jpe?g|webp|gif);base64,)/i.test(rawPhotoUrl) ? rawPhotoUrl : '';
         var fallbackPhotoUrl = localPhotoFallbacks[String(member.name || '').trim()] || '';
         var photoUrl = remotePhotoUrl || fallbackPhotoUrl;
         if(photoUrl){
