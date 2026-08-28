@@ -1,0 +1,12 @@
+/* 2026-08-26 全站閱讀尺寸：只調整文字與操作區，不影響資料及功能。 */
+html{font-size:115%}
+body{line-height:1.7}
+button,input,select,textarea{font-size:1rem}
+.nav-links a,.mobile-nav a,.hero-actions a,.guide-cta,.booking-btn{font-size:max(.92rem,15px)}
+.eyebrow,.summary-label,.guide-label,.service-price,.limit-label{font-size:max(.72rem,12px)}
+.menu-note,.polaroid-note,.studio-card p,.staff-card p,.home-shift-note{font-size:max(.86rem,14px)}
+
+@media(max-width:760px){
+  html{font-size:112%}
+  button,input,select,textarea{font-size:16px}
+}
