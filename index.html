@@ -2157,6 +2157,9 @@
 <link rel="stylesheet" href="assets/layout-home-about-compact.css?v=20260827a">
 <link rel="stylesheet" href="assets/layout-home-photo-hero.css?v=20260828b">
 <link rel="stylesheet" href="assets/layout-about-editorial.css?v=20260828a">
+<link rel="stylesheet" href="assets/site-follow-pet.css?v=20260903a">
+<link rel="stylesheet" href="assets/staff-chibi-integration.css?v=20260903b">
+<script src="assets/staff-chibi-map.js?v=20260903a"></script>
 </head>
 <body>
 <a class="skip-link" href="#main-content">跳至主要內容</a>
@@ -2804,6 +2807,7 @@
       const profileIndex = Math.max(1,directoryCards.indexOf(card)+1);
       selectedStaffCard = card;
       const threadUrl = safeUrl(threads);
+      const chibiUrl = window.ephemereChibiCast ? window.ephemereChibiCast.get(name) : '';
       staffProfile.innerHTML = `
         <div class="staff-profile-visual">
           <span class="staff-profile-volume">VOL. ${String(profileIndex).padStart(2,'0')}</span>
@@ -2811,9 +2815,14 @@
         </div>
         <div class="staff-profile-copy">
           <button class="staff-profile-back" type="button" aria-label="返回成員名冊">← 返回名冊</button>
-          <p class="staff-profile-role">${safeText(role)}</p>
-          <h3>${safeText(name)}</h3>
-          <p class="staff-profile-title">${safeText(title)}</p>
+          <div class="staff-profile-identity">
+            <div class="staff-profile-identity-copy">
+              <p class="staff-profile-role">${safeText(role)}</p>
+              <h3>${safeText(name)}</h3>
+              <p class="staff-profile-title">${safeText(title)}</p>
+            </div>
+            ${chibiUrl ? `<div class="staff-profile-chibi" aria-hidden="true"><img src="${safeText(chibiUrl)}" alt="" draggable="false"></div>` : ''}
+          </div>
           <p class="staff-profile-quote">「${safeText(quote || '期待在曇時與主人相見。')}」</p>
           ${threadUrl ? `<a class="staff-threads" href="${safeText(threadUrl)}" target="_blank" rel="noopener">前往 ${safeText(name)} 的 Threads ↗</a>` : ''}
         </div>`;
@@ -3130,10 +3139,12 @@
         copy.appendChild(role);
         var avatar = document.createElement('span');
         avatar.className = 'home-shift-avatar';
+        var chibiPhotoUrl = window.ephemereChibiCast ? window.ephemereChibiCast.get(member.name) : '';
         var rawPhotoUrl = String(member.photo || '').trim();
         var remotePhotoUrl = /^(?:https:\/\/|data:image\/(?:png|jpe?g|webp|gif);base64,)/i.test(rawPhotoUrl) ? rawPhotoUrl : '';
         var fallbackPhotoUrl = localPhotoFallbacks[String(member.name || '').trim()] || '';
-        var photoUrl = remotePhotoUrl || fallbackPhotoUrl;
+        var regularPhotoUrl = remotePhotoUrl || fallbackPhotoUrl;
+        var photoUrl = chibiPhotoUrl || regularPhotoUrl;
         if(photoUrl){
           var avatarImage = document.createElement('img');
           var savedAvatarLayout = member.photoLayout && member.photoLayout.directory || {};
@@ -3150,12 +3161,21 @@
           avatarImage.alt = '';
           avatarImage.loading = 'lazy';
           avatarImage.decoding = 'async';
-          avatarImage.style.objectPosition = avatarLayout.x+'% '+avatarLayout.y+'%';
-          avatarImage.style.transformOrigin = avatarLayout.x+'% '+avatarLayout.y+'%';
-          avatarImage.style.transform = 'scale('+(avatarLayout.zoom/100)+')';
+          avatarImage.draggable = false;
+          if(chibiPhotoUrl){
+            avatar.classList.add('has-chibi');
+          }else{
+            avatarImage.style.objectPosition = avatarLayout.x+'% '+avatarLayout.y+'%';
+            avatarImage.style.transformOrigin = avatarLayout.x+'% '+avatarLayout.y+'%';
+            avatarImage.style.transform = 'scale('+(avatarLayout.zoom/100)+')';
+          }
           avatarImage.addEventListener('error',function(){
-            if(fallbackPhotoUrl && avatarImage.getAttribute('src')!==fallbackPhotoUrl){
-              avatarImage.src = fallbackPhotoUrl;
+            if(chibiPhotoUrl && regularPhotoUrl && avatarImage.getAttribute('src')!==regularPhotoUrl){
+              avatar.classList.remove('has-chibi');
+              avatarImage.src = regularPhotoUrl;
+              avatarImage.style.objectPosition = avatarLayout.x+'% '+avatarLayout.y+'%';
+              avatarImage.style.transformOrigin = avatarLayout.x+'% '+avatarLayout.y+'%';
+              avatarImage.style.transform = 'scale('+(avatarLayout.zoom/100)+')';
               return;
             }
             avatarImage.remove();
@@ -3312,6 +3332,7 @@
 })();
 </script>
 <script src="assets/site-content.js?v=20260827a"></script>
+<script src="assets/site-follow-pet.js?v=20260903a"></script>
 
 </body>
 </html>

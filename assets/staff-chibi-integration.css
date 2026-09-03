@@ -1,0 +1,90 @@
+/* 本次出勤：以透明角色小圖取代圓形人物照片。 */
+.home-shift-person{
+  min-height:82px;
+  gap:.7rem;
+  padding:.35rem .85rem .35rem .35rem;
+}
+
+.home-shift-avatar{
+  width:72px!important;
+  height:72px!important;
+  overflow:visible!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+}
+
+.home-shift-avatar.has-chibi img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+  transform:none!important;
+  transform-origin:center bottom!important;
+  filter:drop-shadow(0 5px 6px rgba(82,61,45,.12));
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+/* 店員介紹：保留人物大照，小圖作為姓名旁的角色標誌。 */
+.staff-profile-identity{
+  display:grid;
+  grid-template-columns:minmax(max-content,1fr) clamp(128px,14vw,176px);
+  align-items:center;
+  gap:clamp(1rem,3vw,2.25rem);
+}
+
+.staff-profile-identity-copy{
+  min-width:max-content;
+}
+
+.staff-profile-identity-copy .staff-profile-role,
+.staff-profile-identity-copy h3,
+.staff-profile-identity-copy .staff-profile-title{
+  max-width:none;
+  white-space:nowrap;
+  word-break:keep-all;
+  overflow-wrap:normal;
+}
+
+.staff-profile-chibi{
+  display:grid;
+  place-items:center;
+  width:100%;
+  height:auto;
+  aspect-ratio:1;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
+}
+
+.staff-profile-chibi img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  filter:drop-shadow(0 10px 12px rgba(82,61,45,.12));
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+@media(max-width:760px){
+  .home-shift-person{min-height:76px;padding-right:.7rem;}
+  .home-shift-avatar{width:66px!important;height:66px!important;}
+  .staff-profile-identity{
+    grid-template-columns:minmax(max-content,1fr) clamp(92px,27vw,124px);
+    align-items:center;
+  }
+  .staff-profile-chibi{
+    width:100%;
+    height:auto;
+  }
+}
+
+@media(max-width:420px){
+  .staff-profile-identity{gap:.6rem;}
+  .staff-profile-chibi{width:100%;height:auto;}
+}
