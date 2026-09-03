@@ -1,0 +1,59 @@
+/* 本次出勤：以透明角色小圖取代圓形人物照片。 */
+.home-shift-person{
+  min-height:82px;
+  gap:.7rem;
+  padding:.35rem .85rem .35rem .35rem;
+  overflow:hidden;
+}
+
+.home-shift-avatar{
+  width:66px!important;
+  height:66px!important;
+  padding:2px;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+}
+
+.home-shift-avatar.has-chibi img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-position:center!important;
+  transform:none!important;
+  transform-origin:center bottom!important;
+  filter:drop-shadow(0 5px 6px rgba(82,61,45,.12));
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+.home-shift-avatar.has-chibi.is-tall-chibi img{
+  transform:scale(.82)!important;
+}
+
+/* 店員介紹：只保留人物大照、姓名、職位與介紹文字。 */
+.staff-profile-identity{
+  display:block;
+}
+
+.staff-profile-identity-copy{
+  min-width:0;
+}
+
+.staff-profile-identity-copy .staff-profile-role,
+.staff-profile-identity-copy h3,
+.staff-profile-identity-copy .staff-profile-title{
+  max-width:none;
+  white-space:nowrap;
+  word-break:keep-all;
+  overflow-wrap:normal;
+}
+
+@media(max-width:760px){
+  .home-shift-person{min-height:76px;padding-right:.7rem;}
+  .home-shift-avatar{width:60px!important;height:60px!important;}
+}

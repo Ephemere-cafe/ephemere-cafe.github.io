@@ -2807,7 +2807,6 @@
       const profileIndex = Math.max(1,directoryCards.indexOf(card)+1);
       selectedStaffCard = card;
       const threadUrl = safeUrl(threads);
-      const chibiUrl = window.ephemereChibiCast ? window.ephemereChibiCast.get(name) : '';
       staffProfile.innerHTML = `
         <div class="staff-profile-visual">
           <span class="staff-profile-volume">VOL. ${String(profileIndex).padStart(2,'0')}</span>
@@ -2821,7 +2820,6 @@
               <h3>${safeText(name)}</h3>
               <p class="staff-profile-title">${safeText(title)}</p>
             </div>
-            ${chibiUrl ? `<div class="staff-profile-chibi" aria-hidden="true"><img src="${safeText(chibiUrl)}" alt="" draggable="false"></div>` : ''}
           </div>
           <p class="staff-profile-quote">「${safeText(quote || '期待在曇時與主人相見。')}」</p>
           ${threadUrl ? `<a class="staff-threads" href="${safeText(threadUrl)}" target="_blank" rel="noopener">前往 ${safeText(name)} 的 Threads ↗</a>` : ''}
@@ -3164,6 +3162,7 @@
           avatarImage.draggable = false;
           if(chibiPhotoUrl){
             avatar.classList.add('has-chibi');
+            if(member.name === '馬鈴薯' || member.name === '玥紅雪') avatar.classList.add('is-tall-chibi');
           }else{
             avatarImage.style.objectPosition = avatarLayout.x+'% '+avatarLayout.y+'%';
             avatarImage.style.transformOrigin = avatarLayout.x+'% '+avatarLayout.y+'%';
