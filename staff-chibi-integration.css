@@ -1,38 +1,66 @@
-/* 本次出勤：以透明角色小圖取代圓形人物照片。 */
+/* 本次／下次出勤：4＋4＋3 置中卡片，角色圖固定在獨立圖片欄。 */
+.home-shift-list{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  justify-content:center;
+  align-items:stretch;
+  gap:.75rem!important;
+  width:100%;
+  overflow:visible!important;
+  padding:0!important;
+}
+
 .home-shift-person{
-  min-height:82px;
-  gap:.7rem;
-  padding:.35rem .85rem .35rem .35rem;
+  display:grid!important;
+  grid-template-columns:78px minmax(0,1fr) auto;
+  align-items:center;
+  flex:0 1 calc((100% - 2.25rem) / 4)!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:102px;
+  gap:0!important;
+  padding:0 .72rem 0 0!important;
   overflow:hidden;
 }
 
 .home-shift-avatar{
-  width:66px!important;
-  height:66px!important;
-  padding:2px;
+  align-self:stretch;
+  display:grid!important;
+  place-items:center;
+  width:78px!important;
+  height:auto!important;
+  min-height:100px;
+  padding:4px!important;
   overflow:hidden!important;
   border:0!important;
+  border-right:1px solid var(--surface-line)!important;
   border-radius:0!important;
-  background:transparent!important;
+  background:rgba(229,216,201,.38)!important;
 }
 
 .home-shift-avatar.has-chibi img{
   width:100%!important;
-  height:100%!important;
+  height:82px!important;
   object-fit:contain!important;
   max-width:100%!important;
-  max-height:100%!important;
+  max-height:82px!important;
   object-position:center!important;
   transform:none!important;
-  transform-origin:center bottom!important;
+  transform-origin:center!important;
   filter:drop-shadow(0 5px 6px rgba(82,61,45,.12));
   pointer-events:none;
   user-select:none;
   -webkit-user-drag:none;
 }
 
-.home-shift-avatar.has-chibi.is-tall-chibi img{
-  transform:scale(.82)!important;
+.home-shift-copy{
+  min-width:0;
+  padding:0 .7rem 0 .8rem;
+  text-align:left;
+}
+
+.home-shift-person::after{
+  margin-left:0!important;
 }
 
 /* 店員介紹：只保留人物大照、姓名、職位與介紹文字。 */
@@ -54,6 +82,26 @@
 }
 
 @media(max-width:760px){
-  .home-shift-person{min-height:76px;padding-right:.7rem;}
-  .home-shift-avatar{width:60px!important;height:60px!important;}
+  .home-shift-list{gap:.55rem!important;}
+  .home-shift-person{
+    grid-template-columns:64px minmax(0,1fr);
+    flex-basis:calc((100% - .55rem) / 2)!important;
+    min-height:88px;
+    padding:0!important;
+  }
+  .home-shift-avatar{
+    width:64px!important;
+    min-height:86px;
+    border-right:1px solid var(--surface-line)!important;
+  }
+  .home-shift-avatar.has-chibi img{height:72px!important;max-height:72px!important;}
+  .home-shift-copy{padding:0 .55rem;}
+  .home-shift-person::after{display:none!important;}
+}
+
+@media(max-width:390px){
+  .home-shift-person{grid-template-columns:54px minmax(0,1fr);}
+  .home-shift-avatar{width:54px!important;}
+  .home-shift-avatar.has-chibi img{height:64px!important;max-height:64px!important;}
+  .home-shift-copy{padding:0 .4rem;}
 }
