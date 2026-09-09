@@ -24,9 +24,9 @@
   });
 
   document.addEventListener('dragstart',function(event){
-    if(event.target.closest && event.target.closest('.staff-profile-chibi,.home-shift-avatar.has-chibi')) event.preventDefault();
+    if(event.target.closest && event.target.closest('.home-shift-avatar.has-chibi')) event.preventDefault();
   });
   document.addEventListener('contextmenu',function(event){
-    if(event.target.closest && event.target.closest('.staff-profile-chibi,.home-shift-avatar.has-chibi')) event.preventDefault();
+    if(event.target.closest && event.target.closest('.home-shift-avatar.has-chibi')) event.preventDefault();
   });
 })();

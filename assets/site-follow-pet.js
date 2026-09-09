@@ -39,6 +39,8 @@
   var surpriseLoop = 0;
   var surpriseTimer = 0;
   var actions = ['is-hop','is-tilt','is-pat'];
+  var lineQueues = Object.create(null);
+  var lastLines = Object.create(null);
 
   function setCharacter(next){
     index = (next + cast.length) % cast.length;
@@ -56,7 +58,25 @@
   function speak(){
     var lines = cast[index].lines;
     if(!lines || !lines.length) return;
-    var line = lines[Math.floor(Math.random() * lines.length)];
+    var personName = cast[index].name;
+    var queue = lineQueues[personName];
+    if(!queue || !queue.length){
+      queue = lines.slice();
+      for(var queueIndex = queue.length - 1; queueIndex > 0; queueIndex--){
+        var swapIndex = Math.floor(Math.random() * (queueIndex + 1));
+        var heldLine = queue[queueIndex];
+        queue[queueIndex] = queue[swapIndex];
+        queue[swapIndex] = heldLine;
+      }
+      if(queue.length > 1 && queue[0] === lastLines[personName]){
+        var firstLine = queue[0];
+        queue[0] = queue[1];
+        queue[1] = firstLine;
+      }
+      lineQueues[personName] = queue;
+    }
+    var line = queue.shift();
+    lastLines[personName] = line;
     nameNode.textContent = cast[index].name;
     lineNode.textContent = line;
     dialogue.classList.add('is-visible');

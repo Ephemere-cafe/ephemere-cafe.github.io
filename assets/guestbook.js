@@ -11,11 +11,49 @@
   var confirmBox=document.getElementById('guestbookConfirm');
   var submit=document.getElementById('guestbookSubmit');
   var status=document.getElementById('guestbookStatus');
+  var layout=form.closest('.guestbook-layout');
+  var heading=document.querySelector('#guestbook .guestbook-heading');
   var lastSubmitAt=0;
+  var motionUi=null;
 
+  function clean(value,max){return String(value||'').trim().slice(0,max);}
   function setStatus(text,state){status.textContent=text||'';status.dataset.state=state||'';}
   function selectedConsent(){var input=form.querySelector('input[name="guestbookConsent"]:checked');return input?input.value:'private';}
-  function clean(value,max){return String(value||'').trim().slice(0,max);}
+  function element(tag,className,text){var node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
+
+  function createModal(content,className,label){
+    var modal=element('div','guestbook-letter-modal');modal.hidden=true;
+    var dialog=element('div','guestbook-letter-dialog '+className);dialog.setAttribute('role','dialog');dialog.setAttribute('aria-modal','true');dialog.setAttribute('aria-label',label);
+    var closeButton=element('button','guestbook-modal-close','×');closeButton.type='button';closeButton.setAttribute('aria-label','關閉');
+    dialog.append(closeButton,content);modal.appendChild(dialog);document.body.appendChild(modal);
+    function hide(){modal.hidden=true;document.body.classList.remove('guest-letter-modal-open');if(modal.returnFocus&&document.contains(modal.returnFocus))modal.returnFocus.focus();}
+    closeButton.addEventListener('click',hide);modal.addEventListener('click',function(event){if(event.target===modal)hide();});modal.hideGuestbookModal=hide;
+    return modal;
+  }
+  function showModal(modal,opener){modal.returnFocus=opener||document.activeElement;modal.hidden=false;document.body.classList.add('guest-letter-modal-open');modal.querySelector('.guestbook-modal-close').focus();}
+
+  function setupMotionUi(){
+    if(!layout||!heading)return null;
+    var stage=element('section','guestbook-motion-stage');stage.setAttribute('aria-label','曇時珍藏的來信');
+    var intro=element('div','guestbook-motion-intro');
+    var introTitle=element('div');introTitle.append(element('p','eyebrow','Letters we keep'),element('h3','', '曇時珍藏的來信'));
+    intro.append(introTitle,element('p','', '被珍惜的片刻，會像晚風一樣輕輕經過。點一封信，讀完它留下的心情。'));
+    var lanes=element('div','guestbook-motion-lanes');
+    var laneOne=element('div','guestbook-motion-lane');var laneTwo=element('div','guestbook-motion-lane');lanes.append(laneOne,laneTwo);
+    var empty=element('p','guestbook-motion-empty','正在展開曇時珍藏的來信…');
+    var invite=element('div','guestbook-write-invite');
+    var inviteCopy=element('p','', '今夜，也想留下一句話嗎？');inviteCopy.appendChild(element('small','', '寫給曇時，或寫給今晚陪伴你的那一位。'));
+    var writeButton=element('button','guestbook-write-cta','寫一封信給曇時');writeButton.type='button';invite.append(inviteCopy,writeButton);
+    stage.append(intro,lanes,empty,invite);heading.insertAdjacentElement('afterend',stage);
+
+    var writeModal=createModal(form,'guestbook-write-dialog','寫一封信給曇時');
+    var messageContent=element('div');var messageQuote=element('blockquote');var messageMeta=element('p');messageContent.append(messageQuote,messageMeta);
+    var messageModal=createModal(messageContent,'guestbook-message-dialog','完整留言');
+    writeButton.addEventListener('click',function(){showModal(writeModal,writeButton);});
+    document.body.classList.add('guest-motion-ready');
+    return {lanes:lanes,laneOne:laneOne,laneTwo:laneTwo,empty:empty,writeModal:writeModal,messageModal:messageModal,messageQuote:messageQuote,messageMeta:messageMeta};
+  }
+
   function renderRecipients(value){
     var current=recipient.value;
     var records=Object.keys(value||{}).map(function(id){return {id:id,data:value[id]||{}};})
@@ -31,21 +69,40 @@
     author.required=named;
     document.getElementById('guestbookNameHint').textContent=named?'（具名公開必填；官網只顯示名字）':'（不公開／匿名公開可留白）';
   }
+  function openPublicMessage(item,opener){
+    if(!motionUi)return;
+    var displayName=item.displayMode==='named'&&clean(item.displayName,40)?clean(item.displayName,40):'一位旅人';
+    var recipientLabel=clean(item.recipientLabel,40)||'曇時全體成員';
+    motionUi.messageQuote.textContent='「'+clean(item.displayText,1000)+'」';
+    motionUi.messageMeta.textContent='— '+displayName+' ・ 給 '+recipientLabel;
+    showModal(motionUi.messageModal,opener);
+  }
+  function letterCard(item,duplicate){
+    var card=element('button','floating-letter');card.type='button';card.setAttribute('aria-label','閱讀完整留言');
+    var body=element('span');var quote=element('p','',clean(item.displayText,1000));
+    var meta=element('span','floating-letter-meta');
+    var displayName=item.displayMode==='named'&&clean(item.displayName,40)?clean(item.displayName,40):'一位旅人';
+    meta.append(element('span','', '— '+displayName),element('span','', '給 '+(clean(item.recipientLabel,40)||'曇時全體成員')));
+    body.append(quote,meta);card.appendChild(body);
+    if(duplicate){card.tabIndex=-1;card.setAttribute('aria-hidden','true');}else card.addEventListener('click',function(){openPublicMessage(item,card);});
+    return card;
+  }
+  function fillLane(lane,items,animate){
+    lane.replaceChildren();lane.classList.toggle('is-static',!animate);
+    var first=element('div','guestbook-motion-group');items.forEach(function(item){first.appendChild(letterCard(item,false));});lane.appendChild(first);
+    if(animate){var duplicate=element('div','guestbook-motion-group');duplicate.setAttribute('aria-hidden','true');items.forEach(function(item){duplicate.appendChild(letterCard(item,true));});lane.appendChild(duplicate);}
+  }
   function renderPublic(value){
     var rows=Object.keys(value||{}).map(function(id){return Object.assign({id:id},value[id]||{});})
       .filter(function(item){return (item.displayMode==='anonymous'||item.displayMode==='named')&&clean(item.displayText,1000);})
       .sort(function(a,b){return Number(b.publishedAt||0)-Number(a.publishedAt||0)||Number(a.sortOrder||0)-Number(b.sortOrder||0);})
       .slice(0,24);
-    list.replaceChildren();
-    if(!rows.length){var empty=document.createElement('p');empty.className='guestbook-empty';empty.textContent='公開留言正在慢慢收集。也歡迎留下今晚的心情。';list.appendChild(empty);return;}
-    rows.forEach(function(item){
-      var card=document.createElement('article');card.className='guestbook-message';
-      var quote=document.createElement('blockquote');quote.textContent='「'+clean(item.displayText,1000)+'」';
-      var meta=document.createElement('div');meta.className='guestbook-message-meta';
-      var name=document.createElement('span');name.textContent=item.displayMode==='named'&&clean(item.displayName,40)?'— '+clean(item.displayName,40):'匿名主人';
-      var to=document.createElement('span');to.textContent='給 '+(clean(item.recipientLabel,40)||'曇時全體成員');
-      meta.append(name,to);card.append(quote,meta);list.appendChild(card);
-    });
+    if(!motionUi)return;
+    if(!rows.length){motionUi.lanes.hidden=true;motionUi.empty.textContent='公開留言正在慢慢收集。也歡迎留下今晚的心情。';motionUi.empty.hidden=false;motionUi.laneOne.replaceChildren();motionUi.laneTwo.replaceChildren();return;}
+    motionUi.empty.hidden=true;motionUi.lanes.hidden=false;
+    var animate=rows.length>=3;var offset=Math.max(1,Math.floor(rows.length/2));var alternate=rows.slice(offset).concat(rows.slice(0,offset));
+    fillLane(motionUi.laneOne,rows,animate);
+    if(animate){motionUi.laneTwo.hidden=false;fillLane(motionUi.laneTwo,alternate,true);}else{motionUi.laneTwo.hidden=true;motionUi.laneTwo.replaceChildren();}
   }
 
   form.addEventListener('change',function(event){if(event.target.name==='guestbookConsent') updateNameRequirement();});
@@ -78,6 +135,8 @@
     }).then(function(){submit.disabled=false;submit.textContent='把這封信交給曇時';});
   });
 
+  document.addEventListener('keydown',function(event){if(event.key==='Escape'&&motionUi){if(!motionUi.writeModal.hidden)motionUi.writeModal.hideGuestbookModal();if(!motionUi.messageModal.hidden)motionUi.messageModal.hideGuestbookModal();}});
+  motionUi=setupMotionUi();
   updateNameRequirement();
   db.ref('lephemere/staffRoster').on('value',function(snapshot){renderRecipients(snapshot.val());},function(){renderRecipients({});});
   db.ref('lephemere/guestbookPublic').on('value',function(snapshot){renderPublic(snapshot.val());},function(){renderPublic({});});
