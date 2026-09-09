@@ -25,10 +25,7 @@
 }
 
 .hero-photo::before{
-  top:1.2rem;
-  left:1.35rem;
-  right:auto;
-  background:rgba(35,26,30,.64);
+  display:none;
 }
 
 .hero-photo::after{
@@ -104,12 +101,13 @@
 }
 
 .hero p.tag{
-  max-width:29em;
+  max-width:36em;
   margin:0;
   color:#f3ebe4;
   font-size:clamp(.78rem,.92vw,.9rem);
   line-height:1.8;
   text-align:left;
+  text-wrap:balance;
   text-shadow:0 2px 16px rgba(0,0,0,.62);
 }
 

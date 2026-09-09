@@ -1,4 +1,4 @@
-html.site-content-loading .hero-photo img,
+html.site-hero-loading .hero-photo img,
 html.site-content-loading .polaroid-gallery{opacity:0}
 .hero-photo img,.polaroid-gallery{transition:opacity .24s ease}
 .hero-photo img[data-managed-hero]{transition:object-position .24s ease,transform .24s ease,opacity .24s ease;transform-origin:center}

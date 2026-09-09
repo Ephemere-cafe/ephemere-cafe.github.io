@@ -1,7 +1,10 @@
 (function(){
   'use strict';
 
-  if(!window.firebase || !firebase.apps || !firebase.apps.length) return;
+  if(!window.firebase || !firebase.apps || !firebase.apps.length){
+    document.documentElement.classList.remove('site-hero-loading');
+    return;
+  }
   var db = firebase.database();
   var heroImage = document.querySelector('.hero-photo img');
   var gallery = document.querySelector('.polaroid-gallery');
@@ -32,7 +35,10 @@
     var x = mobile ? heroSettings && heroSettings.mobileFocalX : heroSettings && heroSettings.desktopFocalX;
     var y = mobile ? heroSettings && heroSettings.mobileFocalY : heroSettings && heroSettings.desktopFocalY;
     var zoom = mobile ? heroSettings && heroSettings.mobileZoom : heroSettings && heroSettings.desktopZoom;
-    var reveal = function(){ markContentReady('hero'); };
+    var reveal = function(){
+      document.documentElement.classList.remove('site-hero-loading');
+      markContentReady('hero');
+    };
     heroImage.addEventListener('load', reveal, { once: true });
     heroImage.addEventListener('error', reveal, { once: true });
     heroImage.src = src;
