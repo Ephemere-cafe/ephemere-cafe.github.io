@@ -2166,7 +2166,7 @@
 <link rel="stylesheet" href="assets/layout-home-photo-hero.css?v=20260828b">
 <link rel="stylesheet" href="assets/layout-about-editorial.css?v=20260828a">
 <link rel="stylesheet" href="assets/site-follow-pet.css?v=20260903a">
-<link rel="stylesheet" href="assets/guestbook-studio.css?v=20260909-v22">
+<link rel="stylesheet" href="assets/guestbook-studio.css?v=20260910-v23">
 <style id="site-polish-v5">
 /* 2026-09-03：集中最後覆蓋規則，避免舊版外部 CSS 快取與重複定義。 */
 .home-shift-list{
@@ -2803,20 +2803,19 @@
     <div class="guestbook-heading reveal">
       <p class="eyebrow">A letter for tonight</p>
       <h2 class="section-title">留一封信給曇時</h2>
-      <p>在離席以前，把今晚沒有說完的心情留在這裡。每一封來信都會先由店內閱讀，再由管理員決定是否收進公開留言。</p>
+      <p>在離席以前，把今晚未說完的心情留在這裡。寫給曇時，也寫給今晚陪伴你的那一位。</p>
     </div>
     <div class="guestbook-layout">
       <form class="guestbook-form reveal" id="guestbookForm" novalidate>
         <div class="guestbook-form-inner">
-          <h3>客人留言箱</h3>
-          <p class="guestbook-form-lead">指定成員只是指定收件對象，並不是私人信件。</p>
+          <h3>寫下今晚的話</h3>
+          <p class="guestbook-form-lead">若想把話送給某位成員，也可以悄悄指定她的名字。</p>
           <div class="guestbook-notice" id="guestbookNotice">
-            <strong>送出前請先閱讀</strong>
+            <strong>關於這封信</strong>
             <ul>
-              <li>所有後台帳號都能閱讀投稿；指定成員不代表其他成員看不到。</li>
-              <li>不公開只留在後台；匿名公開刊登時不顯示名字；具名公開只顯示名字、不顯示伺服器。</li>
-              <li>允許公開不代表一定會刊登，仍由管理員選擇。</li>
-              <li>本站不提供回覆功能。</li>
+              <li>來信會由曇時店內成員共同閱讀；指定對象不代表只有她能看見。</li>
+              <li>你可以選擇只留在店內，或同意以匿名／具名方式公開；具名公開只顯示名字，不會顯示伺服器。</li>
+              <li>同意公開的來信，會由曇時挑選後刊登；本站暫不提供回覆。</li>
             </ul>
           </div>
           <label class="guestbook-field" for="guestbookRecipient">想把留言留給誰？
@@ -2830,19 +2829,19 @@
           </label>
           <fieldset class="guestbook-consent">
             <legend>希望如何保存這封留言？</legend>
-            <label><input type="radio" name="guestbookConsent" value="private" checked><span><strong>不公開</strong><small>只在後台閱讀</small></span></label>
-            <label><input type="radio" name="guestbookConsent" value="anonymous"><span><strong>匿名公開</strong><small>可由管理員匿名刊登</small></span></label>
-            <label><input type="radio" name="guestbookConsent" value="named"><span><strong>具名公開</strong><small>可由管理員顯示名字</small></span></label>
+            <label><input type="radio" name="guestbookConsent" value="private" checked><span><strong>不公開</strong><small>只留在曇時店內</small></span></label>
+            <label><input type="radio" name="guestbookConsent" value="anonymous"><span><strong>匿名公開</strong><small>若刊登，不顯示名字</small></span></label>
+            <label><input type="radio" name="guestbookConsent" value="named"><span><strong>具名公開</strong><small>若刊登，只顯示名字</small></span></label>
           </fieldset>
-          <label class="guestbook-confirm"><input type="checkbox" id="guestbookConfirm" required> 我已閱讀並理解投稿的閱讀範圍、公開方式及不提供回覆。</label>
+          <label class="guestbook-confirm"><input type="checkbox" id="guestbookConfirm" required> 我已了解以上說明，願意將這封信交給曇時。</label>
           <input type="text" id="guestbookWebsite" class="guestbook-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button class="guestbook-submit" id="guestbookSubmit" type="submit">確認須知並送出留言</button>
+          <button class="guestbook-submit" id="guestbookSubmit" type="submit">把這封信交給曇時</button>
           <p class="guestbook-status" id="guestbookStatus" role="status" aria-live="polite"></p>
         </div>
       </form>
       <section class="guestbook-public reveal" aria-labelledby="guestbookPublicTitle">
-        <div class="guestbook-public-head"><div><p class="eyebrow">Letters we keep</p><h3 id="guestbookPublicTitle">主人們留下的片刻</h3></div><span>僅顯示管理員已選擇刊登的留言</span></div>
-        <div id="guestbookPublicList" class="guestbook-public-list"><p class="guestbook-empty">正在讀取公開留言…</p></div>
+        <div class="guestbook-public-head"><div><p class="eyebrow">Letters we keep</p><h3 id="guestbookPublicTitle">曇時珍藏的來信</h3></div><span>經主人同意後，收進這裡的片刻</span></div>
+        <div id="guestbookPublicList" class="guestbook-public-list"><p class="guestbook-empty">正在展開曇時珍藏的來信…</p></div>
       </section>
     </div>
   </div>
@@ -3617,8 +3616,8 @@
 })();
 </script>
 <script src="assets/site-content.js?v=20260827a"></script>
-<script src="assets/studio-content.js?v=20260909-v22"></script>
-<script src="assets/guestbook.js?v=20260909-v22"></script>
+<script src="assets/studio-content.js?v=20260910-v23"></script>
+<script src="assets/guestbook.js?v=20260910-v23"></script>
 <script src="assets/site-follow-pet.js?v=20260903a"></script>
 
 </body>
