@@ -32,6 +32,28 @@
   }
   function showModal(modal,opener){modal.returnFocus=opener||document.activeElement;modal.hidden=false;document.body.classList.add('guest-letter-modal-open');modal.querySelector('.guestbook-modal-close').focus();}
 
+  function createThanksModal(){
+    var cast=[
+      ['夏沐','xiamu.png'],['彌亞璃卡','miarica.png'],['玥紅雪','yuehongxue.png'],['奈帕','naipa.png'],
+      ['小顏','xiaoyan.png'],['蒼','cang.png'],['璐可','ruko.png'],['草莓','strawberry.png'],
+      ['諾依','noi.png'],['馬鈴薯','potato.png'],['魔可娜','mokona.png']
+    ];
+    var content=element('div','guestbook-thanks-content');
+    content.append(element('p','guestbook-thanks-eyebrow','Letter received'),element('h3','', '今晚的心意，我們收到了'));
+    content.appendChild(element('p','guestbook-thanks-copy','謝謝你把這段心情留給曇時。願今晚的溫柔，陪你走到下一次相見。'));
+    var chibis=element('div','guestbook-thanks-chibis');
+    cast.forEach(function(member){
+      var figure=element('span','guestbook-thanks-chibi');
+      var image=document.createElement('img');image.src='assets/chibi-cast/'+member[1];image.alt=member[0];image.loading='eager';
+      figure.appendChild(image);chibis.appendChild(figure);
+    });
+    content.append(chibis,element('p','guestbook-thanks-caption','曇時全體成員 ・ 謝謝你的來信'));
+    var button=element('button','guestbook-thanks-button','收好這份回憶');button.type='button';content.appendChild(button);
+    var modal=createModal(content,'guestbook-thanks-dialog','來信已送達');
+    button.addEventListener('click',function(){modal.hideGuestbookModal();});
+    return modal;
+  }
+
   function setupMotionUi(){
     if(!layout||!heading)return null;
     var stage=element('section','guestbook-motion-stage');stage.setAttribute('aria-label','曇時珍藏的來信');
@@ -49,9 +71,10 @@
     var writeModal=createModal(form,'guestbook-write-dialog','寫一封信給曇時');
     var messageContent=element('div');var messageQuote=element('blockquote');var messageMeta=element('p');messageContent.append(messageQuote,messageMeta);
     var messageModal=createModal(messageContent,'guestbook-message-dialog','完整留言');
+    var thanksModal=createThanksModal();
     writeButton.addEventListener('click',function(){showModal(writeModal,writeButton);});
     document.body.classList.add('guest-motion-ready');
-    return {lanes:lanes,laneOne:laneOne,laneTwo:laneTwo,empty:empty,writeModal:writeModal,messageModal:messageModal,messageQuote:messageQuote,messageMeta:messageMeta};
+    return {lanes:lanes,laneOne:laneOne,laneTwo:laneTwo,empty:empty,writeButton:writeButton,writeModal:writeModal,messageModal:messageModal,thanksModal:thanksModal,messageQuote:messageQuote,messageMeta:messageMeta};
   }
 
   function renderRecipients(value){
@@ -130,12 +153,13 @@
     submit.disabled=true;submit.textContent='正在送出…';setStatus('正在替你把信收好…','');lastSubmitAt=Date.now();
     db.ref('lephemere/guestbookSubmissions').push(record).then(function(){
       form.reset();updateNameRequirement();setStatus('信已收到。謝謝你把今晚的心情留給曇時。','success');
+      if(motionUi){motionUi.writeModal.hideGuestbookModal();showModal(motionUi.thanksModal,motionUi.writeButton);}
     }).catch(function(error){
       lastSubmitAt=0;console.error('Guestbook submission failed',error);setStatus('留言未能送出，請確認連線後再試一次。','error');
     }).then(function(){submit.disabled=false;submit.textContent='把這封信交給曇時';});
   });
 
-  document.addEventListener('keydown',function(event){if(event.key==='Escape'&&motionUi){if(!motionUi.writeModal.hidden)motionUi.writeModal.hideGuestbookModal();if(!motionUi.messageModal.hidden)motionUi.messageModal.hideGuestbookModal();}});
+  document.addEventListener('keydown',function(event){if(event.key==='Escape'&&motionUi){if(!motionUi.writeModal.hidden)motionUi.writeModal.hideGuestbookModal();if(!motionUi.messageModal.hidden)motionUi.messageModal.hideGuestbookModal();if(!motionUi.thanksModal.hidden)motionUi.thanksModal.hideGuestbookModal();}});
   motionUi=setupMotionUi();
   updateNameRequirement();
   db.ref('lephemere/staffRoster').on('value',function(snapshot){renderRecipients(snapshot.val());},function(){renderRecipients({});});
