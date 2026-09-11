@@ -2168,6 +2168,7 @@
 <link rel="stylesheet" href="assets/site-follow-pet.css?v=20260903a">
 <link rel="stylesheet" href="assets/guestbook-studio.css?v=20260910-v26">
 <link rel="stylesheet" href="assets/mobile-nav-fix.css?v=20260911-v28">
+<link rel="stylesheet" href="assets/mobile-polish-v29.css?v=20260912-v29">
 <style id="site-polish-v5">
 /* 2026-09-03：集中最後覆蓋規則，避免舊版外部 CSS 快取與重複定義。 */
 .home-shift-list{
@@ -2544,7 +2545,10 @@
     </div>
 
     <div class="menu-grid" id="siteMenuGrid" aria-live="polite">
-      <p class="menu-note" style="grid-column:1/-1;text-align:center;">正在同步今晚菜單…</p>
+      <div class="mobile-soft-loading mobile-soft-loading-menu" role="status" aria-label="正在同步今晚菜單">
+        <div class="mobile-soft-loading-cards" aria-hidden="true"><span></span><span></span></div>
+        <p class="menu-note mobile-soft-loading-caption">正在同步今晚菜單…</p>
+      </div>
     </div>
   </div>
 </section>
@@ -2556,9 +2560,14 @@
       <p class="eyebrow">來店指南</p>
       <h2 class="section-title">來店與服務指南</h2>
       <p style="color:var(--text-mute); max-width:38em; margin:0 auto;">第一次來到曇時也不用擔心。從入座、點餐到特別服務，都能依照以下方式輕鬆完成。</p>
+      <div class="service-jump" role="navigation" aria-label="快速查看服務內容">
+        <a href="#service-visit">來店方式</a>
+        <a href="#service-special">特別服務</a>
+        <a href="#polaroids">拍立得紀念</a>
+      </div>
     </div>
 
-    <div class="service-summary reveal">
+    <div class="service-summary reveal" id="service-visit">
       <div>
         <span class="summary-label">來店與消費方式</span>
         <dl class="service-info-list">
@@ -2582,7 +2591,7 @@
       </a>
     </div>
 
-    <div class="guide-block special-service-guide reveal">
+    <div class="guide-block special-service-guide reveal" id="service-special">
       <span class="guide-label">特別服務</span>
       <p class="guide-note">服務內容與價格依當日線上點餐頁面為準。</p>
       <div class="experience-grid">
@@ -2672,7 +2681,12 @@
         <button type="button" id="studioMemoryTab" role="tab" aria-selected="false" aria-controls="studioMemoryPanel">往日相簿</button>
       </div>
       <div id="studioActivePanel" role="tabpanel" aria-labelledby="studioActiveTab">
-        <div class="studio-grid studio-managed-grid" id="studioActiveGrid"><p class="studio-empty">正在讀取攝影棚…</p></div>
+        <div class="studio-grid studio-managed-grid" id="studioActiveGrid">
+          <div class="mobile-soft-loading mobile-soft-loading-studio" role="status" aria-label="正在讀取攝影棚">
+            <div class="mobile-soft-loading-cards" aria-hidden="true"><span></span><span></span></div>
+            <p class="studio-empty mobile-soft-loading-caption">正在讀取攝影棚…</p>
+          </div>
+        </div>
       </div>
       <div id="studioMemoryPanel" role="tabpanel" aria-labelledby="studioMemoryTab" hidden>
         <p class="studio-memory-note">曾陪伴曇時的棚景，收進相簿裡細細珍藏。</p>
@@ -2833,7 +2847,12 @@
       </form>
       <section class="guestbook-public reveal" aria-labelledby="guestbookPublicTitle">
         <div class="guestbook-public-head"><div><p class="eyebrow">Letters we keep</p><h3 id="guestbookPublicTitle">曇時珍藏的來信</h3></div><span>經主人同意後，收進這裡的片刻</span></div>
-        <div id="guestbookPublicList" class="guestbook-public-list"><p class="guestbook-empty">正在展開曇時珍藏的來信…</p></div>
+        <div id="guestbookPublicList" class="guestbook-public-list">
+          <div class="mobile-soft-loading mobile-soft-loading-letters" role="status" aria-label="正在展開曇時珍藏的來信">
+            <div class="mobile-soft-loading-cards" aria-hidden="true"><span></span><span></span></div>
+            <p class="guestbook-empty mobile-soft-loading-caption">正在展開曇時珍藏的來信…</p>
+          </div>
+        </div>
       </section>
     </div>
   </div>
@@ -2933,6 +2952,8 @@
     reservation:'reservation',
     menu:'menu',
     service:'service',
+    'service-visit':'service',
+    'service-special':'service',
     rules:'rules',
     polaroids:'service',
     studio:'studio',
@@ -2989,11 +3010,22 @@
       const targetId = decodeURIComponent(link.getAttribute('href').slice(1));
       const page = pageBySection[targetId];
       if(!page) return;
+      const subsectionTarget = link.closest('.service-jump') ? document.getElementById(targetId) : null;
       event.preventDefault();
       if(location.hash !== `#${targetId}`){
         history.pushState({page},'',`#${targetId}`);
       }
-      showPage(page,true);
+      showPage(page,!subsectionTarget);
+      if(subsectionTarget){
+        requestAnimationFrame(() => {
+          const headerOffset = (header ? header.getBoundingClientRect().height : 0) + 12;
+          const targetTop = window.scrollY + subsectionTarget.getBoundingClientRect().top - headerOffset;
+          window.scrollTo({
+            top:Math.max(0,targetTop),
+            behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+          });
+        });
+      }
     });
   });
 
@@ -3611,6 +3643,7 @@
 <script src="assets/studio-content.js?v=20260910-v24"></script>
 <script src="assets/guestbook.js?v=20260910-v25"></script>
 <script src="assets/site-follow-pet.js?v=20260903a"></script>
+<script src="assets/mobile-polish-v29.js?v=20260912-v29"></script>
 
 </body>
 </html>
