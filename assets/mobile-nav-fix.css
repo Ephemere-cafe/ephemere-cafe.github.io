@@ -1,0 +1,18 @@
+/* 2026-09-11：避免手機頁首的濾鏡定位環境壓縮右側選單高度。 */
+@media (max-width:860px){
+  #site-header nav{
+    position:absolute;
+    top:100%;
+    right:0;
+    bottom:auto;
+    height:calc(100vh - 72px);
+    height:calc(100dvh - 72px);
+    max-height:calc(100vh - 72px);
+    max-height:calc(100dvh - 72px);
+    box-sizing:border-box;
+    padding-bottom:calc(6rem + env(safe-area-inset-bottom));
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+  }
+}
