@@ -1,0 +1,104 @@
+/* v29：僅調整手機版服務導覽、讀取狀態與底部快速操作列。 */
+.service-jump{display:none}
+.mobile-soft-loading{grid-column:1/-1;width:100%}
+.mobile-soft-loading-cards{display:none}
+.mobile-soft-loading-caption{margin:0!important;text-align:center!important}
+
+@media(max-width:860px){
+  #service>.wrap{width:min(100% - 1.5rem,1180px)}
+  #service>.wrap>div:nth-child(2){margin-bottom:2rem!important}
+  #service .ornament{margin-bottom:1.5rem}
+  #service .service-jump{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:.35rem;
+    margin:1.25rem auto 0;
+  }
+  #service .service-jump a{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:42px;
+    padding:.45rem .2rem;
+    border:1px solid rgba(109,82,57,.28);
+    background:rgba(255,253,249,.64);
+    color:var(--text-mute);
+    font:500 .72rem/1.25 "Noto Serif TC",serif;
+    letter-spacing:.04em;
+    text-align:center;
+  }
+  #service .service-jump a:first-child{border-color:var(--bloom-deep);color:var(--bloom-deep)}
+  #service .service-summary{gap:1rem;padding:1rem!important;scroll-margin-top:5.5rem}
+  #service .service-info-row{padding:.9rem 0!important}
+  #service .guide-cta{min-height:50px;padding:.65rem 1rem}
+  #service .special-service-guide{margin-top:1.5rem;scroll-margin-top:5.5rem}
+  #service .special-service-guide .experience-card,
+  #service .special-service-guide .experience-card:nth-child(2),
+  #service .special-service-guide .experience-card:last-child{gap:12px;padding:1.05rem 1.15rem!important}
+  #service .special-service-guide .experience-card p{line-height:1.8}
+  #polaroids.service-polaroid-detail{margin-top:1.75rem;padding-top:2rem;gap:1.5rem;scroll-margin-top:5.5rem}
+  #polaroids .polaroid-copy p{line-height:1.85}
+  #polaroids .polaroid-limit{margin-top:1rem}
+  #polaroids .guide-cta{margin-top:1rem}
+
+  .mobile-soft-loading{padding:.2rem 0 .75rem}
+  .mobile-soft-loading-cards{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+  .mobile-soft-loading-cards span{
+    display:block;
+    min-height:12rem;
+    border:1px solid rgba(109,82,57,.2);
+    background:
+      linear-gradient(rgba(139,110,91,.14),rgba(139,110,91,.14)) 12px calc(100% - 42px)/48% 8px no-repeat,
+      linear-gradient(rgba(139,110,91,.1),rgba(139,110,91,.1)) 12px calc(100% - 22px)/72% 7px no-repeat,
+      linear-gradient(100deg,rgba(196,181,166,.2) 25%,rgba(255,253,249,.72) 48%,rgba(196,181,166,.2) 72%) 0 0/240% calc(100% - 62px) no-repeat,
+      rgba(255,253,249,.52);
+  }
+  .mobile-soft-loading-caption{
+    margin:.9rem 0 0!important;
+    color:var(--text-faint)!important;
+    font:400 .78rem/1.8 "Noto Serif TC",serif!important;
+    letter-spacing:.06em;
+  }
+  .mobile-soft-loading-menu .mobile-soft-loading-cards span{min-height:8.5rem}
+  .mobile-soft-loading-letters .mobile-soft-loading-cards span{min-height:7rem;border-radius:999px}
+
+  .mobile-quick-actions{
+    transition:left .24s ease,right .24s ease,bottom .24s ease,width .24s ease,padding .24s ease,transform .24s ease,background-color .24s ease,box-shadow .24s ease;
+  }
+  .mobile-quick-actions.is-reading{
+    left:50%;
+    right:auto;
+    bottom:calc(.55rem + env(safe-area-inset-bottom));
+    width:min(15.5rem,calc(100vw - 2rem));
+    grid-template-columns:1fr 1fr;
+    gap:.3rem;
+    padding:.3rem;
+    border:1px solid rgba(109,82,57,.24);
+    background:rgba(251,247,240,.94);
+    box-shadow:0 7px 28px rgba(44,31,28,.18);
+    backdrop-filter:blur(12px);
+    transform:translateX(-50%);
+  }
+  .mobile-quick-actions.is-reading a{
+    min-height:38px;
+    padding:.45rem .55rem;
+    border-color:rgba(109,82,57,.24);
+    color:var(--text-mute);
+    font-size:.76rem;
+    letter-spacing:.06em;
+  }
+  .mobile-quick-actions.is-reading a:last-child{color:#fff;background:var(--sage);border-color:var(--sage)}
+}
+
+@media(max-width:370px){
+  #service .service-jump a{font-size:.68rem;letter-spacing:.02em}
+  .mobile-soft-loading-cards{gap:.5rem}
+}
+
+@media(prefers-reduced-motion:no-preference){
+  @media(max-width:860px){
+    .mobile-soft-loading-cards span{animation:mobile-soft-loading 2.2s ease-in-out infinite}
+  }
+}
+@media(prefers-reduced-motion:reduce){.mobile-quick-actions{transition:none!important}}
+@keyframes mobile-soft-loading{from{background-position:12px calc(100% - 42px),12px calc(100% - 22px),100% 0,0 0}to{background-position:12px calc(100% - 42px),12px calc(100% - 22px),-120% 0,0 0}}
