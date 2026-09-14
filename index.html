@@ -2559,10 +2559,10 @@
     <div style="text-align:center; margin-bottom:4rem;" class="reveal">
       <p class="eyebrow">來店指南</p>
       <h2 class="section-title">來店與服務指南</h2>
-      <p style="color:var(--text-mute); max-width:38em; margin:0 auto;">第一次來到曇時也不用擔心。從入座、點餐到特別服務，都能依照以下方式輕鬆完成。</p>
+      <p style="color:var(--text-mute); max-width:38em; margin:0 auto;">第一次來到曇時也不用擔心。從領取號碼牌、入座點餐到選購紀念商品，都能依照以下方式完成。</p>
       <div class="service-jump" role="navigation" aria-label="快速查看服務內容">
         <a href="#service-visit">來店方式</a>
-        <a href="#service-special">特別服務</a>
+        <a href="#service-special">用餐體驗</a>
         <a href="#polaroids">拍立得紀念</a>
       </div>
     </div>
@@ -2581,7 +2581,7 @@
           </div>
           <div class="service-info-row">
             <dt>點餐付款</dt>
-            <dd>餐點與特別服務請透過線上點餐送出；待女僕確認訂單後，再於遊戲內完成 Gil 交易。</dd>
+            <dd>餐點請透過線上點餐送出；拍立得與限定商品則在拍立得網站登記。款項皆於遊戲內完成 Gil 交易。</dd>
           </div>
         </dl>
       </div>
@@ -2592,20 +2592,16 @@
     </div>
 
     <div class="guide-block special-service-guide reveal" id="service-special">
-      <span class="guide-label">特別服務</span>
-      <p class="guide-note">服務內容與價格依當日線上點餐頁面為準。</p>
+      <span class="guide-label">用餐體驗</span>
+      <p class="guide-note">餐點內容與價格依當日線上點餐頁面為準。</p>
       <div class="experience-grid">
         <article class="experience-card">
           <h4>拍立得紀念</h4>
-          <p>在線上點餐選擇想合照的女僕，確認後即可提出邀請，留下屬於曇時的紀念時光。成品將於製作完成後交付，等候時間依當晚情況為準。</p>
+          <p>領取號碼牌後，可使用號碼牌與桌碼前往拍立得網站，查看本場商品、女僕作品範例與剩餘名額。</p>
         </article>
         <article class="experience-card">
           <h4>餐桌隱藏魔法</h4>
           <p>點選蛋包飯時可加購，女僕將親自來到桌前，為料理注入神秘魔法。</p>
-        </article>
-        <article class="experience-card">
-          <h4>Lens｜個人攝影</h4>
-          <p>在線上點餐選擇 Lens 服務，即可由指定店員為您進行個人攝影。拍攝內容與時間將於現場確認，成品完成後交付。</p>
         </article>
       </div>
     </div>
@@ -2628,12 +2624,12 @@
         <p>選擇想合照的女僕，讓曇時替您留下今晚的紀念。從拍攝、構圖到手寫裝飾，每一張都帶著女僕不同的個人風格，成為只屬於你們的一份回憶。</p>
         <div class="polaroid-limit" aria-label="拍立得限量提醒">
           <span class="limit-label">每場限量</span>
-          <p>為維持拍攝品質，每位店員每次營業限量開放 3 張拍立得服務，額滿為止。</p>
+          <p>商品、價格與剩餘名額依當次拍立得網站顯示，額滿為止。</p>
         </div>
         <p class="polaroid-note">※ 圖片為過往成品範例，實際構圖、裝飾與完成風格依當日拍攝及女僕安排為準；成品將於製作完成後交付，等候時間依當晚情況而定。</p>
-        <a class="guide-cta" href="https://order.ephemereffxiv.com/" target="_blank" rel="noopener">
-          <span>挑選合照女僕</span>
-          <small>前往線上點餐 ↗</small>
+        <a class="guide-cta" href="https://photo.ephemereffxiv.com/" target="_blank" rel="noopener">
+          <span>查看當日拍立得商品</span>
+          <small>前往拍立得網站 ↗</small>
         </a>
       </div>
     </div>
@@ -3517,11 +3513,16 @@
 
       var categoryOrder = [];
       var groups = {};
+      function isLegacyPhotoMenuItem(item){
+        var type=String(item&&item.type||'').toLowerCase();
+        var source=String(item&&item.name||'')+' '+String(item&&item.category||'');
+        return type==='polaroid'||type==='lens'||/拍立得|純拍|lens|個人攝影|專屬留影/i.test(source);
+      }
       Object.keys(menu).sort(function(a,b){
         return Number(menu[a].sortOrder||0)-Number(menu[b].sortOrder||0);
       }).forEach(function(key){
         var item = menu[key];
-        if(!item || !item.name) return;
+        if(!item || !item.name || isLegacyPhotoMenuItem(item)) return;
         var category = item.category || '其他';
         if(!groups[category]){
           groups[category] = [];
