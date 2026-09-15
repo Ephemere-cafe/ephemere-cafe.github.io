@@ -1,0 +1,17 @@
+/* Fix the content being auto-placed into the former 1px grid row. */
+#service .special-service-guide .experience-card,
+#service .special-service-guide .experience-card:nth-child(2),
+#service .special-service-guide .experience-card:last-child{display:flex;flex-direction:column;gap:18px;height:auto;min-height:0;overflow:visible}
+#service .special-service-guide .experience-card::after{content:none;display:none}
+#service .special-service-guide .experience-card p{width:100%;max-width:none;min-height:0;margin:0;line-height:1.9;overflow-wrap:anywhere}
+#service .special-service-guide .service-card-link{position:static;align-self:flex-start;margin-top:auto;padding-top:8px;flex-shrink:0}
+
+#service .special-service-guide .experience-grid{grid-template-columns:1fr}
+#service .special-service-guide .experience-card{border-right:0!important}
+.photo-service-heading{margin-top:64px;padding-top:36px;border-top:1px solid #d8cabb}.photo-service-heading h2{font-size:clamp(30px,4vw,44px);font-weight:400;margin:12px 0}.photo-service-heading>p{color:var(--text-mute);line-height:1.8}
+.photo-service-types{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}.photo-service-types span{border:1px solid #d8cabb;border-radius:30px;padding:8px 18px;background:#fffaf3}
+#service #polaroids{margin-top:24px!important;padding:30px!important;border:1px solid #d8cabb;background:rgba(255,253,249,.7);gap:36px!important;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)!important}
+#polaroids .polaroid-copy{min-width:0}#polaroids .photo-access-note{padding:18px;background:#e6e9df;font-size:14px;line-height:1.9}#polaroids .polaroid-limit{display:block;padding:16px}#polaroids .polaroid-limit p{margin:8px 0 0}#polaroids .polaroid-copy .section-title{font-size:clamp(30px,3.4vw,42px)!important}
+.photo-service-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding:24px 0;border-top:1px solid #d8cabb;margin-top:24px}.photo-service-steps b{font-weight:500}.photo-service-steps p{color:var(--text-mute);font-size:14px;line-height:1.8}
+@media(max-width:760px){#service #polaroids{grid-template-columns:1fr!important;padding:18px!important}.photo-service-steps{grid-template-columns:1fr;gap:12px}.photo-service-heading{margin-top:40px}}
+#polaroids .polaroid-copy>.eyebrow::before{content:none!important}#polaroids .guide-cta{width:100%;box-sizing:border-box}@media(max-width:760px){#polaroids .polaroid-gallery{order:0!important}#polaroids .polaroid-copy{order:1!important}}
