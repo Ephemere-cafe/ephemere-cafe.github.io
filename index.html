@@ -2324,55 +2324,76 @@
 #homeShift[data-cast-state="next"] .home-shift-label::before{content:"NEXT CAST"!important;}
 #homeShift[data-cast-state="pending"] .home-shift-label::before{content:"CAST SCHEDULE"!important;}
 
-/* 特別服務：標題齊線，內文區塊在卡片剩餘高度置中。 */
+/* 用餐與紀念：兩張卡片完整使用版面，同時保留清楚的閱讀層次。 */
+.special-service-guide .experience-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  border:1px solid var(--surface-line);
+}
 .special-service-guide .experience-card,
 .special-service-guide .experience-card:nth-child(2),
 .special-service-guide .experience-card:last-child{
   display:grid;
-  min-height:360px;
-  grid-template-rows:52px 1px minmax(0,1fr);
-  gap:22px;
-  padding:48px 42px 44px;
+  min-height:270px;
+  grid-template-rows:auto auto 1px minmax(0,1fr) auto;
+  gap:15px;
+  padding:34px 36px 30px;
+  border:0;
+  border-right:1px solid var(--surface-line);
+  background:rgba(255,255,255,.2);
+}
+.special-service-guide .experience-card:last-child{border-right:0}
+.special-service-guide .service-index{
+  color:var(--gold);
+  font-family:"Cormorant Garamond",serif;
+  font-size:.72rem;
+  letter-spacing:.18em;
 }
 .special-service-guide .experience-card h4{
-  display:flex;
-  grid-row:1;
-  align-items:center;
-  justify-content:center;
   margin:0;
   font-size:clamp(1.15rem,2vw,1.45rem);
   font-weight:400;
   letter-spacing:.025em;
-  text-align:center;
+  text-align:left;
 }
 .special-service-guide .experience-card::after{
   content:"";
   position:static;
   display:block;
-  grid-row:2;
-  width:46px;
+  width:100%;
   height:1px;
-  margin:auto;
+  margin:0;
   background:var(--surface-line);
 }
 .special-service-guide .experience-card p{
-  grid-row:3;
-  align-self:center;
-  width:min(100%,27em);
-  margin:0 auto;
+  align-self:start;
+  width:min(100%,34em);
+  margin:0;
   font-size:.86rem;
   line-height:2;
   text-align:left;
 }
+.special-service-guide .service-card-link{
+  justify-self:start;
+  padding-bottom:3px;
+  border-bottom:1px solid currentColor;
+  color:var(--gold);
+  font-size:.76rem;
+  letter-spacing:.06em;
+}
+.special-service-guide .service-card-link:hover{color:var(--text)}
 @media(max-width:860px){
+  .special-service-guide .experience-grid{grid-template-columns:1fr}
   .special-service-guide .experience-card,
   .special-service-guide .experience-card:nth-child(2),
   .special-service-guide .experience-card:last-child{
     min-height:auto;
-    grid-template-rows:auto 1px auto;
-    gap:18px;
-    padding:32px 24px;
+    grid-template-rows:auto auto 1px auto auto;
+    gap:14px;
+    padding:28px 24px;
+    border-right:0;
+    border-bottom:1px solid var(--surface-line);
   }
+  .special-service-guide .experience-card:last-child{border-bottom:0}
 }
 </style>
 <script src="assets/staff-chibi-map.js?v=20260903a"></script>
@@ -2592,16 +2613,20 @@
     </div>
 
     <div class="guide-block special-service-guide reveal" id="service-special">
-      <span class="guide-label">用餐體驗</span>
-      <p class="guide-note">餐點內容與價格依當日線上點餐頁面為準。</p>
+      <span class="guide-label">用餐與紀念</span>
+      <p class="guide-note">餐點低消與拍立得商品分開計算；實際販售內容依當日點餐與拍立得網站為準。</p>
       <div class="experience-grid">
         <article class="experience-card">
-          <h4>拍立得紀念</h4>
-          <p>領取號碼牌後，可使用號碼牌與桌碼前往拍立得網站，查看本場商品、女僕作品範例與剩餘名額。</p>
+          <span class="service-index">01 / POLAROID</span>
+          <h4>拍立得與限定商品</h4>
+          <p>領取號碼牌後，可憑本桌的六位數共桌密碼進入拍立得網站。選擇自己的角色後，即可瀏覽並登記本場商品；拍立得相關消費將獨立計算，不列入餐點低消。</p>
+          <a class="service-card-link" href="https://photo.ephemereffxiv.com/" target="_blank" rel="noopener">前往拍立得網站 ↗</a>
         </article>
         <article class="experience-card">
+          <span class="service-index">02 / TABLE MAGIC</span>
           <h4>餐桌隱藏魔法</h4>
-          <p>點選蛋包飯時可加購，女僕將親自來到桌前，為料理注入神秘魔法。</p>
+          <p>點選蛋包飯時可一併加購魔法服務。餐點送達後，女僕會來到桌邊，與主人一起為料理完成專屬的魔法儀式。</p>
+          <a class="service-card-link" href="https://order.ephemereffxiv.com/" target="_blank" rel="noopener">查看當日點餐 ↗</a>
         </article>
       </div>
     </div>
