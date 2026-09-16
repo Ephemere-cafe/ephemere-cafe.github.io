@@ -2567,9 +2567,9 @@
     </div>
 
     <div class="menu-grid" id="siteMenuGrid" aria-live="polite">
-      <div class="mobile-soft-loading mobile-soft-loading-menu" role="status" aria-label="正在同步今晚菜單">
+      <div class="mobile-soft-loading mobile-soft-loading-menu" role="status" aria-label="正在載入今晚菜單">
         <div class="mobile-soft-loading-cards" aria-hidden="true"><span></span><span></span></div>
-        <p class="menu-note mobile-soft-loading-caption">正在同步今晚菜單…</p>
+        <p class="menu-note mobile-soft-loading-caption">正在載入今晚菜單…</p>
       </div>
     </div>
   </div>
@@ -3437,7 +3437,7 @@
       labelNode.textContent = selectedDate===activeDate ? '本場出勤' : (selectedDate===today ? '今日出勤' : '下一次出勤');
       dateNode.textContent = shiftDateLabel(selectedDate);
       if(!staff.length){
-        list.innerHTML = '<span class="home-shift-empty">名單正在同步，請稍候片刻。</span>';
+        list.innerHTML = '<span class="home-shift-empty">正在載入女僕名單，請稍候片刻。</span>';
         return;
       }
       var localPhotoFallbacks = {
