@@ -1,0 +1,35 @@
+/* v66：來店與服務區改為清楚的流程與體驗卡片。 */
+#service{--service-paper:#f3ebde;--service-card:#fffaf3;--service-ink:#302321;--service-muted:#806f68;--service-wine:#925266;--service-gold:#b7854f;--service-line:#dacabb;background-color:var(--service-paper);color:var(--service-ink)}
+#service .wrap{max-width:1120px}
+.service-v66-heading{display:block!important;width:100%!important;max-width:760px!important;margin:0 0 2.6rem!important;text-align:left!important}
+.service-v66-heading>*{display:block}
+.service-v66-heading .eyebrow{margin-bottom:.85rem;color:var(--service-gold);font-style:normal;font-size:.75rem;letter-spacing:.28em}
+.service-v66-heading .eyebrow::before{display:none!important;content:none!important}
+.service-v66-heading .section-title{max-width:none;margin:0 0 1rem;color:var(--service-ink);font-size:clamp(2.35rem,5.1vw,4.4rem);line-height:1.3;letter-spacing:.035em}
+.service-v66-heading>p:last-child{max-width:690px;margin:0;color:var(--service-muted);font-size:.95rem;line-height:1.95}
+.service-v66-steps{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;width:100%;margin:0 0 3rem;border:1px solid var(--service-line);background:var(--service-card)}
+.service-v66-steps article{display:block;min-height:150px;padding:1.5rem;border:0;border-right:1px solid var(--service-line);background:none}
+.service-v66-steps article:last-child{border-right:0}
+.service-v66-steps span{display:block;margin-bottom:1rem;color:var(--service-wine);font-family:"Cormorant Garamond",serif;font-size:.8rem;letter-spacing:.2em}
+.service-v66-steps h3{margin:0 0 .55rem;color:var(--service-ink);font-family:"Noto Serif TC",serif;font-size:1rem;font-weight:500;line-height:1.6}
+.service-v66-steps p{margin:0;color:var(--service-muted);font-size:.82rem;line-height:1.8}
+.service-v66-experience-head{display:flex!important;align-items:flex-end;justify-content:space-between;gap:1.5rem;width:100%;margin:0 0 1rem}
+.service-v66-experience-head h3{margin:0;color:var(--service-ink);font-family:"Noto Serif TC",serif;font-size:1.45rem;font-weight:500}
+.service-v66-experience-head span{color:var(--service-muted);font-size:.76rem}
+.service-v66-experiences{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:1.1rem;width:100%;margin:0 0 5rem}
+.service-v66-experiences article{position:relative;display:flex;flex-direction:column;align-items:flex-start;min-height:220px;padding:1.8rem;border:1px solid var(--service-line);background:rgba(255,250,243,.86);overflow:hidden}
+.service-v66-experiences article::after{content:"";position:absolute;right:-3rem;bottom:-4rem;width:10rem;height:10rem;border:1px solid rgba(146,82,102,.18);border-radius:50%}
+.service-v66-label{color:var(--service-gold);font-family:"Cormorant Garamond",serif;font-size:.75rem;letter-spacing:.22em}
+.service-v66-experiences h4{margin:1rem 0 .65rem;color:var(--service-ink);font-family:"Noto Serif TC",serif;font-size:1.35rem;font-weight:500}
+.service-v66-experiences p{max-width:28rem;margin:0 0 1.35rem;color:var(--service-muted);font-size:.84rem;line-height:1.85}
+.service-v66-experiences a{position:relative;z-index:1;margin-top:auto;color:var(--service-wine);font-size:.8rem;font-weight:500}
+#service .service-polaroid-detail{scroll-margin-top:7rem}
+@media(max-width:760px){
+  .service-v66-heading{margin-bottom:1.8rem!important}
+  .service-v66-heading .section-title{font-size:clamp(2rem,10vw,2.65rem)}
+  .service-v66-steps,.service-v66-experiences{grid-template-columns:1fr!important}
+  .service-v66-steps article{min-height:0;border-right:0;border-bottom:1px solid var(--service-line)}
+  .service-v66-steps article:last-child{border-bottom:0}
+  .service-v66-experience-head{align-items:flex-start;flex-direction:column;gap:.35rem}
+  .service-v66-experiences{margin-bottom:3.5rem}
+}
