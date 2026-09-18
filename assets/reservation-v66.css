@@ -1,0 +1,54 @@
+/* v66：專屬預約區淺色編輯式排版。 */
+#reservation{
+  --reservation-paper:#f3ebde;
+  --reservation-card:#fffaf3;
+  --reservation-ink:#302321;
+  --reservation-muted:#806f68;
+  --reservation-wine:#925266;
+  --reservation-sage:#e4e8de;
+  --reservation-sage-ink:#566050;
+  --reservation-gold:#b7854f;
+  --reservation-line:#dacabb;
+  overflow:hidden;
+  background-color:var(--reservation-paper);
+  background-image:linear-gradient(rgba(146,82,102,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(146,82,102,.035) 1px,transparent 1px);
+  background-size:28px 28px;
+  color:var(--reservation-ink);
+}
+#reservation::before{display:none}
+#reservation .wrap{max-width:1120px}
+.reservation-v66-heading{max-width:760px;margin:0 auto 2.5rem;text-align:center}
+.reservation-v66-heading .eyebrow{margin-bottom:.85rem;color:var(--reservation-gold);font-style:normal;font-size:.75rem;letter-spacing:.28em}
+.reservation-v66-heading .section-title{max-width:none;margin:0 0 1rem;color:var(--reservation-ink);font-size:clamp(2.35rem,5.1vw,4.4rem);line-height:1.3;letter-spacing:.035em}
+.reservation-v66-heading>p:last-child{max-width:650px;margin:0 auto;color:var(--reservation-muted);font-size:.95rem;line-height:1.95}
+.reservation-v66-card{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(340px,.88fr);border:1px solid var(--reservation-line);background:var(--reservation-card);box-shadow:0 20px 45px rgba(73,50,40,.1)}
+.reservation-v66-story{display:flex;flex-direction:column;justify-content:center;min-height:390px;padding:clamp(2.25rem,5vw,4rem)}
+.reservation-v66-label{margin-bottom:1.15rem;color:var(--reservation-wine);font-family:"Cormorant Garamond",serif;font-size:.78rem;letter-spacing:.24em}
+.reservation-v66-story h3{max-width:14em;margin:0 0 1.15rem;color:var(--reservation-ink);font-family:"Noto Serif TC",serif;font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:500;line-height:1.5}
+.reservation-v66-story>p{max-width:34rem;margin:0 0 1.8rem;color:var(--reservation-muted);font-size:.9rem;line-height:1.95}
+.reservation-v66-story .reservation-main-cta{align-self:flex-start;width:max-content;min-width:190px;margin:0;padding:1rem 1.6rem;border-color:var(--reservation-wine);background:var(--reservation-wine);color:#fff}
+.reservation-v66-story .reservation-main-cta:hover{border-color:var(--reservation-gold)!important;background:var(--reservation-gold)!important;color:#fff!important}
+.reservation-v66-details.reservation-summary{position:relative;display:block;min-height:390px;margin:0;padding:clamp(2rem,4vw,3.25rem);border:0;border-radius:0;background:var(--reservation-sage);box-shadow:none;color:var(--reservation-sage-ink);overflow:hidden}
+.reservation-v66-details.reservation-summary::before{display:block;top:auto;right:-5rem;bottom:-6.5rem;width:15rem;height:15rem;border:1px solid rgba(86,96,80,.17);border-radius:50%}
+.reservation-v66-details .reservation-summary-label{display:block;margin:0;padding:0 0 .65rem;border:0;color:var(--reservation-sage-ink);font-family:"Noto Serif TC",serif;font-size:1.1rem;font-weight:500;letter-spacing:.05em;text-transform:none}
+.reservation-v66-details .reservation-experiences{display:grid;grid-template-columns:1fr;gap:0;margin:0}
+.reservation-v66-details .reservation-experience{display:grid;grid-template-columns:92px 1fr;align-items:start;gap:1.1rem;padding:1.2rem 0;border:0;border-bottom:1px solid rgba(86,96,80,.18);border-radius:0;background:none;text-align:left}
+.reservation-v66-details .reservation-experience strong{margin:0;color:var(--reservation-sage-ink);font-family:"Noto Serif TC",serif;font-size:.9rem;font-weight:500}
+.reservation-v66-details .reservation-experience span{color:var(--reservation-sage-ink);font-size:.82rem;line-height:1.75}
+.reservation-v66-details .reservation-availability{position:relative;z-index:1;display:block;margin-top:1.35rem;padding:.8rem 1rem;border-left:3px solid var(--reservation-wine);background:rgba(255,250,243,.62);color:var(--reservation-sage-ink);font-size:.78rem;line-height:1.7;letter-spacing:0}
+.reservation-v66-details .reservation-availability::before{display:none}
+.reservation-v66-foot{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;margin-top:1.35rem;padding-top:1.2rem;border-top:1px solid var(--reservation-line);color:var(--reservation-muted);font-size:.78rem}
+.reservation-v66-foot strong{color:var(--reservation-wine);font-weight:500}
+@media(max-width:860px){
+  .reservation-v66-heading{text-align:left}
+  .reservation-v66-heading>p:last-child{margin-left:0}
+  .reservation-v66-card{grid-template-columns:1fr}
+  .reservation-v66-story,.reservation-v66-details.reservation-summary{min-height:0;padding:2rem 1.4rem}
+  .reservation-v66-story .reservation-main-cta{width:100%}
+  .reservation-v66-foot{align-items:flex-start;flex-direction:column;gap:.6rem}
+}
+@media(max-width:520px){
+  .reservation-v66-heading{margin-bottom:1.75rem}
+  .reservation-v66-heading .section-title{font-size:clamp(2rem,10vw,2.65rem)}
+  .reservation-v66-details .reservation-experience{grid-template-columns:1fr;gap:.35rem}
+}
