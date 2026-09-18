@@ -2398,6 +2398,7 @@
 </style>
 <script src="assets/staff-chibi-map.js?v=20260903a"></script>
 <link rel="stylesheet" href="assets/service-v37.css?v=37">
+<link rel="stylesheet" href="assets/service-layout-v66.css?v=66">
 <link rel="stylesheet" href="assets/reservation-v66.css?v=66">
 </head>
 <body>
@@ -2531,11 +2532,11 @@
 
 <section id="reservation" data-page="reservation">
   <div class="wrap">
-    <header class="reservation-v66-heading reveal">
+    <div class="reservation-v66-heading reveal">
       <p class="eyebrow">02 / Private Reservation</p>
       <h2 class="section-title">今晚，留一席專屬時光</h2>
       <p>每次營業僅接待一組預約主人。由女僕陪著你們，在喜歡的旋律中，慢慢度過一段不被打擾的曇時。</p>
-    </header>
+    </div>
 
     <div class="reservation-v66-card">
       <div class="reservation-v66-story reveal">
@@ -2583,56 +2584,34 @@
 
 <section id="service" data-page="service">
   <div class="wrap">
-    <div class="ornament reveal"><span class="line"></span><svg viewBox="0 0 24 24"><path d="M12 2 C9 8 9 16 12 22 C15 16 15 8 12 2Z" fill="currentColor"/></svg><span class="line r"></span></div>
-    <div style="text-align:center; margin-bottom:4rem;" class="reveal">
-      <p class="eyebrow">來店指南</p>
-      <h2 class="section-title">來店與服務指南</h2>
-      <p style="color:var(--text-mute); max-width:38em; margin:0 auto;">第一次來到曇時也不用擔心。從領取號碼牌、入座點餐到選購紀念商品，都能依照以下方式完成。</p>
-      <div class="service-jump" role="navigation" aria-label="快速查看服務內容">
-        <a href="#service-visit">來店方式</a>
-        <a href="#service-special">用餐體驗</a>
-        <a href="#polaroids">拍立得紀念</a>
-      </div>
+    <div class="service-v66-heading reveal">
+      <p class="eyebrow">04 / Service Guide</p>
+      <h2 class="section-title">今晚的來店與服務</h2>
+      <p>從領取號碼牌、入座點餐，到挑選想留下的紀念，都可以在同一段流程裡輕鬆完成。</p>
     </div>
 
-    <div class="service-summary reveal" id="service-visit">
-      <div>
-        <span class="summary-label">來店與消費方式</span>
-        <dl class="service-info-list">
-          <div class="service-info-row">
-            <dt>入座低消</dt>
-            <dd>若選擇入座用餐，由女僕為您提供桌邊服務，每位主人低消為 <b>30,000 Gil</b>。</dd>
-          </div>
-          <div class="service-info-row">
-            <dt>自由參觀</dt>
-            <dd>前來參觀店內或使用攝影棚，不受低消限制。</dd>
-          </div>
-          <div class="service-info-row">
-            <dt>點餐付款</dt>
-            <dd>餐點請透過線上點餐送出；拍立得與限定商品則在拍立得網站登記。款項皆於遊戲內完成 Gil 交易。</dd>
-          </div>
-        </dl>
-      </div>
-      <a class="guide-cta" href="https://order.ephemereffxiv.com/" target="_blank" rel="noopener">
-        <span>開始線上點餐</span>
-        <small>前往點餐頁 ↗</small>
-      </a>
+    <div class="service-v66-steps reveal" id="service-visit" aria-label="來店流程">
+      <article><span>01</span><h3>領取號碼牌</h3><p>由一位代表領號，同行者使用本桌通行密碼加入。</p></article>
+      <article><span>02</span><h3>與女僕會合後點餐</h3><p>入座低消每位 30,000 Gil；自由參觀不受低消限制。</p></article>
+      <article><span>03</span><h3>選購紀念服務</h3><p>送出餐點後，可加購拍攝、繪圖與簽繪等服務。</p></article>
     </div>
 
-    <div class="guide-block special-service-guide reveal" id="service-special">
-      <span class="guide-label">用餐服務</span>
-      <p class="guide-note">餐點低消與拍立得商品分開計算；實際販售內容依當日點餐與拍立得網站為準。</p>
-      <div class="experience-grid">
-<article class="experience-card">
-          <span class="service-index">TABLE MAGIC</span>
-          <h4>餐桌隱藏魔法</h4>
-          <p>點選蛋包飯時可一併加購魔法服務。餐點送達後，女僕會來到桌邊，與主人一起為料理完成專屬的魔法儀式。</p>
-          <a class="service-card-link" href="https://order.ephemereffxiv.com/" target="_blank" rel="noopener">查看當日點餐 ↗</a>
-        </article>
-      </div>
+    <div class="service-v66-experience-head reveal"><h3>今晚還可以體驗</h3><span>點選查看詳細內容</span></div>
+    <div class="service-v66-experiences reveal" id="service-special">
+      <article>
+        <span class="service-v66-label">TABLE MAGIC</span>
+        <h4>餐桌隱藏魔法</h4>
+        <p>點選蛋包飯時可一併加購魔法服務，女僕將在桌邊與你一起完成專屬儀式。</p>
+        <a href="https://order.ephemereffxiv.com/" target="_blank" rel="noopener">查看今晚菜單　↗</a>
+      </article>
+      <article>
+        <span class="service-v66-label">MEMORIES</span>
+        <h4>拍攝／紀念服務</h4>
+        <p>送出餐點後，可在點餐頁選購拍立得、純拍、繪圖與簽繪服務。</p>
+        <a href="#polaroids">查看服務方式　↓</a>
+      </article>
     </div>
 
-    <div class="photo-service-heading"><p class="eyebrow">PHOTOGRAPHY &amp; MEMORIES</p><h2>拍照與紀念服務</h2><p>把相遇留下來，成為可以珍藏的片刻。</p></div>
     <div id="polaroids" class="polaroid-showcase service-polaroid-detail" aria-labelledby="polaroid-title">
       <div class="polaroid-gallery reveal" aria-label="拍立得成品範例">
         <a class="polaroid-print" href="polaroid-sample-01.jpg" target="_blank" rel="noopener" aria-label="查看拍立得成品範例 01 大圖">
@@ -2657,7 +2636,7 @@
         <p class="polaroid-note">※ 圖片為過往成品範例，實際構圖、裝飾與完成風格依當日拍攝及女僕安排為準；成品將於製作完成後交付，等候時間依當晚情況而定。</p>
       </div>
     </div>
-    <div class="photo-service-steps"><div><b>01　領號・取得共桌密碼</b><p>選擇自己在本桌的角色。</p></div><div><b>02　選擇服務・完成登記</b><p>需安排拍攝的服務每客每場最多 3 份，同女僕最多 1 份。</p></div><div><b>03　收到通知・依時段回店</b><p>拍攝時間將透過遊戲內私訊通知，等待期間可自由活動。</p></div></div>
+    <div class="photo-service-steps"><div><b>01　領號・取得本桌通行密碼</b><p>選擇自己在本桌使用的角色。</p></div><div><b>02　選擇服務・完成下訂</b><p>需安排拍攝的服務每客每場最多 3 份，同女僕最多 1 份。</p></div><div><b>03　收到通知・依時段回店</b><p>拍攝時間將透過遊戲內私訊通知，等待期間可自由活動。</p></div></div>
 
   </div>
 </section>
