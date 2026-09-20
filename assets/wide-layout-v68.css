@@ -1,0 +1,87 @@
+/* v68：寬螢幕共用版型。縮減各頁兩側空白，手機版維持原有安全間距。 */
+@media (min-width: 861px) {
+  :root {
+    --site-wide-shell: 1640px;
+    --site-wide-gutter: clamp(1.75rem, 2.5vw, 3rem);
+  }
+
+  body > main section > .wrap,
+  section > .wrap,
+  #reservation .wrap,
+  #service .wrap {
+    width: 100%;
+    max-width: var(--site-wide-shell) !important;
+    padding-inline: var(--site-wide-gutter) !important;
+  }
+
+  /* 預約與服務的大標題在寬螢幕保持完整，不再被平衡換行切成兩半。 */
+  .reservation-v66-heading {
+    max-width: 1120px !important;
+  }
+
+  .service-v66-heading {
+    max-width: 1040px !important;
+  }
+
+  .reservation-v66-heading .section-title,
+  .service-v66-heading .section-title {
+    max-width: none !important;
+    white-space: nowrap;
+    text-wrap: nowrap;
+  }
+
+  /* 主要內容沿用同一寬度，不再個別縮回舊的 1080／1120px。 */
+  .reservation-v66-card,
+  .menu-head,
+  .menu-grid,
+  .service-v66-steps,
+  .service-v66-experiences,
+  .notice-panel,
+  .studio-directory,
+  .staff-directory,
+  .guestbook-layout,
+  .guestbook-motion-stage {
+    width: 100%;
+    max-width: none !important;
+  }
+
+  .menu-head {
+    margin-inline: 0 !important;
+  }
+
+  .reservation-v66-card {
+    grid-template-columns: minmax(0, 1.08fr) minmax(27rem, .92fr);
+  }
+
+  .guestbook-motion-intro,
+  .guestbook-write-invite {
+    width: min(92rem, calc(100% - 3rem));
+  }
+
+  .staff-profile {
+    width: min(1380px, 100%) !important;
+    max-width: 1380px !important;
+  }
+}
+
+@media (min-width: 861px) and (max-width: 1180px) {
+  :root {
+    --site-wide-gutter: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .reservation-v66-heading .section-title,
+  .service-v66-heading .section-title {
+    white-space: normal;
+    text-wrap: balance;
+  }
+}
+
+@media (max-width: 860px) {
+  body > main section > .wrap,
+  section > .wrap,
+  #reservation .wrap,
+  #service .wrap {
+    width: 100%;
+    padding-inline: clamp(1rem, 5vw, 1.5rem) !important;
+  }
+}
