@@ -3448,7 +3448,9 @@
         copy.appendChild(role);
         var avatar = document.createElement('span');
         avatar.className = 'home-shift-avatar';
-        var chibiPhotoUrl = window.ephemereChibiCast ? window.ephemereChibiCast.get(member.name) : '';
+        var uploadedChibi = String(member.chibiPhoto || '').trim();
+        var chibiPhotoUrl = /^https:\/\//i.test(uploadedChibi) ? uploadedChibi :
+          (window.ephemereChibiCast ? window.ephemereChibiCast.get(member.name) : '');
         var rawPhotoUrl = String(member.photo || '').trim();
         var remotePhotoUrl = /^(?:https:\/\/|data:image\/(?:png|jpe?g|webp|gif);base64,)/i.test(rawPhotoUrl) ? rawPhotoUrl : '';
         var fallbackPhotoUrl = localPhotoFallbacks[String(member.name || '').trim()] || '';
