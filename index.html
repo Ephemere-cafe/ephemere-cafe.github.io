@@ -3630,14 +3630,31 @@
       renderHomeShift();
     });
 
-    db.ref('lephemere/staffSchedules').on('value', function(snap){
-      liveLegacyStaffSchedules = snap.val() || {};
+    var homeScheduleRef = null;
+    var homeScheduleDate = '';
+    function watchHomeSchedule(){
+      var date = liveOperationStatus.businessDate || '';
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(date)) date = localDateKey();
+      if(date === homeScheduleDate) return;
+      if(homeScheduleRef) homeScheduleRef.off('value');
+      homeScheduleDate = date;
+      liveLegacyStaffSchedules = {};
       rebuildLiveStaffSchedules();
       renderHomeShift();
-    });
+      var ref = db.ref('lephemere/staffSchedules').child(date);
+      homeScheduleRef = ref;
+      ref.on('value', function(snap){
+        if(homeScheduleRef !== ref) return;
+        liveLegacyStaffSchedules = {};
+        if(snap.exists()) liveLegacyStaffSchedules[date] = snap.val();
+        rebuildLiveStaffSchedules();
+        renderHomeShift();
+      });
+    }
 
     db.ref('lephemere/operationStatus').on('value', function(snap){
       liveOperationStatus = snap.val() || {isOpen:false,businessDate:''};
+      watchHomeSchedule();
       renderHomeShift();
     });
 
