@@ -1,0 +1,38 @@
+/* Reading hierarchy: bounded names, comfortable captions, restrained display titles. */
+#page-members .stage-name,#page-members.long-name .stage-name{left:4%;top:22%;width:23%;max-width:23%;font-size:clamp(32px,3.4vw,52px);line-height:1.4;letter-spacing:.04em;white-space:normal;overflow-wrap:anywhere;word-break:normal}
+#page-members .member-title{flex-wrap:wrap;align-items:baseline}
+#page-members .member-title h2{font-size:clamp(25px,2.2vw,32px);line-height:1.45;overflow-wrap:anywhere}
+#page-members .stage-small-name{font-size:24px;overflow-wrap:anywhere;max-width:100%}
+#page-members :is(.stage-note span,.member-title span,.member-directory>p,#photoCount,.member-copy>.muted,.detail-block h3){font-size:14px;line-height:1.7}
+#page-members .member-copy .actions :is(.btn,.text-link){font-size:15px}
+#page-members .stage-intro{font-size:16px;line-height:1.9}
+#page-members .member-choice{font-size:15px;line-height:1.6}
+#page-home .concept-g .d-heading h1{font-size:clamp(54px,6vw,88px)!important;line-height:1.2}
+#page-home :is(.d-heading>span,.welcome-footer a,.home-shift-copy small,.home-shift-copy p,.home-shift-copy button,.home-bottom .btn){font-size:15px!important;line-height:1.7}
+#page-home :is(.d-welcome>div>span,.d-welcome small,.d-welcome p,.d-welcome>button,.d-welcome>a,.d-actions>a){font-size:15px!important;line-height:1.7}
+#page-menu .menu-book-cover h2{font-size:clamp(48px,5vw,72px);line-height:1.2}
+#page-menu :is(.menu-cover-footer,.polaroid-meta small,.memory-copy small){font-size:14px;line-height:1.7}
+#page-menu .polaroid-print small{font-size:14px;line-height:1.7}
+#page-studio .scenic-heading h1,#page-studio .scenic-heading h1 em,#page-guestbook .guestbook-heading h1,#page-guestbook .guestbook-heading h1 em{font-size:clamp(34px,4vw,56px);line-height:1.35}
+#page-guestbook :is(#guestbookNameHint,.letter-count,.letter-count span,.letter-count output,.letter-consent small){font-size:14px;line-height:1.7}
+#page-guestbook :is(input,select,textarea){font-size:16px}
+#page-visit .visit-heading h1,#page-visit .visit-heading h1 span{font-size:clamp(42px,4.6vw,64px);line-height:1.3}
+#page-visit :is(.visit-heading p,.visit-landscape figcaption,.visit-operation p,.visit-operation a,.visit-minimum span,.visit-minimum small,.btn){font-size:15px;line-height:1.75}
+#page-visit :is(.visit-footnote span,.visit-footnote small,.arrival-steps button){font-size:14px;line-height:1.7}
+.site-header .brand small{font-size:12px;line-height:1.5}
+.site-header :is(nav a,.header-actions .btn,.mobile-menu){font-size:15px}
+@media(max-width:760px){
+ #page-members .stage-name,#page-members.long-name .stage-name{position:relative;left:auto;top:auto;grid-row:2;width:100%;max-width:100%;font-size:clamp(30px,8vw,42px);line-height:1.35;margin:0;letter-spacing:.03em}
+ #page-members .member-photo{grid-row:3;width:90%;margin:0 auto 22px;height:min(110vw,440px);justify-self:center}
+ #page-members .member-directory{grid-row:4}
+ #page-members .member-copy{grid-row:5}
+ #page-members .member-list{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 6px}
+ #page-members :is(.member-top .tabs button,.stage-note span){font-size:14px}
+ #page-members .member-top .tabs button{padding:8px;min-height:44px}
+ #page-members .member-title h2{font-size:28px}
+ #page-home .concept-g .d-heading h1{font-size:58px!important}
+ #page-home :is(.home-bottom .btn,.header-actions .btn){font-size:14px!important}
+ #page-menu .menu-book-cover h2{font-size:52px}
+ #page-studio .scenic-heading h1,#page-studio .scenic-heading h1 em,#page-guestbook .guestbook-heading h1,#page-guestbook .guestbook-heading h1 em{font-size:36px}
+ #page-visit .visit-heading h1,#page-visit .visit-heading h1 span{font-size:44px}
+}

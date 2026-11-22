@@ -1,0 +1,54 @@
+/* Scoped to the sections requested; rules, guestbook and visit pages retain their styling. */
+#page-home .concept-g .d-heading>span,#page-home .g-event .activity-kicker{font-size:14px!important;line-height:1.65}
+#page-home[data-home=g] .g-event{min-height:275px!important;padding:22px 24px!important;max-width:390px;border-radius:4px 34px 4px 4px;transform:rotate(2deg)}
+#page-home[data-event-style=photo] .g-event .activity-title{font-size:clamp(36px,3vw,46px)!important;line-height:1.2!important;max-width:58%}
+#page-home .g-event .photo-school{font-size:15px!important;line-height:1.7!important;max-width:58%;margin-top:14px!important}
+#page-home .g-event .photo-entry,#page-home .g-event .poster-entry{font-size:16px!important;line-height:1.65;min-height:32px;margin-top:12px!important}
+#page-home .d-heading>p{font-size:18px!important;line-height:1.9}
+#page-home .welcome-rotation-controls button{font-size:14px;min-height:40px;border-radius:50px;padding:7px 14px}
+#page-home .welcome-rotation-controls>span{font-size:14px}
+#page-home .welcome-footer,#page-home .welcome-footer a,#page-home .home-shift-head,#page-home .home-shift-copy small{font-size:15px;line-height:1.8}
+#page-home .home-bottom p,#page-home .official-about p{font-size:18px;line-height:1.95}
+#page-members .member-copy p,#page-members .member-copy dd,#page-members .member-copy .detail-bio{font-size:18px;line-height:1.95}
+#page-members .stage-note,#page-members .stage-role,#page-members .member-copy dt,#page-members .member-top small{font-size:15px}
+#page-members .member-list button{font-size:16px;min-height:68px}
+#page-members .portfolio-heading p{font-size:16px;line-height:1.85;max-width:560px}
+#page-members .member-portfolio{border-top:1px solid var(--line);padding-top:35px}
+#page-members .portfolio-trigger{border-radius:50px!important;padding:13px 28px!important}
+#page-members .portfolio-image{background:transparent;border:0;transform:rotate(-2deg)}
+#page-members .portfolio-frames figure:nth-child(even) .portfolio-image{transform:rotate(2deg)}
+#page-members .portfolio-image img{background:transparent;max-height:520px;height:auto;min-height:180px;object-fit:contain;border-radius:24px 4px 24px 4px}
+#page-members .portfolio-frames figcaption{font-size:16px;margin-top:17px}
+#page-menu .experience-heading p,#page-menu .memory-copy>p:not(.memory-types),#page-menu .menu-supply-note{font-size:17px;line-height:1.9}
+#page-menu .experience-heading small,#page-menu .menu-live-grid .availability-copy{font-size:15px}
+#page-menu .menu-category-choices button,#page-menu .polaroid-staff-tab,#page-menu .btn{border-radius:40px}
+#page-menu .memory-copy .btn{padding:15px 26px}
+#page-menu .service-notes article{border:0;border-top:2px solid var(--wine);background:transparent;padding:26px 12px 12px 0;min-height:230px}
+#page-menu .service-notes article:nth-of-type(2){background:transparent;border-top-color:var(--sage)}
+#page-menu .service-card-grid{gap:45px}
+#page-studio .scenic-heading p{font-size:18px;line-height:1.9}
+#page-studio .studio-view-tabs button{font-size:17px;padding:13px 24px;border-radius:40px}
+#page-studio #menu-studio{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;padding:18px 0 30px;min-height:0;overflow:visible}
+#page-studio .studio-title{position:static;display:flex;align-items:baseline;justify-content:space-between;gap:24px;grid-column:auto;margin:0;padding:0}
+#page-studio .studio-title h2{font-size:30px;writing-mode:horizontal-tb;padding:0}
+#page-studio .studio-title p{font-size:16px;max-width:none;margin:0}
+#page-studio .studio-main{display:block;position:relative;grid-column:auto;grid-row:auto;width:100%;max-width:none;height:auto;min-height:0;margin:0;padding:0;border:0;transform:none;box-shadow:none;background:transparent;border-radius:64px 8px 64px 8px;overflow:hidden}
+#page-studio .studio-main::before,#page-studio .studio-main::after{display:none}
+#page-studio .studio-main>img{display:block;width:100%;height:auto!important;max-height:none!important;min-height:0;object-fit:contain;aspect-ratio:auto;margin:0;padding:0;background:transparent}
+#page-studio .studio-caption{position:static;display:grid;grid-template-columns:minmax(200px,.8fr) minmax(0,1.5fr);gap:18px 40px;align-items:start;padding:0;margin:0;grid-column:auto;grid-row:auto}
+#page-studio .studio-caption h3{font-size:34px;line-height:1.5;margin:0;min-width:0}
+#page-studio .studio-selectors{display:flex;gap:18px;justify-content:flex-start;flex-wrap:wrap;grid-column:2;grid-row:1/4;min-width:0;padding:0;border:0}
+#page-studio .studio-selectors button{display:flex;flex-direction:column;align-items:flex-start;gap:10px;border:0;border-bottom:2px solid transparent;padding:0 0 10px;flex:1;min-width:120px;max-width:230px;text-align:left;background:transparent;font-size:16px;line-height:1.5}
+#page-studio .studio-selectors button[aria-pressed=true]{background:transparent;border-color:var(--wine);color:var(--wine-ink)}
+#page-studio .studio-selectors img{display:block;width:100%;height:110px;object-fit:cover;border-radius:25px 5px 25px 5px}
+#page-studio #studioDescription{font-size:17px;line-height:1.9;grid-column:1;margin:0}
+#page-studio #studioEnlarge{grid-column:1;justify-self:start;font-size:17px;min-height:44px}
+#page-studio .scenic-foot{font-size:16px}
+@media(max-width:1100px) and (min-width:761px){#page-home[data-home=g] .g-event{padding:18px!important;min-height:290px!important}#page-home .g-event .photo-school{font-size:14px!important}#page-home[data-event-style=photo] .g-event .activity-title{font-size:35px!important}}
+@media(max-width:760px){#page-home[data-home=g] .g-event{max-width:none;min-height:280px!important}#page-home[data-event-style=photo] .g-event .activity-title{font-size:40px!important}#page-home .g-event .photo-school{font-size:15px!important}#page-members .member-copy p{font-size:17px}#page-members .member-list button{font-size:15px}#page-studio .studio-title{display:block}#page-studio .studio-title p{font-size:15px;margin-top:12px}#page-studio .studio-main{border-radius:30px 5px 30px 5px}#page-studio .studio-caption{display:block}#page-studio .studio-caption h3{font-size:29px}#page-studio .studio-selectors{margin:22px 0;gap:12px;flex-wrap:nowrap;overflow:auto}#page-studio .studio-selectors button{flex:0 0 145px;min-width:145px;font-size:15px}#page-studio #studioDescription{font-size:16px}#page-menu .service-notes article{min-height:0;padding-top:22px}}
+
+/* Feather photographic edges, without fading text, signatures, logos or chibi art. */
+#page-home .d-people>button img,#page-home .activity-photo,#page-members .portrait-frame img,#page-members #portrait,#page-members .portfolio-image img,#page-studio #studioImage,#page-menu .polaroid-print img{
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent),linear-gradient(0deg,transparent,#000 5%,#000 95%,transparent);
+ mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent),linear-gradient(0deg,transparent,#000 5%,#000 95%,transparent);-webkit-mask-composite:source-in;mask-composite:intersect;
+}

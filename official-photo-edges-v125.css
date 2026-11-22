@@ -1,0 +1,30 @@
+/* Shared photo feathering. Original image files, crops and interactions are retained. */
+:is(
+ #homeHeroMount img:not([src*="chibi"]):not([src*="logo"]),
+ #page-home .activity-photo,
+ #page-members #portrait,
+ #page-members .portfolio-image img,
+ #page-menu .dining-scene>img,
+ #page-menu .polaroid-print img,
+ #page-studio #studioImage,
+ #page-studio .studio-selectors img,
+ .studio-card-image img,
+ .studio-profile-main img,
+ .studio-profile-thumbs img,
+ #page-visit .visit-landscape img,
+ #imageDialog #largeImage
+){
+ --photo-edge-x:4%;--photo-edge-y:4%;
+ -webkit-mask-image:linear-gradient(to right,transparent 0,#000 var(--photo-edge-x),#000 calc(100% - var(--photo-edge-x)),transparent 100%),linear-gradient(to bottom,transparent 0,#000 var(--photo-edge-y),#000 calc(100% - var(--photo-edge-y)),transparent 100%);
+ mask-image:linear-gradient(to right,transparent 0,#000 var(--photo-edge-x),#000 calc(100% - var(--photo-edge-x)),transparent 100%),linear-gradient(to bottom,transparent 0,#000 var(--photo-edge-y),#000 calc(100% - var(--photo-edge-y)),transparent 100%);
+ -webkit-mask-composite:source-in;mask-composite:intersect;
+ -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+}
+/* Smaller feather on artwork and enlarged photos to keep marginal details readable. */
+#page-members .portfolio-image img,#page-menu .polaroid-print img{--photo-edge-x:2.5%;--photo-edge-y:2.5%}
+#imageDialog #largeImage,.studio-profile-main img{--photo-edge-x:2.5%;--photo-edge-y:2.5%}
+#homeHeroMount .d-people>button img{--photo-edge-x:5%;--photo-edge-y:4%}
+#page-home .activity-photo{--photo-edge-x:5%;--photo-edge-y:3%}
+#page-studio .studio-selectors img,.studio-profile-thumbs img{--photo-edge-x:5%;--photo-edge-y:5%}
+#page-menu .polaroid-carousel-stage .polaroid-print{background:transparent;border-color:transparent;box-shadow:none}
+@media(max-width:760px){#page-members #portrait,#page-studio #studioImage{--photo-edge-x:3.5%;--photo-edge-y:3.5%}}

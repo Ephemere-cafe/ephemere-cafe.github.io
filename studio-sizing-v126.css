@@ -1,0 +1,14 @@
+/* A browsing-sized preview with the scene information alongside it. */
+#page-studio #menu-studio{grid-template-columns:minmax(0,1.8fr) minmax(280px,1fr);gap:22px 38px;align-items:start}
+#page-studio .studio-title{grid-column:1/-1;grid-row:1}
+#page-studio .studio-main{grid-column:1;grid-row:2;width:100%;max-width:100%;align-self:start;border-radius:35px 6px 35px 6px}
+#page-studio .studio-main>img{width:auto;max-width:100%;height:auto!important;max-height:min(56vh,500px)!important;min-height:0;object-fit:contain;margin:0 auto}
+#page-studio .studio-caption{grid-column:2;grid-row:2;display:flex;flex-direction:column;gap:18px;margin:0;padding:0;min-width:0}
+#page-studio .studio-caption h3{font-size:30px;line-height:1.5}
+#page-studio .studio-selectors{display:grid;grid-template-columns:repeat(auto-fit,minmax(95px,1fr));gap:15px;width:100%;margin:0;padding:0;order:0}
+#page-studio .studio-selectors button{width:100%;max-width:none;min-width:0;gap:8px;font-size:15px;padding:0 0 10px}
+#page-studio .studio-selectors img{width:100%;height:86px;object-fit:cover;border-radius:18px 4px 18px 4px}
+#page-studio #studioDescription{font-size:16px;line-height:1.9}
+#page-studio #studioEnlarge{min-height:44px;margin:0;align-self:flex-start;font-size:16px}
+@media(max-width:1000px){#page-studio #menu-studio{grid-template-columns:minmax(0,1.4fr) minmax(240px,1fr);gap:22px}#page-studio .studio-main>img{max-height:420px!important}#page-studio .studio-caption h3{font-size:27px}}
+@media(max-width:760px){#page-studio #menu-studio{grid-template-columns:minmax(0,1fr);gap:20px}#page-studio .studio-title{grid-column:1;grid-row:1}#page-studio .studio-main{grid-column:1;grid-row:2}#page-studio .studio-main>img{max-height:320px!important}#page-studio .studio-caption{grid-column:1;grid-row:3;gap:15px}#page-studio .studio-selectors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;overflow:visible}#page-studio .studio-selectors button{flex:none;min-width:0;font-size:14px}#page-studio .studio-selectors img{height:74px}}

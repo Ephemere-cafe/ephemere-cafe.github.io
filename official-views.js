@@ -35,14 +35,14 @@
   // Member works are attributed only by the source record's staff ID or explicit name.
   let samples=[],selectedId=document.querySelector('#memberList [aria-pressed=true]')?.dataset.member||'',selectedName=$('detailName').textContent;
   const gallery=document.createElement('section');gallery.id='memberPortfolio';gallery.className='member-portfolio';gallery.setAttribute('aria-labelledby','portfolioTitle');
-  const heading=document.createElement('div');heading.className='portfolio-heading';const titleWrap=document.createElement('div');titleWrap.append(text('span','拍立得作品','editorial-eyebrow'),text('h2','','portfolio-title'));titleWrap.querySelector('h2').id='portfolioTitle';heading.append(titleWrap,text('p','過往成品範例；實際構圖、裝飾與完成風格依當日拍攝及女僕安排為準。'));
+  const heading=document.createElement('div');heading.className='portfolio-heading';const titleWrap=document.createElement('div');titleWrap.append(text('span','作品','editorial-eyebrow'),text('h2','','portfolio-title'));titleWrap.querySelector('h2').id='portfolioTitle';heading.append(titleWrap,text('p','成員的過往作品，點選圖片可放大欣賞。'));
   const frames=document.createElement('div');frames.className='portfolio-frames';gallery.append(heading,frames);$('page-members').append(gallery);
-  const portfolioButton=text('button','看拍立得作品','btn wine portfolio-trigger');portfolioButton.type='button';portfolioButton.setAttribute('aria-controls','memberPortfolio');portfolioButton.addEventListener('click',()=>gallery.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'}));$('memberDetail').querySelector('.actions').append(portfolioButton);
+  const portfolioButton=text('button','看作品','btn wine portfolio-trigger');portfolioButton.type='button';portfolioButton.setAttribute('aria-controls','memberPortfolio');portfolioButton.addEventListener('click',()=>gallery.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'}));$('memberDetail').querySelector('.actions').append(portfolioButton);
   function drawPortfolio(){
-    $('portfolioTitle').textContent=selectedName+'的拍立得相簿';frames.replaceChildren();
+    $('portfolioTitle').textContent=selectedName+'的作品集';frames.replaceChildren();
     const owned=samples.filter(s=>safeImage(s.imageUrl)&&(s.staffId?s.staffId===selectedId:s.staffName===selectedName));
     if(!owned.length){frames.append(text('p','這位成員的作品正在準備中。','portfolio-empty'));return;}
-    for(const record of owned){const figure=document.createElement('figure'),b=document.createElement('button'),img=document.createElement('img');b.type='button';b.className='portfolio-image';img.src=safeImage(record.imageUrl);img.alt=record.alt||selectedName+'的拍立得作品';img.loading='lazy';b.setAttribute('aria-label','放大'+(record.title||selectedName+'的作品'));b.append(img);b.addEventListener('click',()=>openImage(img.src,img.alt));figure.append(b,text('figcaption',record.title||'拍立得作品'));frames.append(figure);}
+    for(const record of owned){const figure=document.createElement('figure'),b=document.createElement('button'),img=document.createElement('img');b.type='button';b.className='portfolio-image';img.src=safeImage(record.imageUrl);img.alt=record.alt||selectedName+'的作品';img.loading='lazy';b.setAttribute('aria-label','放大'+(record.title||selectedName+'的作品'));b.append(img);b.addEventListener('click',()=>openImage(img.src,img.alt));figure.append(b,text('figcaption',record.title||'作品'));frames.append(figure);}
   }
   document.addEventListener('ephemere:member-selected',e=>{selectedId=e.detail.id;selectedName=e.detail.name;drawPortfolio();});
   document.addEventListener('ephemere:members-updated',e=>{$('memberList').style.setProperty('--member-count',Math.max(1,e.detail.length));});
