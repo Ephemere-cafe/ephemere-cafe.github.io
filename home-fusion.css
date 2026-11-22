@@ -1,0 +1,42 @@
+/* Bound the image independently of the grid's intrinsic content size, for D and G. */
+.d-people{grid-template-rows:minmax(0,1fr);min-width:0;min-height:0}
+.d-people>button{min-width:0;min-height:0;max-height:100%;position:relative}
+.d-people>button>img{position:absolute;left:8px;top:8px;width:calc(100% - 16px);height:calc(100% - 16px);max-width:none;max-height:none;object-fit:contain}
+.d-people>button>span{z-index:2}
+.welcome-photo-fallback{position:absolute;inset:15px;display:grid;place-items:center;font-size:13px;line-height:1.8;color:var(--muted)}
+/* G is one flow layout, rather than a poster overlaid on the original stage. */
+.concept-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(230px,.85fr);grid-template-rows:auto minmax(0,clamp(240px,35svh,370px)) auto;column-gap:35px;row-gap:22px;position:relative;height:auto;min-height:0;max-height:none;margin:10px 0 35px;padding:4px 2% 18px;align-items:start;isolation:isolate}
+.concept-g .d-heading{position:relative;inset:auto;grid-column:1/3;grid-row:1;text-align:left;padding:0 0 0 3%;min-width:0}
+.concept-g .d-heading h1{font-size:clamp(65px,6.5vw,98px);line-height:1.06;letter-spacing:10px}
+.concept-g .d-heading>p{font-size:20px;margin:7px 0 13px}
+.concept-g .d-heading>span{font-size:14px;line-height:1.85;max-width:42em}
+.concept-g .d-garden{inset:125px 0 auto;width:100%;height:350px;max-height:65%;opacity:.12;z-index:-1}
+.g-event{position:relative;inset:auto;grid-column:3;grid-row:1;align-self:center;width:100%;max-width:none;min-width:0;min-height:168px;border:0;border-top:2px solid var(--wine);padding:17px 20px 16px;background:var(--home-rose);color:var(--ink);text-align:left;transform:rotate(1.5deg);box-shadow:var(--home-photo-shadow);transition:transform .22s;z-index:3}
+.g-event>span:first-child{font-size:12px;display:block;color:var(--wine-ink);margin-bottom:7px}
+.g-event>strong{font-weight:400;font-size:clamp(25px,2.3vw,35px);line-height:1.4;color:var(--wine-ink);display:block}
+.g-event>small{display:flex;flex-wrap:wrap;align-items:center;gap:5px 9px;font-size:12px;line-height:1.8;margin:8px 0 12px}
+.g-event>span:last-child{font-size:12px;border-bottom:1px solid var(--wine);padding-bottom:3px;display:inline-block}
+.g-event:hover{transform:rotate(0) translateY(-3px)}
+.g-event:focus-visible{outline:3px solid var(--wine);outline-offset:5px;transform:rotate(0)}
+.concept-g .d-people{position:relative;inset:auto;grid-column:1/-1;grid-row:2;height:100%;width:100%;padding:14px 8% 15px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:minmax(0,1fr);gap:7%;min-height:0;min-width:0;align-items:stretch}
+.concept-g .d-people>button{position:relative;inset:auto;height:100%;width:100%;min-height:0;min-width:0;max-height:100%;padding:0;border:1px solid var(--line);border-radius:2px;background:var(--panel);box-shadow:var(--home-photo-shadow);transform:rotate(-4deg) translateY(4px);isolation:isolate;transition:transform .25s,background-color .25s}
+.concept-g .d-people>button:nth-child(2){transform:rotate(0) translateY(-3px)}
+.concept-g .d-people>button:nth-child(3){transform:rotate(4deg) translateY(4px)}
+.concept-g .d-people>button[aria-pressed=true],.concept-g .d-people>button:hover{transform:rotate(0) translateY(-8px) scale(1.025);background:var(--home-rose);z-index:3}
+.concept-g .d-people>button>img{position:absolute;top:7px;left:7px;width:calc(100% - 14px);height:calc(100% - 53px);max-width:none;max-height:none;object-fit:contain}
+.concept-g .d-people>button>span{position:absolute;inset:auto 8px 7px;min-height:31px;padding:3px 0;background:none;box-shadow:none;font-size:20px;line-height:1.35;color:var(--wine-ink);text-align:center;overflow-wrap:anywhere}
+.concept-g .d-people .welcome-photo-fallback{bottom:50px}
+.concept-g .d-welcome{position:relative;inset:auto;grid-column:1/3;grid-row:3;min-height:100px;display:flex;gap:12px 23px;align-items:center;flex-wrap:wrap;padding:18px 0 0;border-top:1px solid var(--line)}
+.concept-g .d-welcome>div{flex-basis:100%;min-height:39px;min-width:0}
+.concept-g .d-welcome strong{font-size:27px}
+.concept-g .d-welcome p{font-size:14px;line-height:1.9;margin-top:6px;max-width:45em}
+.concept-g .d-welcome>button,.concept-g .d-welcome>a{font-size:13px;min-height:40px;padding:8px 0}
+.concept-g .d-actions{position:relative;inset:auto;grid-column:3;grid-row:3;display:flex;align-items:center;align-content:flex-start;justify-content:flex-start;gap:7px 22px;flex-wrap:wrap;border-top:1px solid var(--line);padding:21px 0 0}
+.concept-g .d-actions>a{font-size:17px;min-height:44px;padding:8px 0;border-bottom:1px solid var(--wine)}
+.concept-g .d-actions>a:nth-child(2){border-color:var(--sage)}
+.concept-g .d-actions>a:nth-child(3){font-size:13px;min-height:36px;flex-basis:100%;border:0;margin:0;align-self:auto}
+#page-home[data-home=g]>.event-banner{display:none}
+.home-design-switcher>a[data-home-design=g]{font-weight:600}
+@media(max-width:1100px) and (min-width:761px){.concept-g{grid-template-columns:minmax(0,1fr) minmax(0,.8fr) minmax(220px,.9fr);column-gap:25px;row-gap:24px;grid-template-rows:auto minmax(0,310px) auto;padding:4px 0 15px}.concept-g .d-heading h1{font-size:76px}.concept-g .d-heading>span{font-size:13px}.g-event{padding:16px}.g-event>strong{font-size:27px}.g-event>small{font-size:11px}.concept-g .d-people{padding:12px 3% 14px;gap:6%}.concept-g .d-people>button>span{font-size:18px}.concept-g .d-welcome p{font-size:13px}.concept-g .d-actions{gap:8px 18px}.concept-g .d-actions>a{font-size:15px}}
+@media(max-width:760px){.d-people>button>img{left:4px;top:4px;width:calc(100% - 8px);height:calc(100% - 8px)}.concept-g{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,290px) auto auto;height:auto;min-height:0;max-height:none;margin-top:4px;row-gap:25px;padding:0 0 20px}.concept-g .d-heading{grid-column:1;grid-row:1;position:relative;inset:auto;text-align:center;padding:0}.concept-g .d-heading h1{font-size:77px;line-height:1.1;letter-spacing:10px}.concept-g .d-heading>p{font-size:17px;margin:7px 0 13px}.concept-g .d-heading>span{font-size:12px;line-height:1.9;padding:0 2px}.g-event{grid-column:1;grid-row:2;position:relative;inset:auto;width:100%;min-height:0;transform:rotate(1deg);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px 15px;padding:16px;align-items:center}.g-event>span:first-child{grid-column:1;grid-row:1;margin:0;font-size:10px}.g-event>strong{grid-column:1;grid-row:2/4;font-size:29px;line-height:1.35;max-width:5em}.g-event>small{grid-column:2;grid-row:1/3;display:block;font-size:11px;margin:0;line-height:1.8}.g-event>small>span{display:block}.g-event>small>span:nth-child(2){display:none}.g-event>span:last-child{grid-column:2;grid-row:3;font-size:10px;justify-self:start;line-height:1.6;margin:2px 0 0}.concept-g .d-garden{top:300px;height:300px;max-height:none;opacity:.1}.concept-g .d-people{grid-column:1;grid-row:3;position:relative;inset:auto;width:100%;height:100%;padding:12px 3px 15px;gap:10px}.concept-g .d-people>button{border-radius:1px;transform:rotate(-4deg) translateY(4px)}.concept-g .d-people>button:nth-child(2){transform:translateY(-3px)}.concept-g .d-people>button:nth-child(3){transform:rotate(4deg) translateY(4px)}.concept-g .d-people>button[aria-pressed=true],.concept-g .d-people>button:hover{transform:translateY(-7px) scale(1.02)}.concept-g .d-people>button>img{top:4px;left:4px;width:calc(100% - 8px);height:calc(100% - 44px)}.concept-g .d-people>button>span{left:3px;right:3px;bottom:5px;min-height:28px;font-size:14px;line-height:1.4}.concept-g .d-welcome{position:relative;inset:auto;grid-column:1;grid-row:4;min-height:0;padding:18px 0 0;gap:10px 23px;align-content:start}.concept-g .d-welcome>div{min-height:42px}.concept-g .d-welcome strong{font-size:25px}.concept-g .d-welcome p{font-size:13px;line-height:1.9}.concept-g .d-actions{position:relative;inset:auto;grid-column:1;grid-row:5;padding:16px 0 0;gap:9px 27px;justify-content:flex-start}.concept-g .d-actions>a{font-size:16px}.concept-g .d-actions>a:nth-child(3){font-size:12px;flex-basis:auto;margin-left:auto}.home-design-switcher>a[data-home-design=g]{flex-basis:calc(100% - 4px)}}
+@media(prefers-reduced-motion:reduce){.g-event,.concept-g .d-people>button{transition:none}}

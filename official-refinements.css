@@ -1,0 +1,42 @@
+/* Keep both book leaves the same height; the cover never leaves an uncoloured strip. */
+#menu-food.menu-book{align-items:stretch}
+#menu-food .menu-book-cover{position:relative;top:auto;align-self:stretch;min-height:650px}
+#siteMenuGrid{transform-origin:left center;backface-visibility:hidden;position:relative;background:var(--panel)}
+#page-menu .heading-chibi{display:none}
+/* A single-column album: staff selectors, work, then pagination. */
+#menu-photo .polaroid-gallery.is-carousel{display:block!important;width:100%;max-width:100%;padding:0;min-height:0}
+#menu-photo .polaroid-staff-tabs{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin:0 0 24px;padding:0 0 18px;border-bottom:1px solid var(--line)}
+#menu-photo .polaroid-staff-tab{appearance:none;background:transparent;border:1px solid var(--line);padding:10px 18px;min-height:46px;font:16px/1.5 var(--serif);color:var(--muted);cursor:pointer;transition:background .16s,color .16s,border-color .16s}
+#menu-photo .polaroid-staff-tab[aria-selected=true]{background:var(--wine);border-color:var(--wine);color:var(--white)}
+#menu-photo .polaroid-staff-tab:hover{border-color:var(--wine);color:var(--wine-ink)}
+#menu-photo .polaroid-staff-tab[aria-selected=true]:hover{color:var(--white)}
+#menu-photo .polaroid-carousel-stage{position:relative;display:block;width:min(100%,460px);margin:0 auto;padding:0 45px;background:transparent;min-height:0}
+#menu-photo .polaroid-carousel-stage .polaroid-print{position:relative;inset:auto;display:block;width:100%;padding:10px 10px 18px;background:var(--panel);border:1px solid var(--line);box-shadow:0 12px 25px #30242d18;transform:none!important}
+#menu-photo .polaroid-carousel-stage .polaroid-print[hidden]{display:none!important}
+#menu-photo .polaroid-carousel-stage .polaroid-print img{width:100%;height:auto;max-height:440px;object-fit:contain;background:var(--experience-wash)}
+#menu-photo .polaroid-meta{margin:13px 0 0!important;padding:0!important}
+#menu-photo .polaroid-meta small{font-size:14px!important;letter-spacing:.04em!important;color:var(--muted)!important}
+#menu-photo .polaroid-carousel-button{position:absolute;top:46%;display:grid;place-items:center;width:40px;height:50px;padding:0;border:1px solid var(--line);background:var(--paper);color:var(--wine-ink);font-size:28px;line-height:1;box-shadow:0 3px 8px #30242d10}
+#menu-photo .polaroid-carousel-button.prev{left:0}#menu-photo .polaroid-carousel-button.next{right:0}
+#menu-photo .polaroid-carousel-button:hover{background:var(--experience-wash);border-color:var(--wine)}
+#menu-photo .polaroid-carousel-footer{display:flex;gap:20px;justify-content:center;align-items:center;margin-top:24px}
+#menu-photo .polaroid-dots{display:flex;gap:6px;align-items:center}
+#menu-photo .polaroid-dot{position:relative;width:28px;height:28px;min-width:28px;background:none;border:0;padding:0}
+#menu-photo .polaroid-dot::before{content:"";position:absolute;width:8px;height:8px;left:9px;top:9px;border:1px solid var(--wine);border-radius:50%;background:transparent}
+#menu-photo .polaroid-dot[aria-current=true]::before{background:var(--wine)}
+#menu-photo .polaroid-counter{font-size:15px;color:var(--muted)}
+/* Give the two service descriptions their own readable, prominent surface. */
+.service-notes{grid-template-columns:minmax(200px,.7fr) minmax(0,2fr);gap:30px;padding:38px 0 50px}
+.service-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px;min-width:0}
+.service-notes-title{padding:12px 10px 0 0}
+.service-notes h2{font-size:40px;line-height:1.45}
+.service-notes article{border:1px solid var(--line);border-top:4px solid var(--wine);background:var(--experience-wash);padding:26px 28px;min-height:260px;display:flex;flex-direction:column;align-items:start}
+.service-notes article:nth-of-type(2){background:var(--panel);border-top-color:var(--sage)}
+.service-notes article h3{font-size:29px;line-height:1.4;color:var(--wine-ink);margin:0 0 18px;font-weight:500}
+.service-notes article p{font-size:18px;line-height:1.95;margin-bottom:18px}
+.service-notes article .muted{font-size:15px;line-height:1.85}
+.service-notes article .text-link{font-size:16px;margin-top:auto;padding:8px 0}
+html[data-theme=dark] #menu-photo .polaroid-staff-tab[aria-selected=true]{background:#865b68;color:#fffaf5}
+@media(max-width:1100px){.service-notes{gap:20px;grid-template-columns:.65fr 2fr}.service-card-grid{gap:20px}.service-notes article{padding:22px}.service-notes article h3{font-size:25px}.service-notes h2{font-size:34px}}
+@media(max-width:760px){#menu-food .menu-book-cover{min-height:0}.service-notes,.service-card-grid{display:block}.service-notes article{margin-top:22px;min-height:0;padding:25px}.service-notes article h3{font-size:27px}.service-notes article p{font-size:17px}#menu-photo .polaroid-staff-tabs{gap:8px}#menu-photo .polaroid-staff-tab{padding:9px 13px;font-size:15px}#menu-photo .polaroid-carousel-stage{padding:0 36px}#menu-photo .polaroid-carousel-button{width:32px;height:46px}#menu-photo .polaroid-meta small{font-size:13px!important}}
+@media(prefers-reduced-motion:reduce){#siteMenuGrid{animation:none!important}#menu-photo .polaroid-staff-tab{transition:none}}

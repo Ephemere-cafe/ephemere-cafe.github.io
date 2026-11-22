@@ -1,0 +1,49 @@
+:root{--activity-blue:#d2dfe1;--activity-pink:#e1cbd3;--activity-blue-ink:#395b67;--activity-pink-ink:#744553}
+html[data-theme=dark]{--activity-blue:#30454e;--activity-pink:#503944;--activity-blue-ink:#b2d4db;--activity-pink-ink:#f0c2d2}
+.event-design-switcher{display:flex;gap:6px;align-items:center;margin:-5px 0 20px;font-family:var(--sans);flex-wrap:wrap}
+.event-design-switcher>span{font-size:11px;color:var(--muted);margin-right:10px}
+.event-design-switcher>a{font-size:11px;padding:7px 12px;min-height:32px;border:1px solid transparent}
+.event-design-switcher>a[aria-current=true]{border-color:var(--wine);color:var(--wine-ink);background:var(--panel)}
+.event-design-switcher>small{margin-left:auto;font-size:11px;color:var(--muted)}
+#page-home[data-home=g] .g-event{position:relative;display:block;min-height:228px;overflow:hidden;padding:16px 18px 14px;max-width:360px;transform:rotate(2deg);border:0;text-align:left;isolation:isolate;transition:transform .22s}
+#page-home[data-home=g] .g-event:hover{transform:rotate(0) translateY(-4px)}
+#page-home[data-home=g] .g-event .activity-kicker{display:block;position:relative;font-size:11px;line-height:1.5;margin:0 0 5px;padding:0;z-index:2;color:var(--wine-ink);border:0}
+#page-home[data-home=g] .g-event .activity-title{display:block;position:relative;font-weight:400;font-size:42px;line-height:1.2;letter-spacing:3px;color:var(--wine-ink);z-index:2;margin:0;padding:0}
+/* Twin academy contrast; the existing member illustrations carry the details. */
+#page-home[data-event-style=twin] .g-event{background:linear-gradient(90deg,var(--activity-blue) 0%,var(--activity-blue) 50%,var(--activity-pink) 50%,var(--activity-pink) 100%);border-top:2px solid var(--wine);padding-bottom:10px}
+#page-home[data-event-style=twin] .activity-title{font-size:39px;letter-spacing:7px}
+.activity-schools{display:flex!important;align-items:center;gap:12px;margin-top:8px!important;border:0!important;padding:0!important}
+.activity-schools>span{flex:1;min-width:0;display:flex;gap:6px;align-items:baseline;color:var(--activity-blue-ink)}
+.activity-schools>span:last-child{color:var(--activity-pink-ink)}
+.activity-schools small{font-size:26px;white-space:nowrap;line-height:1.4}
+.activity-schools>span>span{font-size:10px;white-space:nowrap}
+.activity-schools i{font-size:13px;font-style:normal;opacity:.65}
+.activity-cast{display:flex!important;align-items:flex-end;justify-content:space-between;gap:2px;margin-top:12px!important;padding-top:5px!important;border-top:1px solid var(--line)!important;border-bottom:0!important;font-size:10px!important}
+.activity-cast>img{width:34px;height:45px;object-fit:contain;flex-shrink:0;transform:rotate(-5deg)}
+.activity-cast>img:nth-last-child(1),.activity-cast>img:nth-last-child(2){transform:rotate(5deg)}
+.activity-cast>span{font-size:10px;line-height:1.5;text-align:center;align-self:center;color:var(--ink)}
+/* A small typographic poster, drawn from the existing theme's title treatment. */
+#page-home[data-event-style=poster] .g-event{background:var(--home-rose);padding:15px 19px 13px;border-top:3px solid var(--wine)}
+.poster-big{position:absolute!important;right:-4px;bottom:-28px;font-size:170px!important;line-height:1;color:var(--wine)!important;opacity:.12;z-index:0;border:0!important;transform:rotate(-8deg)}
+#page-home[data-event-style=poster] .g-event .activity-title{font-size:34px;letter-spacing:1px;line-height:1.15}
+#page-home[data-event-style=poster] .g-event .activity-title>span{padding-left:25px;font-size:42px}
+.poster-school{position:absolute!important;right:15px;top:24px;font-size:11px!important;color:var(--wine-ink);line-height:1.9;writing-mode:vertical-rl;letter-spacing:2px;max-height:145px;border:0!important;padding:0!important}
+.poster-entry{position:relative!important;display:inline-block!important;font-size:11px!important;color:var(--wine-ink);line-height:1.8;padding-bottom:3px!important;border-bottom:1px solid var(--wine)!important;margin-top:15px}
+/* Photo invitation; the photo is a real supplied school-day image. */
+#page-home[data-event-style=photo] .g-event{background:var(--panel);padding:16px 15px;border-top:2px solid var(--wine)}
+.activity-photo{position:absolute;right:0;top:0;bottom:0;height:100%;width:49%;object-fit:cover;object-position:45% 27%;z-index:0}
+.activity-photo-mat{position:absolute!important;top:0;bottom:0;left:0;right:40%;background:var(--panel);clip-path:polygon(0 0,100% 0,86% 100%,0 100%);z-index:1;pointer-events:none;border:0!important;padding:0!important;margin:0!important}
+#page-home[data-event-style=photo] .g-event .activity-kicker{font-size:10px}
+#page-home[data-event-style=photo] .g-event .activity-title{font-size:33px;letter-spacing:1px;line-height:1.25;max-width:55%}
+.photo-school{display:block!important;position:relative;z-index:2;font-size:10px!important;color:var(--wine-ink);line-height:1.9;margin-top:10px;border:0!important;padding:0!important}
+.photo-entry{display:inline-block!important;position:relative;z-index:2;font-size:11px!important;line-height:1.6;color:var(--wine-ink);border-bottom:1px solid var(--wine)!important;padding-bottom:2px!important;margin-top:9px}
+/* The rotation controls share the existing footer flow, without covering portraits. */
+.welcome-rotation-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;flex-basis:100%;font:12px/1.5 var(--sans);color:var(--muted);margin:0 0 5px}
+.welcome-rotation-controls button{background:none;border:1px solid var(--line);padding:4px 9px;min-height:34px;font-size:12px;color:var(--wine-ink)}
+.welcome-rotation-controls .rotation-pause{border:0;text-decoration:underline;text-underline-offset:4px;padding-right:0}
+.welcome-rotation-controls>span{font-size:11px;font-variant-numeric:tabular-nums}
+.welcome-group-enter{animation:welcome-group-enter .4s ease-out both}
+@keyframes welcome-group-enter{from{opacity:.2;translate:0 6px}to{opacity:1;translate:0 0}}
+@media(max-width:1100px) and (min-width:761px){#page-home[data-home=g] .g-event{min-height:225px;padding:14px}.activity-schools{gap:6px}.activity-schools>span{display:block}.activity-schools small{font-size:24px;display:block}.activity-schools>span>span{font-size:10px}.activity-cast>img{width:28px;height:37px}.activity-cast>span{font-size:9px}#page-home[data-event-style=poster] .g-event .activity-title>span{font-size:37px;padding-left:15px}}
+@media(max-width:760px){.event-design-switcher{gap:4px;margin:0 0 20px}.event-design-switcher>span{font-size:10px;width:100%;margin:0 0 2px}.event-design-switcher>a{font-size:11px;padding:7px 9px;flex:1;text-align:center}.event-design-switcher>small{display:none}#page-home[data-home=g] .g-event{display:block;min-height:210px;max-width:none;padding:16px 18px;transform:rotate(1deg)}#page-home[data-event-style=twin] .g-event{min-height:210px}#page-home[data-home=g] .g-event .activity-kicker{font-size:10px}#page-home[data-home=g] .g-event .activity-title{font-size:37px;max-width:none}.activity-schools{margin-top:7px!important;gap:10px}.activity-schools>span{display:flex;gap:5px;align-items:baseline}.activity-schools small{font-size:25px}.activity-schools>span>span{font-size:10px}.activity-cast{margin-top:8px!important}.activity-cast>img{width:33px;height:39px}.activity-cast>span{font-size:10px}#page-home[data-event-style=poster] .g-event .activity-title{font-size:30px}#page-home[data-event-style=poster] .g-event .activity-title>span{font-size:39px;padding-left:22px}.poster-big{font-size:165px!important}.poster-school{right:22px;top:22px;font-size:11px!important}#page-home[data-event-style=photo] .g-event .activity-title{font-size:31px;max-width:55%}.activity-photo{width:49%;object-position:44% 26%}.welcome-rotation-controls{gap:8px}.welcome-rotation-controls button{font-size:11px;min-height:34px;padding:4px 8px}}
+@media(prefers-reduced-motion:reduce){.welcome-group-enter{animation:none}}
