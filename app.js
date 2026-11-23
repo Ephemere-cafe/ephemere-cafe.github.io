@@ -20,7 +20,7 @@
   function renderLists() {
     $('memberList').replaceChildren();
     for (const m of visibleMembers()) {
-      const b=document.createElement('button');b.type='button';b.className='member-choice';b.dataset.member=m.id;b.setAttribute('aria-pressed',String(m.id===selected));
+      const b=document.createElement('button');b.type='button';b.className='member-choice';b.dataset.member=m.id;b.style.setProperty('--choice-color',MemberColors.resolve(m.name,m.representativeColor));b.setAttribute('aria-pressed',String(m.id===selected));
       if (m.avatar) b.append(image(m.avatar,''));if (!m.avatar) b.append(labelText('i',m.name.slice(0,1)));b.append(labelText('span',m.name));b.addEventListener('click',()=>selectMember(m.id));$('memberList').append(b);
     }
     $('homeCast').replaceChildren();
@@ -39,11 +39,13 @@
     $('portrait').hidden=!photos.length;$('missingPhoto').hidden=!!photos.length;$('portraitOpen').disabled=!photos.length;
     $('portraitOpen').classList.toggle('has-managed-zoom',Number(m.profileZoom)>100);if(photos.length){$('portrait').src=photos[photoIndex];$('portrait').alt=`${m.name}的介紹照片 ${photoIndex+1}`;$('portrait').style.objectFit=m.fit==='cover'?'cover':'contain';$('portrait').style.objectPosition=`${Math.max(0,Math.min(100,(Number.isFinite(Number(m.profileX))?Number(m.profileX):50)))}% ${Number(m.position)||0}%`;$('portrait').style.transformOrigin=$('portrait').style.objectPosition;$('portrait').style.transform=`scale(${Math.max(100,Math.min(220,Number(m.profileZoom)||100))/100})`;}
     else $('portrait').removeAttribute('src');
+    const meta=m.photoMeta?.[photoIndex];if(meta){const clamp=(v,a,b,d)=>Number.isFinite(Number(v))?Math.min(b,Math.max(a,Number(v))):d;const x=clamp(meta.x,0,100,50),y=clamp(meta.y,0,100,50),zoom=clamp(meta.zoom,1,2.5,1);$('portrait').style.objectFit=meta.fit==='contain'?'contain':'cover';$('portrait').style.objectPosition=x+'% '+y+'%';$('portrait').style.transformOrigin=x+'% '+y+'%';$('portrait').style.transform='scale('+zoom+') rotate('+clamp(meta.rotate,-30,30,0)+'deg)';$('portraitOpen').classList.toggle('has-managed-zoom',zoom>1);}
     $('photoCount').textContent=photos.length?`${photoIndex+1} / ${photos.length}`:'尚無照片';
+    const pauseControl=$('memberGalleryPause');if(pauseControl)pauseControl.hidden=photos.length<2||m.galleryAuto===false;
     $('previousPhoto').disabled=$('nextPhoto').disabled=photos.length<2;$('morePhotos').hidden=!photos.length;
   }
   function renderMember(animate=false) {
-    const active=member(selected);
+    const active=member(selected);const accent=MemberColors.resolve(active.name,active.representativeColor);const stage=document.querySelector('#page-members .member-stage');stage.style.setProperty('--member-color',accent);stage.style.setProperty('--member-tint',MemberColors.tint(accent,document.documentElement.dataset.theme==='dark'));
     $('stageName').textContent=active.name;
     $('stageSmallName').textContent=active.name;
     $('stageRole').textContent=active.role;
@@ -68,6 +70,8 @@
   $('allMembers').addEventListener('click',()=>filter(false));$('dutyMembers').addEventListener('click',()=>filter(true));
   $('previousPhoto').addEventListener('click',()=>{photoIndex--;renderPhoto();});$('nextPhoto').addEventListener('click',()=>{photoIndex++;renderPhoto();});
   function openImage(src,alt) { $('largeImage').src=src;$('largeImage').alt=alt||'照片大圖';if(!$('imageDialog').open)$('imageDialog').showModal(); }
+  let galleryPaused=false;const pauseGallery=document.createElement('button');pauseGallery.type='button';pauseGallery.id='memberGalleryPause';pauseGallery.hidden=true;pauseGallery.textContent='暫停輪播';pauseGallery.setAttribute('aria-pressed','false');$('photoCount').after(pauseGallery);pauseGallery.onclick=()=>{galleryPaused=!galleryPaused;pauseGallery.textContent=galleryPaused?'播放輪播':'暫停輪播';pauseGallery.setAttribute('aria-pressed',String(galleryPaused));};
+  setInterval(()=>{const m=member(selected);pauseGallery.hidden=m.photos.length<2||m.galleryAuto===false;if(!document.hidden&&location.hash==='#members'&&!galleryPaused&&m.galleryAuto!==false&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&m.photos.length>1&&!document.querySelector('dialog[open]')){photoIndex++;renderPhoto();}},6000);
   $('portraitOpen').addEventListener('click',()=>{const m=member(selected);if(m.photos.length)openImage(m.photos[photoIndex],`${m.name}的介紹照片`);});
   $('morePhotos').addEventListener('click',()=>$('portraitOpen').click());
   document.querySelectorAll('.sample-open:not(#studioOpen)').forEach(b=>b.addEventListener('click',()=>openImage(b.dataset.photo,b.querySelector('img').alt)));
@@ -86,13 +90,13 @@
   window.addEventListener('hashchange',route);
   $('menuToggle').addEventListener('click',()=>{$('menuToggle').setAttribute('aria-expanded',String($('navigation').classList.toggle('open')));});
   function setTheme(dark){document.documentElement.dataset.theme=dark?'dark':'light';$('themeToggle').textContent=dark?'切換淺色':'切換深色';$('themeToggle').setAttribute('aria-pressed',String(dark));try{localStorage.setItem('lephemere-official-theme',dark?'dark':'light');}catch{}}
-  let initialDark=false;try{initialDark=localStorage.getItem('lephemere-official-theme')==='dark';}catch{}setTheme(initialDark);$('themeToggle').addEventListener('click',()=>setTheme(document.documentElement.dataset.theme!=='dark'));
+  new MutationObserver(()=>{const m=member(selected);document.querySelector('#page-members .member-stage').style.setProperty('--member-tint',MemberColors.tint(MemberColors.resolve(m.name,m.representativeColor),document.documentElement.dataset.theme==='dark'));}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});let initialDark=false;try{initialDark=localStorage.getItem('lephemere-official-theme')==='dark';}catch{}setTheme(initialDark);$('themeToggle').addEventListener('click',()=>setTheme(document.documentElement.dataset.theme!=='dark'));
   window.ephemereStaffDirectory={
     syncRoster(roster){
       const rows=Object.entries(roster||{}).map(([id,entry],index)=>({id,entry,index})).filter(r=>r.entry.name&&r.entry.websiteVisible!==false).sort((a,b)=>Number(a.entry.sortOrder||(a.index+1))-Number(b.entry.sortOrder||(b.index+1)));
       if(!rows.length)return;
       const previous=member(selected)?.name;
-      members=rows.map(({id,entry})=>{const fallback=defaults.find(m=>m.name===entry.name)||{};const photo=String(entry.photo||fallback.photo||'');const layout=entry.photoLayout?.profile||{};return {id,name:entry.name,role:entry.role||'駐店成員',avatar:/^https:\/\//i.test(entry.chibiPhoto||'')?entry.chibiPhoto:(window.ephemereChibiCast?.get(entry.name)||photo),photos:photo?[photo]:[],bio:entry.bio||'',quote:entry.quote||fallback.quote||'',threads:entry.threads||fallback.threads||'',dish:entry.dish||'',services:entry.services||'',fit:'contain',position:Number.isFinite(Number(layout.y))?Number(layout.y):50,profileX:Number.isFinite(Number(layout.x))?Number(layout.x):50,profileZoom:Number(layout.zoom)||100};});
+      members=rows.map(({id,entry})=>{const fallback=defaults.find(m=>m.name===entry.name)||{};const photo=String(entry.photo||fallback.photo||'');const layout=entry.photoLayout?.profile||{};const gallery=Array.isArray(entry.photos)?entry.photos.slice(0,8).map(p=>typeof p==='string'?{src:p}:p).filter(p=>p&&typeof p.src==='string'&&(/^https:\/\//i.test(p.src)||/^assets\/[\w./-]+\.(png|jpe?g|webp|avif)$/i.test(p.src))):[];return {id,name:entry.name,representativeColor:MemberColors.resolve(entry.name,entry.representativeColor),role:entry.role||'駐店成員',avatar:/^https:\/\//i.test(entry.chibiPhoto||'')?entry.chibiPhoto:(window.ephemereChibiCast?.get(entry.name)||photo),photos:gallery.length?gallery.map(p=>p.src):(photo?[photo]:[]),photoMeta:gallery,galleryAuto:entry.galleryAuto!==false,bio:entry.bio||'',quote:entry.quote||fallback.quote||'',threads:entry.threads||fallback.threads||'',dish:entry.dish||'',services:entry.services||'',fit:entry.photoFit==='contain'?'contain':'cover',position:Number.isFinite(Number(layout.y))?Number(layout.y):50,profileX:Number.isFinite(Number(layout.x))?Number(layout.x):50,profileZoom:Number(layout.zoom)||100};});
       if(!members.some(m=>m.id===selected))selected=members.find(m=>m.name===previous)?.id||members[0].id;
       renderLists();renderMember();document.getElementById('integrationStatus').textContent='已接上官網成員資料';
     },
