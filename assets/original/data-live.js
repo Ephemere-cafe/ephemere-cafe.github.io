@@ -181,7 +181,7 @@
       labelNode.textContent = selectedDate===activeDate ? '本場出勤' : (selectedDate===today ? '今日出勤' : '下一次出勤');
       dateNode.textContent = shiftDateLabel(selectedDate);
       if(!staff.length){
-        list.innerHTML = '<span class="home-shift-empty">正在載入女僕名單，請稍候片刻。</span>';
+        list.innerHTML = '<span class="home-shift-empty">正在讀取本次出勤名單…</span>';
         return;
       }
       var localPhotoFallbacks = {
@@ -276,7 +276,7 @@
       var grid = document.getElementById('siteMenuGrid');
       if(!grid) return;
       if(!menu){
-        grid.innerHTML = '<p class="menu-note" style="grid-column:1/-1;text-align:center;">目前尚未開放菜單，請稍後再查看。</p>';
+        grid.innerHTML = '<p class="menu-note" style="grid-column:1/-1;text-align:center;">本次菜單尚未公開，敬請期待。</p>';
         return;
       }
 
@@ -300,14 +300,14 @@
         groups[category].push(item);
       });
       if(!categoryOrder.length){
-        grid.innerHTML = '<p class="menu-note" style="grid-column:1/-1;text-align:center;">目前尚未開放菜單，請稍後再查看。</p>';
+        grid.innerHTML = '<p class="menu-note" style="grid-column:1/-1;text-align:center;">本次菜單尚未公開，敬請期待。</p>';
         return;
       }
 
       function splitCategoryLabel(category){
         var parts = String(category || '其他').split('※');
         return {
-          title: (parts.shift() || '其他').trim(),
+          title: (parts.shift() || '其他').trim().replace(/\bMain Coruse\b/ig, 'Main Course'),
           note: parts.join('※').trim()
         };
       }

@@ -33,7 +33,7 @@
     var records=rows(value);if(window.ephemereStudioUI){window.ephemereStudioUI.render(records,open);return;}var active=records.filter(function(item){return item.data.status==='active';});var memory=records.filter(function(item){return item.data.status!=='active';});
     activeGrid.replaceChildren();memoryGrid.replaceChildren();
     if(!active.length)activeGrid.appendChild(empty('攝影棚資料準備中，請留意曇時最新公告。'));else active.forEach(function(item){activeGrid.appendChild(card(item,'active'));});
-    if(!memory.length)memoryGrid.appendChild(empty('往日相簿尚未建立。'));else memory.forEach(function(item){memoryGrid.appendChild(card(item,'memory'));});
+    if(!memory.length)memoryGrid.appendChild(empty('更多往日棚景，將陸續收錄。'));else memory.forEach(function(item){memoryGrid.appendChild(card(item,'memory'));});
     activeGrid.dataset.count=String(active.length||0);memoryGrid.dataset.count=String(memory.length||0);
   }
   function setMainImage(img,thumbs,item){img.src=safeUrl(item.imageUrl);img.alt=item.alt||'';Array.prototype.forEach.call(thumbs.children,function(node){node.classList.toggle('active',node.dataset.imageId===item.id);});}

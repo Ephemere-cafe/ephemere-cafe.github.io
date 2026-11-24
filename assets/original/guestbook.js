@@ -123,7 +123,7 @@
       .slice(0,24);
     if(window.ephemereInlineGuestbook){window.ephemereInlineGuestbook.render(rows);return;}
     if(!motionUi)return;
-    if(!rows.length){motionUi.lanes.hidden=true;motionUi.empty.textContent='公開留言正在慢慢收集。也歡迎留下今晚的心情。';motionUi.empty.hidden=false;motionUi.laneOne.replaceChildren();motionUi.laneTwo.replaceChildren();return;}
+    if(!rows.length){motionUi.lanes.hidden=true;motionUi.empty.textContent='公開來信正在陸續收錄，也歡迎留下你的感想。';motionUi.empty.hidden=false;motionUi.laneOne.replaceChildren();motionUi.laneTwo.replaceChildren();return;}
     motionUi.empty.hidden=true;motionUi.lanes.hidden=false;
     var animate=rows.length>=3;var offset=Math.max(1,Math.floor(rows.length/2));var alternate=rows.slice(offset).concat(rows.slice(0,offset));
     fillLane(motionUi.laneOne,rows,animate);
