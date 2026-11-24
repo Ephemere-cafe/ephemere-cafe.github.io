@@ -1,5 +1,5 @@
 html body {
-  --official-heading: "DFKai-SB", "LXGW WenKai TC", "Kaiti TC", "Noto Serif TC", serif;
+  --official-heading: "Iansui", "DFKai-SB", "Kaiti TC", "Noto Serif TC", serif;
   --official-reading: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
   --serif: var(--official-reading);
   --sans: var(--official-reading);
