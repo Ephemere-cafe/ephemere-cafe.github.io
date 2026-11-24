@@ -15,10 +15,10 @@
   keyboardTabs(menuTabs,index=>{location.hash=menuPanels[index];});
   window.addEventListener('hashchange',setMenuFromHash);setMenuFromHash();
   const steps=[
-    ['領取號碼牌','進入點餐頁面，依指示領取號碼牌。同行客人可以依原本共桌流程加入。'],
-    ['點餐與等候','領號後可依點餐頁面的指示送出餐點，並等候現場接待。'],
-    ['接待與帶位','與接待女僕會合後，依原本的接待與帶位流程入座。'],
-    ['追加與服務','入座後可使用原本的點餐頁面追加餐點；拍攝與紀念服務也在該頁選擇。']
+    ['領取號碼牌','進入點餐頁面，依指示領取號碼牌。與朋友同行時，可使用共桌代碼加入同一桌。'],
+    ['點餐與等候','領號後即可依頁面指示送出餐點，等待女僕通知。等待期間也歡迎自由參觀店內。'],
+    ['接待與帶位','輪到您的號碼時，女僕將通知並引導您入座。'],
+    ['追加與服務','入座後，仍可透過點餐網站追加餐點，也可於同一頁選購拍攝與紀念服務。']
   ];
   const arrivalTabs=[...document.querySelectorAll('[data-arrival]')];
   function selectArrival(index){const [title,text]=steps[index];$('arrivalTitle').textContent=title;$('arrivalText').textContent=text;$('arrivalDescription').setAttribute('aria-labelledby',arrivalTabs[index].id);arrivalTabs.forEach((b,i)=>{b.setAttribute('aria-selected',String(i===index));b.tabIndex=i===index?0:-1;});}

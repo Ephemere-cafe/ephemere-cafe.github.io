@@ -35,7 +35,7 @@
   // Member works are attributed only by the source record's staff ID or explicit name.
   let samples=[],selectedId=document.querySelector('#memberList [aria-pressed=true]')?.dataset.member||'',selectedName=$('detailName').textContent;
   const gallery=document.createElement('section');gallery.id='memberPortfolio';gallery.className='member-portfolio';gallery.setAttribute('aria-labelledby','portfolioTitle');
-  const heading=document.createElement('div');heading.className='portfolio-heading';const titleWrap=document.createElement('div');titleWrap.append(text('span','作品','editorial-eyebrow'),text('h2','','portfolio-title'));titleWrap.querySelector('h2').id='portfolioTitle';heading.append(titleWrap,text('p','成員的過往作品，點選圖片可放大欣賞。'));
+  const heading=document.createElement('div');heading.className='portfolio-heading';const titleWrap=document.createElement('div');titleWrap.append(text('span','作品','editorial-eyebrow'),text('h2','','portfolio-title'));titleWrap.querySelector('h2').id='portfolioTitle';heading.append(titleWrap,text('p','點選圖片，欣賞成員們的過往作品。'));
   const frames=document.createElement('div');frames.className='portfolio-frames';gallery.append(heading,frames);$('page-members').append(gallery);
   const portfolioButton=text('button','看作品','btn wine portfolio-trigger');portfolioButton.type='button';portfolioButton.setAttribute('aria-controls','memberPortfolio');portfolioButton.addEventListener('click',()=>gallery.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'}));$('memberDetail').querySelector('.actions').append(portfolioButton);
   function drawPortfolio(){
@@ -50,7 +50,7 @@
   // Only guestbookPublic is rendered here. The current guestbook.js retains submission/consent handling.
   window.ephemereInlineGuestbook={render(rows){
     const list=$('guestbookPublicList');list.replaceChildren();
-    if(!rows.length){list.append(text('p','公開留言正在慢慢收集。也歡迎留下今晚的心情。','public-letter-footnote'));return;}
+    if(!rows.length){list.append(text('p','公開來信正在陸續收錄，也歡迎留下你的感想。','public-letter-footnote'));return;}
     for(const item of rows){
       const article=document.createElement('article');article.className='public-letter';
       const author=item.displayMode==='named'&&String(item.displayName||'').trim()?String(item.displayName).slice(0,40):'一位旅人';
@@ -70,7 +70,7 @@
     if(!available.some(s=>s.id===selectedStudio))selectedStudio=available[0]?.id||'';
     $('studioActiveTab').setAttribute('aria-pressed',String(kind==='active'));$('studioMemoryTab').setAttribute('aria-pressed',String(kind==='memory'));
     const host=document.querySelector('.studio-selectors');host.replaceChildren();$('menu-studio').hidden=!available.length;$('studioEmpty').hidden=!!available.length;
-    if(!available.length){$('studioEmpty').textContent=kind==='active'?'攝影棚資料準備中，請留意曇時最新公告。':'往日相簿尚未建立。';return;}
+    if(!available.length){$('studioEmpty').textContent=kind==='active'?'攝影棚資料準備中，請留意曇時最新公告。':'更多往日棚景，將陸續收錄。';return;}
     for(const record of available){const b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed',String(record.id===selectedStudio));const cover=studioCover(record.data);if(cover){const img=document.createElement('img');img.src=safeImage(cover.imageUrl);img.alt='';img.loading='lazy';b.append(img);}b.append(text('span',record.data.name));b.addEventListener('click',()=>{selectedStudio=record.id;drawStudios();});host.append(b);}
     const record=available.find(s=>s.id===selectedStudio),cover=studioCover(record.data);$('studioName').textContent=record.data.name;$('studioDescription').textContent=record.data.description||record.data.summary||'';
     $('studioImage').hidden=!cover;$('studioOpen').disabled=!cover;if(cover){$('studioImage').src=safeImage(cover.imageUrl);$('studioImage').alt=cover.alt||record.data.name;}

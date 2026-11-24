@@ -86,7 +86,7 @@
     document.querySelectorAll('.page').forEach(p=>p.hidden=p.id!==`page-${page}`);document.querySelectorAll('[data-page]').forEach(a=>{a.classList.toggle('active',a.dataset.page===(page==='menu'&&['menu-photo','menu-studio'].includes(hash)?'services':page));if(a.dataset.page===(page==='menu'&&['menu-photo','menu-studio'].includes(hash)?'services':page))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     $('navigation').classList.remove('open');$('menuToggle').setAttribute('aria-expanded','false');
     if(currentPage!==page)window.scrollTo({top:0,behavior:'instant'});
-    currentPage=page;document.title=`曇時｜${{home:'首頁',members:'成員介紹',menu:'菜單與服務',studio:'攝影棚',rules:'店內規則',guestbook:'留言',visit:'來店資訊',}[page]} · 曇時 Cafe`;
+    currentPage=page;document.title=page==='home' ? '曇時 Cafe l’Éphémère｜FFXIV 女僕咖啡廳' : `${{members:'成員介紹',menu:'菜單與服務',studio:'攝影棚',rules:'店內規則',guestbook:'留言',visit:'來店資訊'}[page]}｜曇時 Cafe l’Éphémère`;
     if(hash==='about')requestAnimationFrame(()=>$('officialAbout').scrollIntoView());
     if(hash.startsWith('menu-') && !$(hash)?.matches('[role=tabpanel]'))requestAnimationFrame(()=>$(hash)?.scrollIntoView());
   }

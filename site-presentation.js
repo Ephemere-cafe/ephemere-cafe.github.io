@@ -32,7 +32,6 @@
         const schoolText=v.schoolA+' × '+v.schoolB;
         const schools=document.querySelector('.g-event .photo-school');if(schools){schools.textContent=v.schoolA+'\n× '+v.schoolB;schools.style.whiteSpace='pre-line';}
         document.querySelector('#eventTitle').textContent=v.title.replace(/\n/g,'');document.querySelector('#eventDialog .event-schools').textContent=schoolText;
-        const paragraphs=document.querySelectorAll('#eventDialog>p:not(.event-schools)');if(paragraphs[0])paragraphs[0].textContent=schoolText+'，邀請主人一同參與。';
         const link=document.querySelector('#eventDialog>a');if(v.link){link.href=v.link;link.hidden=false;}else link.hidden=true;
       }
     }
