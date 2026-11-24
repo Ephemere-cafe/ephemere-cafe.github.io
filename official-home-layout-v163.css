@@ -1,0 +1,57 @@
+html body {
+  --official-heading: "DFKai-SB", "LXGW WenKai TC", "Kaiti TC", "Noto Serif TC", serif;
+  --official-reading: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --serif: var(--official-reading);
+  --sans: var(--official-reading);
+  font-family: var(--official-reading);
+}
+
+body :is(h1, h2, h3, .activity-title, .stage-name, .site-header .brand strong, .garden-quick-links strong) {
+  font-family: var(--official-heading);
+}
+
+body :is(.d-heading > p, .site-header .brand small) { font-family: Georgia, serif; }
+body .site-header .brand strong { font-weight: 400; }
+.garden-quick-links img[hidden] { display: none; }
+
+#page-home[data-home=g] .concept-g {
+  --home-gutter: clamp(16px, 6.5vw, 106px);
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 360px);
+  column-gap: clamp(24px, 5vw, 72px);
+  padding: 20px var(--home-gutter) 0;
+}
+
+#page-home[data-home=g] .concept-g .d-heading {
+  grid-column: 1;
+  align-self: start;
+  justify-items: start;
+  text-align: left;
+  padding: clamp(20px, 3vw, 45px) 0 0;
+}
+
+#page-home[data-home=g] .concept-g .d-heading h1 {
+  padding: 0;
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+#page-home[data-home=g] .concept-g .g-event { grid-column: 2; }
+
+.garden-quick-links {
+  width: 100%;
+  max-width: none;
+}
+
+@media (max-width: 760px) {
+  #page-home[data-home=g] .concept-g {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 12px 0 0;
+  }
+  #page-home[data-home=g] .concept-g .d-heading {
+    justify-items: center;
+    text-align: center;
+    padding: 0;
+  }
+  #page-home[data-home=g] .concept-g .d-heading h1 { padding-inline-start: .08em; }
+  #page-home[data-home=g] .concept-g .g-event { grid-column: 1; }
+}
